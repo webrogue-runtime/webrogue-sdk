@@ -1,0 +1,16 @@
+set -ex
+cd $(dirname $0)
+
+image_name=webrogue_sdk_builder
+docker build -t $image_name -f builder.Dockerfile .
+run_in_docker() {
+    docker run \
+        -it \
+        --rm \
+        -v $(dirname $(pwd))/libraries:/webrogue-sdk/libraries \
+        -v $(dirname $(pwd))/opt:/opt \
+        -v $(dirname $(dirname $(pwd))):/host_dir \
+        -u $(id -u ${USER}):$(id -g ${USER}) \
+        -t $image_name \
+        bash -c "$1"
+}

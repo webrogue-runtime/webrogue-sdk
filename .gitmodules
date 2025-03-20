@@ -1,0 +1,31 @@
+[submodule "libraries/freetype"]
+	path = libraries/freetype
+	url = https://github.com/webrogue-runtime/freetype.git
+	branch = webrogue
+[submodule "libraries/glfw"]
+	path = libraries/glfw
+	url = https://github.com/webrogue-runtime/glfw.git
+	branch = webrogue
+[submodule "libraries/harfbuzz"]
+	path = libraries/harfbuzz
+	url = https://github.com/harfbuzz/harfbuzz.git
+[submodule "libraries/libpng"]
+	path = libraries/libpng
+	url = https://github.com/pnggroup/libpng.git
+[submodule "libraries/libsamplerate"]
+	path = libraries/libsamplerate
+	url = https://github.com/libsndfile/libsamplerate.git
+[submodule "libraries/ogg"]
+	path = libraries/ogg
+	url = https://github.com/xiph/ogg.git
+[submodule "libraries/vorbis"]
+	path = libraries/vorbis
+	url = https://github.com/xiph/vorbis.git
+[submodule "libraries/zlib"]
+	path = libraries/zlib
+	url = https://github.com/webrogue-runtime/zlib.git
+	branch = webrogue
+[submodule "libraries/SDL2"]
+	path = libraries/SDL2
+	url = https://github.com/webrogue-runtime/SDL.git
+	branch = webrogue/SDL2
