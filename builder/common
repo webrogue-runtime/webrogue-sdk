@@ -8,6 +8,9 @@ run_in_docker() {
         -it \
         --rm \
         -v $(dirname $(pwd))/libraries:/webrogue-sdk/libraries \
+        -v $(dirname $(pwd))/cargo/src:/fakehome/.cargo/registry/src \
+        -v $(dirname $(pwd))/cargo/cache:/fakehome/.cargo/registry/cache \
+        -v $(dirname $(pwd))/cargo/index:/fakehome/.cargo/registry/index \
         -v $(dirname $(pwd))/opt:/opt \
         -v $(dirname $(dirname $(pwd))):/host_dir \
         -u $(id -u ${USER}):$(id -g ${USER}) \

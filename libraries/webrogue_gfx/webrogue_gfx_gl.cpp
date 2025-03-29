@@ -1,8 +1,8 @@
-#include <stddef.h>
-#include <string.h>
+#include "GL2Encoder.h"
 #include "HostConnection.h"
 #include "ThreadInfo.h"
-#include "GL2Encoder.h"
+#include <stddef.h>
+#include <string.h>
 
 // clang-format off
 
@@ -40,6 +40,10 @@ extern "C" void* webrogueGLLoader(const char* procname) {
       gfxstream::guest::GLSharedGroupPtr(
         new gfxstream::guest::GLSharedGroup()
       )
+    );
+    getEGLThreadInfo()->hostConn->gl2Encoder()->setVersion(
+      3, 0,
+      3, 0
     );
   }
   for(int i = 0; i<gl2_num_funcs; i++) {
