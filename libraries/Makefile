@@ -65,7 +65,7 @@ build_zlib:
 	cp $(DESTINATION_DIR)/lib/libzlibstatic.a $(DESTINATION_DIR)/lib/libzlib.a
 
 build_libsamplerate: 
-	cd libsamplerate && cmake -S . -B $(BUILD_DIR)/libsamplerate $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DESTINATION_DIR) -DBUILD_SHARED_LIBS=OFF
+	cd libsamplerate && cmake -S . -B $(BUILD_DIR)/libsamplerate $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DESTINATION_DIR) -DBUILD_SHARED_LIBS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 	cmake --build $(BUILD_DIR)/libsamplerate --target=samplerate --parallel
 	cmake --install $(BUILD_DIR)/libsamplerate --prefix $(DESTINATION_DIR)
 
