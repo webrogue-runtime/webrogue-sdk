@@ -18,5 +18,4 @@ RUN rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 
 COPY --from=builder /wasi-sdk /opt/wasi-sdk
 COPY wasip1 /opt/wasip1
-COPY webrogue-wrapp-cli /usr/bin/webrogue-wrapp-cli
-
+COPY webrogue /usr/bin/webrogue
