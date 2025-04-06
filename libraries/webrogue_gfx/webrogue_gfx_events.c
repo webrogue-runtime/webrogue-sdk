@@ -18,7 +18,6 @@ void imported_webrogue_gfx_poll_read(void *buf);
     result.type = WEBROGUE_EVENT_TYPE_INVALID;\
     return result;\
 } buffer_consumed += LEN;
-#define RETURN return result;
 #define GET(TYPE, OFFSET) *((TYPE*)(current_pointer + OFFSET));
 
 webrogue_event webrogue_gfx_poll() {
@@ -59,28 +58,29 @@ webrogue_event webrogue_gfx_poll() {
             result.inner.mouse_down.x = GET(uint32_t, 4);
             result.inner.mouse_down.y = GET(uint32_t, 8);
             result.inner.mouse_down.button = GET(uint32_t, 12);
-            RETURN;
+            return result;
         }
         case WEBROGUE_EVENT_TYPE_MOUSE_UP: {
             BUF_SIZE(16);
             result.inner.mouse_up.x = GET(uint32_t, 4);
             result.inner.mouse_up.y = GET(uint32_t, 8);
             result.inner.mouse_up.button = GET(uint32_t, 12);
-            RETURN;
+            return result;
         }
         case WEBROGUE_EVENT_TYPE_MOUSE_MOTION: {
             BUF_SIZE(12);
             result.inner.mouse_motion.x = GET(uint32_t, 4);
             result.inner.mouse_motion.y = GET(uint32_t, 8);
-            RETURN;
+            return result;
         }
         case WEBROGUE_EVENT_TYPE_QUIT: {
             BUF_SIZE(4);
-            RETURN;
+            return result;
         }
         default: {
+            buffer_consumed = buffer_used_size;
             result.type = WEBROGUE_EVENT_TYPE_INVALID;
-            RETURN;
+            return result;
         }
     }
 }
