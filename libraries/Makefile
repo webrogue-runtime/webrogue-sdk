@@ -70,14 +70,14 @@ build_libsamplerate:
 	cmake --install $(BUILD_DIR)/libsamplerate --prefix $(DESTINATION_DIR)
 
 build_vorbis: build_ogg
-	cd vorbis && cmake -S . -B $(BUILD_DIR)/vorbis $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DESTINATION_DIR) -DBUILD_SHARED_LIBS=OFF -DOGG_LIBRARY=$(DESTINATION_DIR)/lib/libogg.a -DOGG_INCLUDE_DIR=$(DESTINATION_DIR)/include/ogg/ogg.h
+	cd vorbis && cmake -S . -B $(BUILD_DIR)/vorbis $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DESTINATION_DIR) -DBUILD_SHARED_LIBS=OFF -DOGG_LIBRARY=$(DESTINATION_DIR)/lib/libogg.a -DOGG_INCLUDE_DIR=$(DESTINATION_DIR)/include/ogg/ogg.h -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 	cmake --build $(BUILD_DIR)/vorbis --target=vorbis --parallel
 	cmake --build $(BUILD_DIR)/vorbis --target=vorbisenc --parallel
 	cmake --build $(BUILD_DIR)/vorbis --target=vorbisfile --parallel
 	cmake --install $(BUILD_DIR)/vorbis --prefix $(DESTINATION_DIR)
 
-build_ogg: 
-	cd ogg && cmake -S . -B $(BUILD_DIR)/ogg $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DESTINATION_DIR) -DBUILD_SHARED_LIBS=OFF
+build_ogg:
+	cd ogg && cmake -S . -B $(BUILD_DIR)/ogg $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DESTINATION_DIR) -DBUILD_SHARED_LIBS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 	cmake --build $(BUILD_DIR)/ogg --target=install --parallel
 
 build_freetype: build_zlib build_png

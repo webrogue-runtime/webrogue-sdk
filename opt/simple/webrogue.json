@@ -1,0 +1,30 @@
+{
+    "name": "simple",
+    "id": "io.github.webrogue_runtime.examples.simple",
+    "version": "1.0.1",
+    "icons": {
+        "normal": {
+            "path": "icon.png",
+            "inset": 0.0,
+            "background": {
+                "red": 0,
+                "green": 0,
+                "blue": 0
+            }
+        }
+    },
+    "filesystem": {
+        "resources": [
+            {
+                "real_path": "test_file.txt",
+                "mapped_path": "/app/test_file.txt"
+            }
+        ],
+        "persistent": [
+            {
+                "name": "data",
+                "mapped_path": "/data"
+            }
+        ]
+    }
+}

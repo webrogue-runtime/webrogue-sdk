@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-RUN apt-get update && apt-get -y install ca-certificates gpg wget curl build-essential lld bzip2 subversion git unzip
+RUN apt-get update && apt-get -y install ca-certificates gpg wget curl build-essential lld bzip2 subversion git unzip rsync python3 default-jre
 
 RUN curl -L https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-25/wasi-sdk-25.0-x86_64-linux.tar.gz | tar -xz && mv wasi-sdk-25.0-x86_64-linux /wasi-sdk
 
