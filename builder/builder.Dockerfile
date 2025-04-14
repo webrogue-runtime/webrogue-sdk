@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu
 
 RUN apt-get update && apt-get -y install ca-certificates gpg wget curl build-essential lld bzip2 subversion git unzip rsync python3 default-jre
 

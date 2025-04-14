@@ -2,12 +2,12 @@
 #include <stddef.h>
 #include <stdint.h>
 
-void webrogue_gfx_present();
-void webrogue_gfx_make_window();
-void webrogue_gfx_window_size(int *width, int *height);
-void webrogue_gfx_gl_size(int *width, int *height);
-void webrogue_gfx_init_gl();
-void *webrogueGLLoader(const char *procname);
+void webroguegfx_present();
+void webroguegfx_make_window();
+void webroguegfx_window_size(int *width, int *height);
+void webroguegfx_gl_size(int *width, int *height);
+void webroguegfx_init_gl();
+void *webroguegfx_gl_loader(const char *procname);
 
 // Events
 struct webrogue_event_mouse_down {
@@ -43,4 +43,4 @@ typedef struct webrogue_event {
     } inner;
 } webrogue_event;
 
-webrogue_event webrogue_gfx_poll();
+webrogue_event webroguegfx_poll();

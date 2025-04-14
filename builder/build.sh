@@ -5,13 +5,11 @@ sh ../libraries/copy_sources.sh
 run_in_docker '
 set -ex
 make -C /webrogue-sdk/libraries TOOLCHAIN=wasip1 1>/dev/null
-cargo build --release --manifest-path=/host_dir/Cargo.toml --no-default-features --features=pack,compile,llvm --target-dir=/host_dir/webrogue-sdk/target
+cargo build --release --manifest-path=/host_dir/Cargo.toml --no-default-features --features=pack --target-dir=/host_dir/webrogue-sdk/target
 cp /host_dir/webrogue-sdk/target/release/webrogue /opt/webrogue
 
-
-rsync --recursive /host_dir/aot_artifacts /opt/aot_artifacts
-
 # Android-specific things
+# rsync --recursive /host_dir/aot_artifacts /opt/aot_artifacts
 # CMDLINE_TOOLS_VERSION=linux-11076708_latest
 # export ANDROID_HOME="/opt/Android/Sdk"
 # test -d $ANDROID_HOME || mkdir -p $ANDROID_HOME

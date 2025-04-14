@@ -1,10 +1,4 @@
-FROM ubuntu:24.04 AS builder
-
-RUN apt-get update && apt-get -y install curl
-RUN curl -L https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-25/wasi-sdk-25.0-x86_64-linux.tar.gz | tar -xz && mv wasi-sdk-25.0-x86_64-linux /wasi-sdk
-
-
-FROM ubuntu:24.04
+FROM ubuntu
 
 RUN apt-get update
 RUN apt-get -y install make wget gpg
@@ -16,11 +10,18 @@ RUN apt-get -y install kitware-archive-keyring
 RUN apt-get -y install cmake
 RUN rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 
-COPY --from=builder /wasi-sdk /opt/wasi-sdk
-COPY wasip1 /opt/wasip1
-COPY webrogue /usr/bin/webrogue
-COPY aot_artifacts /opt/aot_artifacts
-ENV WEBROGUE_ARTIFACTS_PATH=/opt/aot_artifacts
+COPY webrogue-x86_64-linux /opt/webrogue-sdk
+COPY webrogue /opt/webrogue-sdk/bin/webrogue
+ENV PATH="/opt/webrogue-sdk/bin/:$PATH"
+
+
+# COPY --from=builder /wasi-sdk /opt/wasi-sdk
+# COPY wasip1 /opt/wasip1
+# COPY webrogue /usr/bin/webrogue
+# COPY aot_artifacts /opt/aot_artifacts
+# ENV WEBROGUE_ARTIFACTS_PATH=/opt/aot_artifacts
+# COPY make_symlinks.sh /opt/make_symlinks.sh
+# RUN sh /opt/make_symlinks.sh && rm /opt/make_symlinks.sh
 
 # Android-specific things
 # RUN apt-get update

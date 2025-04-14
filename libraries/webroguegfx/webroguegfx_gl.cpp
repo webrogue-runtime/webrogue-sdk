@@ -28,7 +28,7 @@ __attribute__((import_name("gl_init")))
 __attribute__((import_module("webrogue_gfx")))
 void imported_init_gl();
 
-extern "C" void* webrogueGLLoader(const char* procname) {
+extern "C" void* webroguegfx_gl_loader(const char* procname) {
   if(!getEGLThreadInfo()->hostConn) {
     imported_init_gl();
     getEGLThreadInfo()->hostConn = HostConnection::createUnique();

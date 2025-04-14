@@ -1,4 +1,4 @@
-all: copy_glad copy_gles2 copy_gles3 copy_khr build_webrogue_gfx build_SDL2 build_glfw build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_mbedtls # build_curl
+all: copy_glad copy_gles2 copy_gles3 copy_khr build_webroguegfx build_SDL2 build_glfw build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_mbedtls # build_curl
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 EXAMPLES_DIR:=$(shell dirname $(CURRENT_DIR))
 DESTINATION_DIR=/opt/$(TOOLCHAIN)
@@ -31,19 +31,19 @@ $(DESTINATION_DIR)/include/KHR:
 	cp -r KHR/ $(DESTINATION_DIR)/include
 
 # build and install libs
-build_webrogue_gfx: copy_gles2 copy_gles3 copy_khr
-	cd webrogue_gfx && cmake -S . -B $(BUILD_DIR)/webrogue_gfx $(CMAKE_FLAGS)
-	cmake --build $(BUILD_DIR)/webrogue_gfx --target=webrogue_gfx --parallel
-	cmake --install $(BUILD_DIR)/webrogue_gfx --prefix $(DESTINATION_DIR)
+build_webroguegfx: copy_gles2 copy_gles3 copy_khr
+	cd webroguegfx && cmake -S . -B $(BUILD_DIR)/webroguegfx $(CMAKE_FLAGS)
+	cmake --build $(BUILD_DIR)/webroguegfx --target=webroguegfx --parallel
+	cmake --install $(BUILD_DIR)/webroguegfx --prefix $(DESTINATION_DIR)
 
-build_SDL2: build_webrogue_gfx build_libsamplerate
+build_SDL2: build_webroguegfx build_libsamplerate
 	cd SDL2 && cmake -S . -B $(BUILD_DIR)/SDL2 $(CMAKE_FLAGS) -DSDL_STATIC=ON -DSDL_SHARED=OFF
 	cmake --build $(BUILD_DIR)/SDL2 --target=SDL2-static --parallel
 	cmake --build $(BUILD_DIR)/SDL2 --target=SDL2main --parallel
 	cmake --build $(BUILD_DIR)/SDL2 --target=SDL2_test --parallel
 	cmake --install $(BUILD_DIR)/SDL2 --prefix $(DESTINATION_DIR)
 
-build_glfw: build_webrogue_gfx
+build_glfw: build_webroguegfx
 	cd glfw && cmake -S . -B $(BUILD_DIR)/glfw $(CMAKE_FLAGS) -DGLFW_BUILD_EXAMPLES=ON -DGLFW_BUILD_WEBROGUE=ON
 	cmake --build $(BUILD_DIR)/glfw --target=glfw --parallel
 	cmake --install $(BUILD_DIR)/glfw --prefix $(DESTINATION_DIR)

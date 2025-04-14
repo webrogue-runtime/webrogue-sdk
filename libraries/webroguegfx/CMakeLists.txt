@@ -4,12 +4,12 @@ set(GFX_SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/gfxstream)
 set(AEMU_SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/aemu)
 
 add_library(
-    webrogue_gfx
+    webroguegfx
     STATIC
-    webrogue_gfx.c
-    webrogue_gfx_events.c
-    webrogue_gfx_gl.cpp
-    webrogue_gfx_stream.cpp
+    webroguegfx.c
+    webroguegfx_events.c
+    webroguegfx_gl.cpp
+    webroguegfx_stream.cpp
 
     ${GFX_SRC_DIR}/common/etc/etc.cpp
     ${GFX_SRC_DIR}/guest/GLESv2_enc/GL2Encoder.cpp
@@ -32,7 +32,7 @@ add_library(
 )
 
 target_include_directories(
-    webrogue_gfx
+    webroguegfx
     PRIVATE
     ${GFX_SRC_DIR}/guest/egl
     ${GFX_SRC_DIR}/common/opengl/include
@@ -50,9 +50,9 @@ target_include_directories(
     ${CMAKE_CURRENT_LIST_DIR}
 )
 
-set_target_properties(webrogue_gfx PROPERTIES PUBLIC_HEADER "webrogue_gfx.h")
+set_target_properties(webroguegfx PROPERTIES PUBLIC_HEADER "webroguegfx.h")
 
 install(
-    TARGETS webrogue_gfx
-    PUBLIC_HEADER DESTINATION include/webrogue_gfx
+    TARGETS webroguegfx
+    PUBLIC_HEADER DESTINATION include/webroguegfx
 )
