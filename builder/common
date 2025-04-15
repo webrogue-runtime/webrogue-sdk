@@ -6,7 +6,6 @@ image_name=webrogue_sdk_builder
 docker build -t $image_name .
 run_in_docker() {
     docker run \
-        -it \
         --rm \
         -v $SDK_DIR/libraries:/webrogue-sdk/libraries \
         -v $SDK_DIR/cargo/src:/fakehome/.cargo/registry/src \
