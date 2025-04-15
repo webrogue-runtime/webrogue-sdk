@@ -5,6 +5,8 @@ cd builder
 . $(pwd)/common
 cd ..
 
+sh libraries/copy_sources.sh
+
 run_in_docker '
 set -ex
 make -C /webrogue-sdk/libraries TOOLCHAIN=wasip1 1>/dev/null
