@@ -1,18 +1,19 @@
 set -ex
-cd $(dirname $0)
+
+SDK_DIR=$(dirname $(pwd))
 
 image_name=webrogue_sdk_builder
-docker build -t $image_name -f builder.Dockerfile .
+docker build -t $image_name .
 run_in_docker() {
     docker run \
         -it \
         --rm \
-        -v $(dirname $(pwd))/libraries:/webrogue-sdk/libraries \
-        -v $(dirname $(pwd))/cargo/src:/fakehome/.cargo/registry/src \
-        -v $(dirname $(pwd))/cargo/cache:/fakehome/.cargo/registry/cache \
-        -v $(dirname $(pwd))/cargo/index:/fakehome/.cargo/registry/index \
-        -v $(dirname $(pwd))/opt:/opt \
-        -v $(dirname $(dirname $(pwd))):/host_dir \
+        -v $SDK_DIR/libraries:/webrogue-sdk/libraries \
+        -v $SDK_DIR/cargo/src:/fakehome/.cargo/registry/src \
+        -v $SDK_DIR/cargo/cache:/fakehome/.cargo/registry/cache \
+        -v $SDK_DIR/cargo/index:/fakehome/.cargo/registry/index \
+        -v $SDK_DIR/opt:/opt \
+        -v $(dirname $SDK_DIR):/host_dir \
         -u $(id -u ${USER}):$(id -g ${USER}) \
         -t $image_name \
         bash -c "$1"
