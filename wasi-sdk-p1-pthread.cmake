@@ -11,6 +11,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 # (--export-memory is implicit unless --import-memory is given)
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--import-memory")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--export-memory")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--max-memory=4294967296")
 
 if(WIN32)
 	set(WASI_HOST_EXE_SUFFIX ".exe")
@@ -22,6 +23,11 @@ endif()
 if(NOT WASI_SDK_PREFIX)
     set(WASI_SDK_PREFIX ${CMAKE_CURRENT_LIST_DIR}/../../)
 endif()
+
+# Just for clangd
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -I${WASI_SDK_PREFIX}/share/wasi-sysroot/include/${triple}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${WASI_SDK_PREFIX}/share/wasi-sysroot/include/${triple}/c++/v1")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${WASI_SDK_PREFIX}/share/wasi-sysroot/include/${triple}")
 
 set(CMAKE_C_COMPILER ${WASI_SDK_PREFIX}/bin/clang${WASI_HOST_EXE_SUFFIX})
 set(CMAKE_CXX_COMPILER ${WASI_SDK_PREFIX}/bin/clang++${WASI_HOST_EXE_SUFFIX})
