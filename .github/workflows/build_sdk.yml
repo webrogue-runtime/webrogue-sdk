@@ -6,22 +6,33 @@ on:
 jobs:
   sdk:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - uses: actions/checkout@v4
 
+    - name: Submodules
+      run: |
+        git submodule update --init --single-branch --depth=1
+  
     - name: Build
       run: |
-        sh webrogue-sdk/build.sh
+        sh build.sh
 
     - name: Archive SDK
       run: |
-        tar czf webrogue-x86_64-linux.tar.gz -C webrogue-sdk/package/ webrogue-x86_64-linux/
+        tar czf webrogue-x86_64-linux.tar.gz -C package/ webrogue-x86_64-linux/
 
-        cd webrogue-sdk/package/ && zip -r ../../webrogue-x86_64-windows.zip webrogue-x86_64-windows && cd ../..
+        cd package/ && zip -r ../webrogue-x86_64-windows.zip webrogue-x86_64-windows && cd ..
 
-        tar czf webrogue-x86_64-macos.tar.gz -C webrogue-sdk/package/ webrogue-x86_64-macos/
-        tar czf webrogue-arm64-macos.tar.gz -C webrogue-sdk/package/ webrogue-arm64-macos/
+        tar czf webrogue-x86_64-macos.tar.gz -C package/ webrogue-x86_64-macos/
+        tar czf webrogue-arm64-macos.tar.gz -C package/ webrogue-arm64-macos/
+
+    - name: Update tag
+      run: |
+        git tag -f latest
+        git push --force origin latest
 
     - uses: ncipollo/release-action@v1
       with:

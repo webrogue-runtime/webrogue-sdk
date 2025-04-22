@@ -12,7 +12,7 @@ run_in_docker() {
         -v $SDK_DIR/cargo/cache:/fakehome/.cargo/registry/cache \
         -v $SDK_DIR/cargo/index:/fakehome/.cargo/registry/index \
         -v $SDK_DIR/opt:/opt \
-        -v $(dirname $SDK_DIR):/host_dir \
+        -v $SDK_DIR/package:/package \
         -u $(id -u ${USER}):$(id -g ${USER}) \
         -t $image_name \
         bash -c "$1"
