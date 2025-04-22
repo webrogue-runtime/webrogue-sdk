@@ -5,7 +5,7 @@ cd builder
 . $(pwd)/common
 cd ..
 
-sh libraries/copy_sources.sh
+sh libraries/copy_sources.sh || true
 
 run_in_docker '
 set -ex

@@ -8,6 +8,7 @@ aemu/base/include/aemu/base/Optional.h
 aemu/base/include/aemu/base/Tracing.h
 aemu/base/include/aemu/base/TypeTraits.h
 aemu/host-common/include/host-common/logging.h
+aemu/LICENSE
 gfxstream/common/etc/etc.cpp
 gfxstream/common/etc/include/gfxstream/etc.h
 gfxstream/common/opengl/include/EGL/egl.h
@@ -106,3 +107,4 @@ gfxstream/include/GLES/gl.h
 gfxstream/include/GLES/glplatform.h
 gfxstream/include/KHR/khrplatform.h
 gfxstream/include/render-utils/IOStream.h
+gfxstream/LICENSE

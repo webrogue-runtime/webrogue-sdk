@@ -1,0 +1,37 @@
+name: Build Webrogue SDK
+
+on:
+  workflow_dispatch
+
+jobs:
+  sdk:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build
+      run: |
+        sh webrogue-sdk/build.sh
+
+    - name: Archive SDK
+      run: |
+        tar czf webrogue-x86_64-linux.tar.gz -C webrogue-sdk/package/ webrogue-x86_64-linux/
+
+        cd webrogue-sdk/package/ && zip -r ../../webrogue-x86_64-windows.zip webrogue-x86_64-windows && cd ../..
+
+        tar czf webrogue-x86_64-macos.tar.gz -C webrogue-sdk/package/ webrogue-x86_64-macos/
+        tar czf webrogue-arm64-macos.tar.gz -C webrogue-sdk/package/ webrogue-arm64-macos/
+
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: |
+          webrogue-x86_64-linux.tar.gz
+          webrogue-x86_64-windows.zip
+          webrogue-x86_64-macos.tar.gz
+          webrogue-arm64-macos.tar.gz
+        name: Continuous build
+        allowUpdates: true
+        tag: latest
+        commit: ${{ github.ref }}
+        makeLatest: true

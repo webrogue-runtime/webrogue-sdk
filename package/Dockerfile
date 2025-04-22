@@ -10,25 +10,4 @@ RUN apt-get -y install kitware-archive-keyring
 RUN apt-get -y install cmake
 RUN rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 
-COPY webrogue-x86_64-linux /opt/webrogue-sdk
-COPY webrogue /opt/webrogue-sdk/bin/webrogue
 ENV PATH="/opt/webrogue-sdk/bin/:$PATH"
-
-
-# COPY --from=builder /wasi-sdk /opt/wasi-sdk
-# COPY wasip1 /opt/wasip1
-# COPY webrogue /usr/bin/webrogue
-# COPY aot_artifacts /opt/aot_artifacts
-# ENV WEBROGUE_ARTIFACTS_PATH=/opt/aot_artifacts
-# COPY make_symlinks.sh /opt/make_symlinks.sh
-# RUN sh /opt/make_symlinks.sh && rm /opt/make_symlinks.sh
-
-# Android-specific things
-# RUN apt-get update
-# RUN apt-get -y install default-jre
-# RUN rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
-# COPY Android /opt/Android
-# COPY gradle_cache /opt/gradle_cache
-# RUN chmod -R a+rwx /opt/gradle_cache
-# ENV GRADLE_USER_HOME=/opt/gradle_cache
-# ENV ANDROID_HOME=/opt/Android/Sdk
