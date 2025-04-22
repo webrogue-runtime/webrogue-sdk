@@ -55,6 +55,8 @@ do
         rm -rf  package/webrogue-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/llvm-lto # TODO add lto
         cp -r opt/wasip1/include/* package/webrogue-$SDK/share/wasi-sysroot/include/$VERSION_TO_MOVE
         cp -r opt/wasip1/lib/* package/webrogue-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE
+        llvm-ar qLs package/webrogue-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libc++abi.a package/webrogue-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libcxxemulatedthrow.a
+        rm package/webrogue-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libcxxemulatedthrow.a
         CMAKE_DIR_PATH=package/webrogue-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/cmake/$CMAKE_TARGETS_TO_PATCH
         CMAKE_TARGETS_FILES_TO_PATCH="
             $CMAKE_DIR_PATH/glfw3/glfw3Targets

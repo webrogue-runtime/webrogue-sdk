@@ -1,4 +1,4 @@
-all: copy_glad copy_gles2 copy_gles3 copy_khr build_webroguegfx build_SDL2 build_glfw build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_mbedtls # build_curl
+all: copy_glad copy_gles2 copy_gles3 copy_khr build_webroguegfx build_cxxemulatedthrow build_SDL2 build_glfw build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_mbedtls # build_curl
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 EXAMPLES_DIR:=$(shell dirname $(CURRENT_DIR))
 DESTINATION_DIR=/opt/$(TOOLCHAIN)
@@ -35,6 +35,11 @@ build_webroguegfx: copy_gles2 copy_gles3 copy_khr
 	cd webroguegfx && cmake -S . -B $(BUILD_DIR)/webroguegfx $(CMAKE_FLAGS)
 	cmake --build $(BUILD_DIR)/webroguegfx --target=webroguegfx --parallel
 	cmake --install $(BUILD_DIR)/webroguegfx --prefix $(DESTINATION_DIR)
+
+build_cxxemulatedthrow:
+	cd cxxemulatedthrow && cmake -S . -B $(BUILD_DIR)/cxxemulatedthrow $(CMAKE_FLAGS)
+	cmake --build $(BUILD_DIR)/cxxemulatedthrow --target=cxxemulatedthrow --parallel
+	cmake --install $(BUILD_DIR)/cxxemulatedthrow --prefix $(DESTINATION_DIR)
 
 build_SDL2: build_webroguegfx build_libsamplerate
 	cd SDL2 && cmake -S . -B $(BUILD_DIR)/SDL2 $(CMAKE_FLAGS) -DSDL_STATIC=ON -DSDL_SHARED=OFF
