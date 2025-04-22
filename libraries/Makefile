@@ -1,7 +1,7 @@
 all: copy_glad copy_gles2 copy_gles3 copy_khr build_webroguegfx build_cxxemulatedthrow build_SDL2 build_glfw build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_mbedtls # build_curl
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
-EXAMPLES_DIR:=$(shell dirname $(CURRENT_DIR))
-DESTINATION_DIR=/opt/$(TOOLCHAIN)
+SDK_DIR:=$(shell dirname $(CURRENT_DIR))
+DESTINATION_DIR=$(SDK_DIR)/opt/$(TOOLCHAIN)
 BUILD_DIR=$(CURRENT_DIR)/build/$(DESTINATION)
 CMAKE_FLAGS=--toolchain=$(DESTINATION_DIR)/toolchain.cmake -DWASI_SDK_PREFIX=/wasi-sdk -DCMAKE_BUILD_TYPE=Release -Wno-dev
 

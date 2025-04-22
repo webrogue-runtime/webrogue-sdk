@@ -22,12 +22,12 @@ jobs:
 
     - name: Archive SDK
       run: |
-        tar czf webrogue-x86_64-linux.tar.gz -C package/ webrogue-x86_64-linux/
+        tar czf webrogue-sdk-x86_64-linux.tar.gz -C package/ webrogue-sdk-x86_64-linux/
 
-        cd package/ && zip -r ../webrogue-x86_64-windows.zip webrogue-x86_64-windows && cd ..
+        cd package/ && zip -r ../webrogue-sdk-x86_64-windows.zip webrogue-sdk-x86_64-windows && cd ..
 
-        tar czf webrogue-x86_64-macos.tar.gz -C package/ webrogue-x86_64-macos/
-        tar czf webrogue-arm64-macos.tar.gz -C package/ webrogue-arm64-macos/
+        tar czf webrogue-sdk-x86_64-macos.tar.gz -C package/ webrogue-sdk-x86_64-macos/
+        tar czf webrogue-sdk-arm64-macos.tar.gz -C package/ webrogue-sdk-arm64-macos/
 
     - name: Update tag
       run: |
@@ -37,10 +37,10 @@ jobs:
     - uses: ncipollo/release-action@v1
       with:
         artifacts: |
-          webrogue-x86_64-linux.tar.gz
-          webrogue-x86_64-windows.zip
-          webrogue-x86_64-macos.tar.gz
-          webrogue-arm64-macos.tar.gz
+          webrogue-sdk-x86_64-linux.tar.gz
+          webrogue-sdk-x86_64-windows.zip
+          webrogue-sdk-x86_64-macos.tar.gz
+          webrogue-sdk-arm64-macos.tar.gz
         name: Continuous build
         allowUpdates: true
         tag: latest
