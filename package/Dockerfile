@@ -10,4 +10,5 @@ RUN apt-get -y install kitware-archive-keyring
 RUN apt-get -y install cmake
 RUN rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 
+COPY webrogue-sdk-x86_64-linux /opt/webrogue-sdk
 ENV PATH="/opt/webrogue-sdk/bin/:$PATH"
