@@ -8,6 +8,7 @@ RUN apt-get update
 RUN test -f /usr/share/doc/kitware-archive-keyring/copyright || rm /usr/share/keyrings/kitware-archive-keyring.gpg
 RUN apt-get -y install kitware-archive-keyring
 RUN apt-get -y install cmake
+RUN apt-get -y install subversion
 RUN rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 
 COPY webrogue-sdk-x86_64-linux /opt/webrogue-sdk

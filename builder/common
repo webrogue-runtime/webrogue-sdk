@@ -1,5 +1,8 @@
 set -ex
 
+docker --version | grep podman >/dev/null || {
+    DOCKER_USER_FLAGS="-u $(id -u ${USER}):$(id -g ${USER})"
+}
 SDK_DIR=$(dirname $(pwd))
 
 image_name=webrogue_sdk_builder
@@ -13,7 +16,9 @@ run_in_docker() {
         -v $SDK_DIR/cargo/index:/fakehome/.cargo/registry/index \
         -v $SDK_DIR/opt:/opt \
         -v $SDK_DIR/package:/package \
-        -u $(id -u ${USER}):$(id -g ${USER}) \
+        $DOCKER_USER_FLAGS \
         -t $image_name \
         bash -c "$1"
 }
+
+#  \
