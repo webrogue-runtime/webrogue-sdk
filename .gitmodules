@@ -29,3 +29,12 @@
 	path = libraries/SDL2
 	url = https://github.com/webrogue-runtime/SDL.git
 	branch = webrogue/SDL2
+[submodule "libraries/SDL2_ttf"]
+	path = libraries/SDL2_ttf
+	url = https://github.com/libsdl-org/SDL_ttf.git
+[submodule "libraries/SDL3"]
+	path = libraries/SDL3
+	url = https://github.com/webrogue-runtime/SDL.git
+[submodule "libraries/SDL3_ttf"]
+	path = libraries/SDL3_ttf
+	url = https://github.com/libsdl-org/SDL_ttf.git

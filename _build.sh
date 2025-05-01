@@ -41,6 +41,10 @@ do
             $CMAKE_DIR_PATH/SDL2/SDL2testTargets
             $CMAKE_DIR_PATH/SDL2/SDL2staticTargets
             $CMAKE_DIR_PATH/SDL2/SDL2mainTargets
+            $CMAKE_DIR_PATH/SDL3/SDL3staticTargets
+            $CMAKE_DIR_PATH/SDL3/SDL3testTargets
+            $CMAKE_DIR_PATH/SDL2_ttf/SDL2_ttf-static-targets
+            $CMAKE_DIR_PATH/SDL3_ttf/SDL3_ttf-static-targets
         "
 
         for CMAKE_TARGETS_FILE_TO_PATCH in $CMAKE_TARGETS_FILES_TO_PATCH

@@ -92,9 +92,11 @@ HostConnection::~HostConnection()
 {
     // round-trip to ensure that queued commands have been processed
     // before process pipe closure is detected.
+#if 0
     if (m_rcEnc) {
         (void)m_rcEnc->rcGetRendererVersion(m_rcEnc.get());
     }
+#endif
 }
 
 // static
@@ -209,6 +211,7 @@ GL2Encoder *HostConnection::gl2Encoder()
 
 ExtendedRCEncoderContext *HostConnection::rcEncoder()
 {
+#if 0
     if (!m_rcEnc) {
         m_rcEnc = std::make_unique<ExtendedRCEncoderContext>(m_stream, &m_checksumHelper);
 
@@ -246,6 +249,7 @@ ExtendedRCEncoderContext *HostConnection::rcEncoder()
 
         rcEnc->rcSetPuid(rcEnc, getPuid());
     }
+#endif
     return m_rcEnc.get();
 }
 

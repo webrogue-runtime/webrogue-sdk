@@ -8,6 +8,7 @@ void webroguegfx_window_size(int *width, int *height);
 void webroguegfx_gl_size(int *width, int *height);
 void webroguegfx_init_gl();
 void *webroguegfx_gl_loader(const char *procname);
+void webroguegfx_get_gl_swap_interval(int *out_interval);
 
 // Events
 struct webrogue_event_mouse_down {

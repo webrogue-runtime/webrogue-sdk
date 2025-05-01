@@ -1,11 +1,16 @@
 #include "webroguegfx.h"
+#include "webroguegfx_internal.h"
 #include <stdint.h>
 
 __attribute__((import_name("present")))
 __attribute__((import_module("webrogue_gfx"))) void
 imported_webrogue_gfx_present();
 
-void webroguegfx_present() { imported_webrogue_gfx_present(); }
+void webroguegfx_present() { 
+  // Why no one calls glFlush explicitly?
+  webrogue_gfx_internal_glFlush(); 
+  imported_webrogue_gfx_present();
+}
 
 __attribute__((import_name("make_window")))
 __attribute__((import_module("webrogue_gfx"))) void
@@ -40,4 +45,21 @@ __attribute__((import_name("gl_init")))
 __attribute__((import_module("webrogue_gfx"))) void
 imported_webrogue_gfx_init_gl();
 
-void webroguegfx_init_gl() { imported_webrogue_gfx_init_gl(); }
+// TODO thread_local
+static char sGLInitialized;
+void webroguegfx_init_gl() { 
+  if(!sGLInitialized) {
+    imported_webrogue_gfx_init_gl();
+    sGLInitialized = 1;
+  }
+}
+
+__attribute__((import_name("get_gl_swap_interval")))
+__attribute__((import_module("webrogue_gfx"))) void
+imported_webrogue_gfx_get_gl_swap_interval(uint32_t *out_interval);
+
+void webroguegfx_get_gl_swap_interval(int *out_interval) {
+  uint32_t interval;
+  imported_webrogue_gfx_get_gl_swap_interval(&interval);
+  *out_interval = interval;
+}

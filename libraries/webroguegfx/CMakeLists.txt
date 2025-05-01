@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.31)
 
+project(webroguegfx VERSION 0.0.1)
+
 set(GFX_SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/gfxstream)
 set(AEMU_SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/aemu)
 

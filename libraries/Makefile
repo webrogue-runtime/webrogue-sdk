@@ -1,4 +1,4 @@
-all: copy_glad copy_gles2 copy_gles3 copy_khr build_webroguegfx build_cxxemulatedthrow build_SDL2 build_glfw build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_mbedtls # build_curl
+all: copy_glad copy_gles2 copy_gles3 copy_khr build_webroguegfx build_cxxemulatedthrow build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_glfw build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_mbedtls # build_curl
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 SDK_DIR:=$(shell dirname $(CURRENT_DIR))
 DESTINATION_DIR=$(SDK_DIR)/opt/$(TOOLCHAIN)
@@ -42,14 +42,30 @@ build_cxxemulatedthrow:
 	cmake --install $(BUILD_DIR)/cxxemulatedthrow --prefix $(DESTINATION_DIR)
 
 build_SDL2: build_webroguegfx build_libsamplerate
-	cd SDL2 && cmake -S . -B $(BUILD_DIR)/SDL2 $(CMAKE_FLAGS) -DSDL_STATIC=ON -DSDL_SHARED=OFF
+	cmake -S SDL2 -B $(BUILD_DIR)/SDL2 $(CMAKE_FLAGS) -DSDL_STATIC=ON -DSDL_SHARED=OFF
 	cmake --build $(BUILD_DIR)/SDL2 --target=SDL2-static --parallel
 	cmake --build $(BUILD_DIR)/SDL2 --target=SDL2main --parallel
 	cmake --build $(BUILD_DIR)/SDL2 --target=SDL2_test --parallel
 	cmake --install $(BUILD_DIR)/SDL2 --prefix $(DESTINATION_DIR)
 
+build_SDL2_ttf: build_SDL2 build_freetype
+	cmake -S SDL2_ttf -B $(BUILD_DIR)/SDL2_ttf $(CMAKE_FLAGS) -DBUILD_SHARED_LIBS=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=OFF -DSDL2_DIR=$(DESTINATION_DIR)/lib/cmake/SDL2 -DFREETYPE_INCLUDE_DIRS=$(DESTINATION_DIR)/include/freetype2
+	cmake --build $(BUILD_DIR)/SDL2_ttf --target=SDL2_ttf --parallel
+	cmake --install $(BUILD_DIR)/SDL2_ttf --prefix $(DESTINATION_DIR)
+
+build_SDL3: build_webroguegfx
+	cmake -S SDL3 -B $(BUILD_DIR)/SDL3 $(CMAKE_FLAGS) -DSDL_STATIC=ON -DSDL_SHARED=OFF
+	cmake --build $(BUILD_DIR)/SDL3 --target=SDL3-static --parallel
+	cmake --build $(BUILD_DIR)/SDL3 --target=SDL3_test --parallel
+	cmake --install $(BUILD_DIR)/SDL3 --prefix $(DESTINATION_DIR)
+
+build_SDL3_ttf: build_SDL3 build_freetype
+	cmake -S SDL3_ttf -B $(BUILD_DIR)/SDL3_ttf $(CMAKE_FLAGS) -DBUILD_SHARED_LIBS=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=OFF -DSDL3_DIR=$(DESTINATION_DIR)/lib/cmake/SDL3 -DFREETYPE_INCLUDE_DIRS=$(DESTINATION_DIR)/include/freetype2
+	cmake --build $(BUILD_DIR)/SDL3_ttf --target=SDL3_ttf-static --parallel
+	cmake --install $(BUILD_DIR)/SDL3_ttf --prefix $(DESTINATION_DIR)
+
 build_glfw: build_webroguegfx
-	cd glfw && cmake -S . -B $(BUILD_DIR)/glfw $(CMAKE_FLAGS) -DGLFW_BUILD_EXAMPLES=ON -DGLFW_BUILD_WEBROGUE=ON
+	cmake -S glfw -B $(BUILD_DIR)/glfw $(CMAKE_FLAGS) -DGLFW_BUILD_EXAMPLES=ON -DGLFW_BUILD_WEBROGUE=ON
 	cmake --build $(BUILD_DIR)/glfw --target=glfw --parallel
 	cmake --install $(BUILD_DIR)/glfw --prefix $(DESTINATION_DIR)
 
