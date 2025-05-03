@@ -3,7 +3,7 @@
 #include "webroguegfx.h"
 #include <stdlib.h>
 
-#define WEBROGUE_MAX_ENCODED_EVENT_SIZE 16
+#define WEBROGUE_MAX_ENCODED_EVENT_SIZE 20
 
 __attribute__((import_name("poll")))
 __attribute__((import_module("webrogue_gfx")))
@@ -53,24 +53,24 @@ webrogue_event webroguegfx_poll() {
     const char* current_pointer = ((const char*)buffer_data) + buffer_consumed;
     result.type = GET(uint32_t, 0);
     switch (result.type) {
-        case WEBROGUE_EVENT_TYPE_MOUSE_DOWN: {
-            BUF_SIZE(16);
-            result.inner.mouse_down.x = GET(uint32_t, 4);
-            result.inner.mouse_down.y = GET(uint32_t, 8);
-            result.inner.mouse_down.button = GET(uint32_t, 12);
-            return result;
-        }
-        case WEBROGUE_EVENT_TYPE_MOUSE_UP: {
-            BUF_SIZE(16);
-            result.inner.mouse_up.x = GET(uint32_t, 4);
-            result.inner.mouse_up.y = GET(uint32_t, 8);
-            result.inner.mouse_up.button = GET(uint32_t, 12);
+        case WEBROGUE_EVENT_TYPE_MOUSE_BUTTON: {
+            BUF_SIZE(20);
+            result.inner.mouse_button.button = GET(uint32_t, 4);
+            result.inner.mouse_button.down = GET(uint8_t, 16);
+            result.inner.mouse_button.x = GET(uint32_t, 8);
+            result.inner.mouse_button.y = GET(uint32_t, 12);
             return result;
         }
         case WEBROGUE_EVENT_TYPE_MOUSE_MOTION: {
             BUF_SIZE(12);
             result.inner.mouse_motion.x = GET(uint32_t, 4);
             result.inner.mouse_motion.y = GET(uint32_t, 8);
+            return result;
+        }
+        case WEBROGUE_EVENT_TYPE_KEY: {
+            BUF_SIZE(12);
+            result.inner.key.down = GET(uint8_t, 8);
+            result.inner.key.scancode = GET(uint32_t, 4);
             return result;
         }
         case WEBROGUE_EVENT_TYPE_QUIT: {

@@ -11,35 +11,35 @@ void *webroguegfx_gl_loader(const char *procname);
 void webroguegfx_get_gl_swap_interval(int *out_interval);
 
 // Events
-struct webrogue_event_mouse_down {
+struct webrogue_event_mouse_button {
+    uint32_t button;
+    uint8_t down;
     uint32_t x;
     uint32_t y;
-    uint32_t button;
-};
-struct webrogue_event_mouse_up {
-    uint32_t x;
-    uint32_t y;
-    uint32_t button;
 };
 struct webrogue_event_mouse_motion {
     uint32_t x;
     uint32_t y;
 };
+struct webrogue_event_key {
+    uint8_t down;
+    uint32_t scancode;
+};
 struct webrogue_event_quit {
 };
 enum webrogue_event_type {
     WEBROGUE_EVENT_TYPE_INVALID = 0,
-    WEBROGUE_EVENT_TYPE_MOUSE_DOWN = 1,
-    WEBROGUE_EVENT_TYPE_MOUSE_UP = 2,
-    WEBROGUE_EVENT_TYPE_MOUSE_MOTION = 3,
-    WEBROGUE_EVENT_TYPE_QUIT = 4,
+    WEBROGUE_EVENT_TYPE_MOUSE_BUTTON = 16,
+    WEBROGUE_EVENT_TYPE_MOUSE_MOTION = 17,
+    WEBROGUE_EVENT_TYPE_KEY = 32,
+    WEBROGUE_EVENT_TYPE_QUIT = 48,
 };
 typedef struct webrogue_event {
     enum webrogue_event_type type;
     union {
-        struct webrogue_event_mouse_down mouse_down;
-        struct webrogue_event_mouse_up mouse_up;
+        struct webrogue_event_mouse_button mouse_button;
         struct webrogue_event_mouse_motion mouse_motion;
+        struct webrogue_event_key key;
         struct webrogue_event_quit quit;
     } inner;
 } webrogue_event;

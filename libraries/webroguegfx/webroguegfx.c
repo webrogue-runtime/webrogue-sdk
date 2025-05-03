@@ -41,19 +41,6 @@ void webroguegfx_gl_size(int *width, int *height) {
   *height = out_height;
 }
 
-__attribute__((import_name("gl_init")))
-__attribute__((import_module("webrogue_gfx"))) void
-imported_webrogue_gfx_init_gl();
-
-// TODO thread_local
-static char sGLInitialized;
-void webroguegfx_init_gl() { 
-  if(!sGLInitialized) {
-    imported_webrogue_gfx_init_gl();
-    sGLInitialized = 1;
-  }
-}
-
 __attribute__((import_name("get_gl_swap_interval")))
 __attribute__((import_module("webrogue_gfx"))) void
 imported_webrogue_gfx_get_gl_swap_interval(uint32_t *out_interval);
