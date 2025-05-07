@@ -27,12 +27,18 @@ struct webrogue_event_key {
 };
 struct webrogue_event_quit {
 };
+struct webrogue_event_window_resized {
+};
+struct webrogue_event_gl_resized {
+};
 enum webrogue_event_type {
     WEBROGUE_EVENT_TYPE_INVALID = 0,
-    WEBROGUE_EVENT_TYPE_MOUSE_BUTTON = 16,
-    WEBROGUE_EVENT_TYPE_MOUSE_MOTION = 17,
-    WEBROGUE_EVENT_TYPE_KEY = 32,
-    WEBROGUE_EVENT_TYPE_QUIT = 48,
+    WEBROGUE_EVENT_TYPE_MOUSE_BUTTON = 1,
+    WEBROGUE_EVENT_TYPE_MOUSE_MOTION = 2,
+    WEBROGUE_EVENT_TYPE_KEY = 3,
+    WEBROGUE_EVENT_TYPE_QUIT = 4,
+    WEBROGUE_EVENT_TYPE_WINDOW_RESIZED = 5,
+    WEBROGUE_EVENT_TYPE_GL_RESIZED = 6,
 };
 typedef struct webrogue_event {
     enum webrogue_event_type type;
@@ -41,6 +47,8 @@ typedef struct webrogue_event {
         struct webrogue_event_mouse_motion mouse_motion;
         struct webrogue_event_key key;
         struct webrogue_event_quit quit;
+        struct webrogue_event_window_resized window_resized;
+        struct webrogue_event_gl_resized gl_resized;
     } inner;
 } webrogue_event;
 
