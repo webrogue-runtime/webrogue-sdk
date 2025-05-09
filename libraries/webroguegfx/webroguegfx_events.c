@@ -74,12 +74,15 @@ webrogue_event webroguegfx_poll() {
             return result;
         }
         case WEBROGUE_EVENT_TYPE_QUIT: {
+            BUF_SIZE(4);
             return result;
         }
         case WEBROGUE_EVENT_TYPE_WINDOW_RESIZED: {
+            BUF_SIZE(4);
             return result;
         }
         case WEBROGUE_EVENT_TYPE_GL_RESIZED: {
+            BUF_SIZE(4);
             return result;
         }
         default: {
