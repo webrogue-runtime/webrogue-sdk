@@ -31,6 +31,9 @@ struct webrogue_event_window_resized {
 };
 struct webrogue_event_gl_resized {
 };
+struct webrogue_event_text_input {
+    uint8_t c;
+};
 enum webrogue_event_type {
     WEBROGUE_EVENT_TYPE_INVALID = 0,
     WEBROGUE_EVENT_TYPE_MOUSE_BUTTON = 1,
@@ -39,6 +42,7 @@ enum webrogue_event_type {
     WEBROGUE_EVENT_TYPE_QUIT = 4,
     WEBROGUE_EVENT_TYPE_WINDOW_RESIZED = 5,
     WEBROGUE_EVENT_TYPE_GL_RESIZED = 6,
+    WEBROGUE_EVENT_TYPE_TEXT_INPUT = 7,
 };
 typedef struct webrogue_event {
     enum webrogue_event_type type;
@@ -49,6 +53,7 @@ typedef struct webrogue_event {
         struct webrogue_event_quit quit;
         struct webrogue_event_window_resized window_resized;
         struct webrogue_event_gl_resized gl_resized;
+        struct webrogue_event_text_input text_input;
     } inner;
 } webrogue_event;
 

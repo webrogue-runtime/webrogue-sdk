@@ -85,6 +85,11 @@ webrogue_event webroguegfx_poll() {
             BUF_SIZE(4);
             return result;
         }
+        case WEBROGUE_EVENT_TYPE_TEXT_INPUT: {
+            BUF_SIZE(8);
+            result.inner.text_input.c = GET(uint8_t, 4);
+            return result;
+        }
         default: {
             buffer_consumed = buffer_used_size;
             result.type = WEBROGUE_EVENT_TYPE_INVALID;
