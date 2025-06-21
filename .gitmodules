@@ -38,3 +38,10 @@
 [submodule "libraries/SDL3_ttf"]
 	path = libraries/SDL3_ttf
 	url = https://github.com/libsdl-org/SDL_ttf.git
+[submodule "libraries/mesa"]
+	path = libraries/mesa
+	url = https://github.com/webrogue-runtime/mesa.git
+	branch = webrogue
+[submodule "libraries/Vulkan-Headers"]
+	path = libraries/Vulkan-Headers
+	url = https://github.com/KhronosGroup/Vulkan-Headers.git

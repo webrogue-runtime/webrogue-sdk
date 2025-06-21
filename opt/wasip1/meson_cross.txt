@@ -1,0 +1,22 @@
+[constants]
+toolchain = '/wasi-sdk'
+common_flags = ['-I' + toolchain / 'share/wasi-sysroot/include/wasm32-wasip1-threads', '-D_POSIX_SOURCE', '-D_WASI_EMULATED_PTHREAD', '-D_GNU_SOURCE', '-pthread']
+
+[binaries]
+c = toolchain / 'bin/wasm32-wasip1-threads-clang'
+cpp = toolchain / 'bin/wasm32-wasip1-threads-clang++'
+ar = toolchain / 'bin/ar'
+strip = toolchain / 'bin/strip'
+
+[host_machine]
+system = 'wasip1'
+cpu_family = 'wasm'
+cpu = 'wasm'
+endian = 'little'
+
+# [built-in options]
+# includedir = toolchain / 'share/wasi-sysroot/include/wasm32-wasip1-threads'
+
+[properties]
+c_args = common_flags
+cpp_args = c_args

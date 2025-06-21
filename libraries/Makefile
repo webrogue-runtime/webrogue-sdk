@@ -1,8 +1,8 @@
-all: copy_glad copy_gles2 copy_gles3 copy_khr build_webroguegfx build_cxxemulatedthrow build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_glfw build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_mbedtls # build_curl
+all: copy_glad copy_gles2 copy_gles3 copy_khr build_webroguegfx build_cxxemulatedthrow build_glfw build_vulkan_headers # build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_mbedtls build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_curl
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 SDK_DIR:=$(shell dirname $(CURRENT_DIR))
 DESTINATION_DIR=$(SDK_DIR)/opt/$(TOOLCHAIN)
-BUILD_DIR=$(CURRENT_DIR)/build/$(DESTINATION)
+BUILD_DIR=$(CURRENT_DIR)/build
 CMAKE_FLAGS=--toolchain=$(DESTINATION_DIR)/toolchain.cmake -DWASI_SDK_PREFIX=/wasi-sdk -DCMAKE_BUILD_TYPE=Release -Wno-dev
 
 # copy headers
@@ -31,8 +31,8 @@ $(DESTINATION_DIR)/include/KHR:
 	cp -r KHR/ $(DESTINATION_DIR)/include
 
 # build and install libs
-build_webroguegfx: copy_gles2 copy_gles3 copy_khr
-	cd webroguegfx && cmake -S . -B $(BUILD_DIR)/webroguegfx $(CMAKE_FLAGS)
+build_webroguegfx: copy_gles2 copy_gles3 copy_khr build_mesa
+	cmake -S webroguegfx -B $(BUILD_DIR)/webroguegfx $(CMAKE_FLAGS) -DMESA_PATH=$(BUILD_DIR)/mesa
 	cmake --build $(BUILD_DIR)/webroguegfx --target=webroguegfx --parallel
 	cmake --install $(BUILD_DIR)/webroguegfx --prefix $(DESTINATION_DIR)
 
@@ -128,6 +128,53 @@ build_mbedtls: mbedtls
 	cd mbedtls && cmake -S . -B $(BUILD_DIR)/mbedtls $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DESTINATION_DIR) -DBUILD_SHARED_LIBS=OFF -DENABLE_TESTING=Off -DGEN_FILES=OFF -DENABLE_PROGRAMS=OFF
 	cmake --build $(BUILD_DIR)/mbedtls --target=mbedtls --parallel
 	cmake --install $(BUILD_DIR)/mbedtls --prefix $(DESTINATION_DIR)
+
+build_mesa: build_vulkan_headers
+	meson setup --reconfigure $(BUILD_DIR)/mesa mesa \
+		-Dgallium-drivers= \
+		-Dvulkan-drivers=gfxstream \
+		-Dplatforms=webrogue \
+		-Dglx=disabled \
+		-Dllvm=disabled \
+		-Degl-native-platform=surfaceless \
+		-Dgles1=disabled \
+		-Dgles2=disabled \
+		-Dgbm=disabled \
+		-Dexpat=disabled \
+		-Degl=disabled \
+		-Dglvnd=disabled \
+		-Dzlib=disabled \
+		-Dshader-cache=disabled \
+		--cross-file=$(DESTINATION_DIR)/meson_cross.txt
+	ninja -C $(BUILD_DIR)/mesa \
+		src/vulkan/runtime/libvulkan_runtime.a \
+		src/vulkan/runtime/libvulkan_instance.a \
+		src/gfxstream/guest/vulkan/libvulkan_gfxstream.a \
+		src/util/libxmlconfig.a \
+		src/util/libparson.a \
+		src/compiler/isaspec/libisaspec.a \
+		src/vulkan/util/libvulkan_util.a \
+		src/vulkan/runtime/libvulkan_lite_runtime.a \
+		src/vulkan/runtime/libvulkan_lite_instance.a \
+		src/vulkan/runtime/libvulkan_runtime.a \
+		src/vulkan/runtime/libvulkan_instance.a \
+		src/vulkan/wsi/libvulkan_wsi.a \
+		src/gfxstream/guest/platform/libplatform_virtgpu.a \
+		src/gfxstream/guest/platform/kumquat/libplatform_virtgpu_kumquat.a \
+		src/gfxstream/guest/GoldfishAddressSpace/libgoldfish_address_space.a \
+		src/gfxstream/guest/connection-manager/libconnection_manager.a \
+		src/gfxstream/guest/vulkan/libvulkan_gfxstream.a \
+		src/gfxstream/guest/vulkan/stubs/libgfxstream_vk_stubs.a \
+		src/gfxstream/guest/vulkan-mapper/libgfxstream_vulkan_mapper.a \
+		src/gfxstream/aemu/libaemu.a
+		# src/compiler/spirv/spirv2nir
+		# src/vulkan/vulkan_api.def: CUSTOM_COMMAND
+		# src/gtest/libgtest.a \
+
+build_vulkan_headers:
+	cmake -S Vulkan-Headers -B $(BUILD_DIR)/vulkan_headers $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DESTINATION_DIR)
+	cmake --install $(BUILD_DIR)/vulkan_headers --prefix $(DESTINATION_DIR)
+
 
 clean_mbedtls:
 	rm -rf mbedtls

@@ -2,7 +2,7 @@ set -ex
 
 SDK_ROOT="$(pwd)"
 
-make -C libraries TOOLCHAIN=wasip1 1>/dev/null
+make -C libraries TOOLCHAIN=wasip1 #1>/dev/null
 SDK_VERSION=25.0
 SDK_MAJOR_VERSION=25
 
