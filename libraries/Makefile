@@ -165,7 +165,6 @@ build_mesa: build_vulkan_headers
 		src/gfxstream/guest/connection-manager/libconnection_manager.a \
 		src/gfxstream/guest/vulkan/libvulkan_gfxstream.a \
 		src/gfxstream/guest/vulkan/stubs/libgfxstream_vk_stubs.a \
-		src/gfxstream/guest/vulkan-mapper/libgfxstream_vulkan_mapper.a \
 		src/gfxstream/aemu/libaemu.a
 		# src/compiler/spirv/spirv2nir
 		# src/vulkan/vulkan_api.def: CUSTOM_COMMAND
