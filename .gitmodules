@@ -44,4 +44,4 @@
 	branch = webrogue
 [submodule "libraries/Vulkan-Headers"]
 	path = libraries/Vulkan-Headers
-	url = https://github.com/KhronosGroup/Vulkan-Headers.git
+	url = https://github.com/webrogue-runtime/Vulkan-Headers.git

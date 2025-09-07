@@ -1,9 +1,9 @@
-all: copy_glad copy_gles2 copy_gles3 copy_khr build_webroguegfx build_cxxemulatedthrow build_glfw build_vulkan_headers # build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_mbedtls build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_curl
+all: copy_glad copy_gles2 copy_gles3 copy_khr build_webroguegfx build_cxxemulatedthrow build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_mbedtls # build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_curl
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 SDK_DIR:=$(shell dirname $(CURRENT_DIR))
 DESTINATION_DIR=$(SDK_DIR)/opt/$(TOOLCHAIN)
 BUILD_DIR=$(CURRENT_DIR)/build
-CMAKE_FLAGS=--toolchain=$(DESTINATION_DIR)/toolchain.cmake -DWASI_SDK_PREFIX=/wasi-sdk -DCMAKE_BUILD_TYPE=Debug -Wno-dev
+CMAKE_FLAGS=--toolchain=$(DESTINATION_DIR)/toolchain.cmake -DWASI_SDK_PREFIX=/wasi-sdk -DCMAKE_BUILD_TYPE=$CONFIG -Wno-dev
 
 # copy headers
 copy_glad: $(DESTINATION_DIR)/include/glad
@@ -32,7 +32,7 @@ $(DESTINATION_DIR)/include/KHR:
 
 # build and install libs
 build_webroguegfx: copy_gles2 copy_gles3 copy_khr build_mesa
-	cmake -S webroguegfx -B $(BUILD_DIR)/webroguegfx $(CMAKE_FLAGS) -DMESA_PATH=$(BUILD_DIR)/mesa
+	cmake -S webroguegfx -B $(BUILD_DIR)/webroguegfx $(CMAKE_FLAGS) -DMESA_PATH=$(BUILD_DIR)/mesa 
 	cmake --build $(BUILD_DIR)/webroguegfx --target=webroguegfx --parallel
 	cmake --install $(BUILD_DIR)/webroguegfx --prefix $(DESTINATION_DIR)
 

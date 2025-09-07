@@ -1,8 +1,10 @@
 set -ex
 
 SDK_ROOT="$(pwd)"
+CONFIG=Debug
+CONFIG_LOWERCASED=$(echo "$CONFIG" | tr '[:upper:]' '[:lower:]')
+make -C libraries build_glfw TOOLCHAIN=wasip1 CONFIG=$CONFIG #1>/dev/null
 
-make -C libraries TOOLCHAIN=wasip1 #1>/dev/null
 SDK_VERSION=25.0
 SDK_MAJOR_VERSION=25
 
@@ -48,9 +50,13 @@ do
             $CMAKE_DIR_PATH/SampleRate/SampleRateTargets
         "
 
+        CMAKE_TARGETS_FILES_TO_PATCH="
+            $CMAKE_DIR_PATH/glfw3/glfw3Targets
+        "
+
         for CMAKE_TARGETS_FILE_TO_PATCH in $CMAKE_TARGETS_FILES_TO_PATCH
         do
-            sed -i "s/\${_IMPORT_PREFIX}\\/lib\\//\${_IMPORT_PREFIX}\\/$VERSION_TO_MOVE\\//g" $CMAKE_TARGETS_FILE_TO_PATCH-release.cmake
+            sed -i "s/\${_IMPORT_PREFIX}\\/lib\\//\${_IMPORT_PREFIX}\\/$VERSION_TO_MOVE\\//g" $CMAKE_TARGETS_FILE_TO_PATCH-$CONFIG_LOWERCASED.cmake
             sed -i "s/\${_IMPORT_PREFIX}\\/include/\${_IMPORT_PREFIX}\\/..\\/include\\/$VERSION_TO_MOVE/g" $CMAKE_TARGETS_FILE_TO_PATCH.cmake
         done
     done

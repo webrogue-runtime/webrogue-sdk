@@ -13,8 +13,8 @@ set_target_properties(webroguegfx PROPERTIES PUBLIC_HEADER "webroguegfx.h")
 
 set(
     MESA_LIBS
-    ${MESA_PATH}/src/gfxstream/guest/vulkan/libvulkan_gfxstream.a
-    ${MESA_PATH}/src/vulkan/wsi/libvulkan_wsi.a
+    "${MESA_PATH}/src/gfxstream/guest/vulkan/libvulkan_gfxstream.a"
+    "${MESA_PATH}/src/vulkan/wsi/libvulkan_wsi.a"
 )
 
 add_custom_target(mesa_libs DEPENDS ${MESA_LIBS})
