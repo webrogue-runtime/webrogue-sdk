@@ -2,13 +2,11 @@
 #include <stddef.h>
 #include <stdint.h>
 
-// void webroguegfx_present();
-void webroguegfx_make_window();
-void webroguegfx_window_size(int *width, int *height);
-void webroguegfx_gl_size(int *width, int *height);
-// void webroguegfx_init_gl();
-// void *webroguegfx_gl_loader(const char *procname);
-// void webroguegfx_get_gl_swap_interval(int *out_interval);
+typedef uint32_t wr_window_handle;
+
+void webroguegfx_make_window(wr_window_handle *out_window);
+void webroguegfx_window_size(wr_window_handle window, int *width, int *height);
+void webroguegfx_gl_size(wr_window_handle window, int *width, int *height);
 
 // Events
 struct webrogue_event_mouse_button {

@@ -45,3 +45,7 @@
 [submodule "libraries/Vulkan-Headers"]
 	path = libraries/Vulkan-Headers
 	url = https://github.com/webrogue-runtime/Vulkan-Headers.git
+[submodule "libraries/Vulkan-Docs"]
+	path = libraries/Vulkan-Docs
+	url = https://github.com/webrogue-runtime/Vulkan-Docs.git
+	branch = webrogue
