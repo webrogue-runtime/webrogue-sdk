@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:25.04
 
 RUN apt-get update && apt-get -y install ca-certificates gpg wget curl build-essential lld llvm bzip2 subversion git unzip rsync python3 default-jre meson python3-mako
 
