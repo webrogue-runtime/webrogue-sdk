@@ -11,5 +11,5 @@ RUN apt-get -y install cmake
 RUN apt-get -y install subversion
 RUN rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 
-COPY webrogue-sdk-x86_64-linux /opt/webrogue-sdk
+COPY webrogue-sdk /opt/webrogue-sdk
 ENV PATH="/opt/webrogue-sdk/bin/:$PATH"

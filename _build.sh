@@ -3,12 +3,12 @@ set -ex
 SDK_ROOT="$(pwd)"
 CONFIG=Debug
 CONFIG_LOWERCASED=$(echo "$CONFIG" | tr '[:upper:]' '[:lower:]')
-make -C libraries build_glfw TOOLCHAIN=wasip1 CONFIG=$CONFIG #1>/dev/null
+make -C libraries build_glfw build_cxxemulatedthrow copy_glad TOOLCHAIN=wasip1 CONFIG=$CONFIG #1>/dev/null
 
 SDK_VERSION=25.0
 SDK_MAJOR_VERSION=25
 
-for SDK in x86_64-linux x86_64-windows x86_64-macos arm64-macos
+for SDK in x86_64-linux arm64-linux x86_64-windows x86_64-macos arm64-macos
 do
     cd $SDK_ROOT/package
     test -d wasi-sdk-$SDK_VERSION-$SDK || {
