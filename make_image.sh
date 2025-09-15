@@ -6,4 +6,4 @@ cd builder
 cd ..
 
 run_in_docker 'rm -rf /package/webrogue-sdk; cp -r /package/webrogue-sdk-$(cat /wasi_arch.txt)-linux /package/webrogue-sdk'
-docker build --platform linux/amd64 -t webrogue-sdk package
+docker build -t webrogue-sdk package
