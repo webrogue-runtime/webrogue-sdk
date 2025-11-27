@@ -1,4 +1,4 @@
-all: copy_glad copy_gles2 copy_gles3 copy_khr build_webroguegfx build_cxxemulatedthrow build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_mbedtls # build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_curl
+all: copy_glad copy_gles2 copy_gles3 copy_khr build_webroguegfx build_cxxemulatedthrow build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_mbedtls build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle # build_curl
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 SDK_DIR:=$(shell dirname $(CURRENT_DIR))
 DESTINATION_DIR=$(SDK_DIR)/opt/$(TOOLCHAIN)
@@ -174,6 +174,9 @@ build_vulkan_headers:
 	cmake -S Vulkan-Headers -B $(BUILD_DIR)/vulkan_headers $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DESTINATION_DIR)
 	cmake --install $(BUILD_DIR)/vulkan_headers --prefix $(DESTINATION_DIR)
 
+build_angle: build_vulkan_headers
+	sh build_angle.sh
+	cp $(BUILD_DIR)/libEGL.a $(DESTINATION_DIR)/lib/libEGL.a
 
 clean_mbedtls:
 	rm -rf mbedtls

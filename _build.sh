@@ -3,10 +3,12 @@ set -ex
 SDK_ROOT="$(pwd)"
 CONFIG=Debug
 CONFIG_LOWERCASED=$(echo "$CONFIG" | tr '[:upper:]' '[:lower:]')
-make -C libraries build_glfw build_cxxemulatedthrow copy_glad TOOLCHAIN=wasip1 CONFIG=$CONFIG #1>/dev/null
+make -C libraries build_angle TOOLCHAIN=wasip1 CONFIG=$CONFIG #1>/dev/null
+make -C libraries build_SDL2 build_glfw build_cxxemulatedthrow copy_glad TOOLCHAIN=wasip1 CONFIG=$CONFIG #1>/dev/null
 
-SDK_VERSION=25.0
-SDK_MAJOR_VERSION=25
+# these version strings must be kept in sync with builder/Dockerfile
+SDK_VERSION=28.0
+SDK_MAJOR_VERSION=28
 
 for SDK in x86_64-linux arm64-linux x86_64-windows x86_64-macos arm64-macos
 do
@@ -52,6 +54,9 @@ do
 
         CMAKE_TARGETS_FILES_TO_PATCH="
             $CMAKE_DIR_PATH/glfw3/glfw3Targets
+            $CMAKE_DIR_PATH/SDL2/SDL2testTargets
+            $CMAKE_DIR_PATH/SDL2/SDL2staticTargets
+            $CMAKE_DIR_PATH/SDL2/SDL2mainTargets
         "
 
         for CMAKE_TARGETS_FILE_TO_PATCH in $CMAKE_TARGETS_FILES_TO_PATCH

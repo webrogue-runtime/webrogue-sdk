@@ -1,3 +1,8 @@
 /harfbuzz_build_dir
 /mbedtls
 /build
+/.gclient_entries
+/.gclient_previous_sync_commits
+/.gcs_entries
+/.cipd
+/_bad_scm
