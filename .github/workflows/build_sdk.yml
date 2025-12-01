@@ -23,6 +23,7 @@ jobs:
     - name: Archive SDK
       run: |
         tar czf webrogue-sdk-x86_64-linux.tar.gz -C package/ webrogue-sdk-x86_64-linux/
+        tar czf webrogue-sdk-arm64-linux.tar.gz -C package/ webrogue-sdk-arm64-linux/
 
         cd package/ && zip -r ../webrogue-sdk-x86_64-windows.zip webrogue-sdk-x86_64-windows && cd ..
 
@@ -38,6 +39,7 @@ jobs:
       with:
         artifacts: |
           webrogue-sdk-x86_64-linux.tar.gz
+          webrogue-sdk-arm64-linux.tar.gz
           webrogue-sdk-x86_64-windows.zip
           webrogue-sdk-x86_64-macos.tar.gz
           webrogue-sdk-arm64-macos.tar.gz

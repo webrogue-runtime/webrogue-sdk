@@ -1,6 +1,6 @@
 FROM ubuntu:25.04
 
-RUN apt-get update && apt-get -y install ca-certificates gpg wget curl build-essential lld llvm bzip2 subversion git unzip rsync python3 default-jre meson python3-mako
+RUN apt-get update && apt-get -y install ca-certificates gpg wget curl build-essential lld llvm bzip2 subversion git unzip rsync python3 default-jre meson python3-mako python3-pip
 
 RUN bash -c 'case "$(uname -p)" in aarch64) echo arm64 ;; *) uname -p ;; esac' > /wasi_arch.txt
 RUN curl -L https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-28/wasi-sdk-28.0-$(cat /wasi_arch.txt)-linux.tar.gz | tar -xz && mv wasi-sdk-28.0-$(cat /wasi_arch.txt)-linux /wasi-sdk
@@ -19,4 +19,5 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | HOME=/fakehome s
 # RUN curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
 # RUN cargo binstall wasm-tools
 RUN chmod -R a+rwx /fakehome/.cargo/
+RUN mkdir -p /.cache && chmod 777 /.cache
 # RUN chmod -R a+r /wasi_arch.txt

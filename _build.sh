@@ -6,6 +6,10 @@ CONFIG=Release
 CONFIG_LOWERCASED=$(echo "$CONFIG" | tr '[:upper:]' '[:lower:]')
 make -C libraries build_angle build_SDL2 build_SDL2_ttf build_SDL3 build_SDL3_ttf build_glfw build_cxxemulatedthrow copy_glad TOOLCHAIN=wasip1 CONFIG=$CONFIG CONFIG_LOWERCASED=$CONFIG_LOWERCASED #1>/dev/null
 
+export VPYTHON_VIRTUALENV_ROOT=/tmp/vpython-root
+export XDG_CACHE_HOME=/tmp
+export HOME=/tmp
+
 # these version strings must be kept in sync with builder/Dockerfile
 SDK_VERSION=28.0
 SDK_MAJOR_VERSION=28
