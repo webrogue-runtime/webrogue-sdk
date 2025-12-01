@@ -1,7 +1,10 @@
 name: Build Webrogue SDK
 
 on:
-  workflow_dispatch
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
 
 jobs:
   sdk:
@@ -30,21 +33,17 @@ jobs:
         tar czf webrogue-sdk-x86_64-macos.tar.gz -C package/ webrogue-sdk-x86_64-macos/
         tar czf webrogue-sdk-arm64-macos.tar.gz -C package/ webrogue-sdk-arm64-macos/
 
-    - name: Update tag
-      run: |
-        git tag -f latest
-        git push --force origin latest
-
-    - uses: ncipollo/release-action@v1
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
       with:
-        artifacts: |
+        files: |
           webrogue-sdk-x86_64-linux.tar.gz
           webrogue-sdk-arm64-linux.tar.gz
           webrogue-sdk-x86_64-windows.zip
           webrogue-sdk-x86_64-macos.tar.gz
           webrogue-sdk-arm64-macos.tar.gz
-        name: Continuous build
-        allowUpdates: true
-        tag: latest
-        commit: ${{ github.ref }}
-        makeLatest: true
+        name: Release ${{ github.ref_name }}
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
