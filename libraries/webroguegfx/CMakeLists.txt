@@ -7,6 +7,7 @@ add_library(
     STATIC
     webroguegfx.c
     webroguegfx_events.c
+    webroguegfx_vulkan.c
 )
 
 set_target_properties(webroguegfx PROPERTIES PUBLIC_HEADER "webroguegfx.h")

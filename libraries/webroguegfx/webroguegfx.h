@@ -4,11 +4,17 @@
 #include <stddef.h>
 #include <stdint.h>
 
-typedef uint32_t wr_window_handle;
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-void webroguegfx_make_window(wr_window_handle *out_window);
-void webroguegfx_window_size(wr_window_handle window, int *width, int *height);
-void webroguegfx_gl_size(wr_window_handle window, int *width, int *height);
+typedef struct wr_window_s wr_window_s;
+typedef wr_window_s* wr_window;
+
+void webroguegfx_make_window(wr_window *out_window);
+void webroguegfx_window_size(wr_window window, int *width, int *height);
+void webroguegfx_gl_size(wr_window window, int *width, int *height);
+uint64_t webroguegfx_vulkan_make_surface(wr_window window, uint64_t vk_instance);
 
 // Events
 struct webrogue_event_mouse_button {
@@ -24,12 +30,6 @@ struct webrogue_event_mouse_motion {
 struct webrogue_event_key {
     uint8_t down;
     uint32_t scancode;
-};
-struct webrogue_event_quit {
-};
-struct webrogue_event_window_resized {
-};
-struct webrogue_event_gl_resized {
 };
 struct webrogue_event_text_input {
     uint8_t c;
@@ -50,12 +50,14 @@ typedef struct webrogue_event {
         struct webrogue_event_mouse_button mouse_button;
         struct webrogue_event_mouse_motion mouse_motion;
         struct webrogue_event_key key;
-        struct webrogue_event_quit quit;
-        struct webrogue_event_window_resized window_resized;
-        struct webrogue_event_gl_resized gl_resized;
         struct webrogue_event_text_input text_input;
     } inner;
 } webrogue_event;
 
 webrogue_event webroguegfx_poll();
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif // WEBROGUEGFX_h_

@@ -2,7 +2,7 @@ all: copy_glad copy_gles2 copy_gles3 copy_khr build_webroguegfx build_cxxemulate
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 SDK_DIR:=$(shell dirname $(CURRENT_DIR))
 DESTINATION_DIR=$(SDK_DIR)/opt/$(TOOLCHAIN)
-BUILD_DIR=$(CURRENT_DIR)/build
+BUILD_DIR=$(CURRENT_DIR)/build/wasip1/$(CONFIG)
 CMAKE_FLAGS=--toolchain=$(DESTINATION_DIR)/toolchain.cmake -DWASI_SDK_PREFIX=/wasi-sdk -DCMAKE_BUILD_TYPE=$(CONFIG) -Wno-dev
 
 # copy headers
@@ -42,14 +42,14 @@ build_cxxemulatedthrow:
 	cmake --install $(BUILD_DIR)/cxxemulatedthrow --prefix $(DESTINATION_DIR)
 
 build_SDL2: build_webroguegfx build_libsamplerate
-	cmake -S SDL2 -B $(BUILD_DIR)/SDL2 $(CMAKE_FLAGS) -DSDL_STATIC=ON -DSDL_SHARED=OFF
+	cmake -S SDL2 -B $(BUILD_DIR)/SDL2 $(CMAKE_FLAGS) -DSDL_STATIC=ON -DSDL_SHARED=OFF -DSDL_CMAKE_DEBUG_POSTFIX=
 	cmake --build $(BUILD_DIR)/SDL2 --target=SDL2-static --parallel
 	cmake --build $(BUILD_DIR)/SDL2 --target=SDL2main --parallel
 	cmake --build $(BUILD_DIR)/SDL2 --target=SDL2_test --parallel
 	cmake --install $(BUILD_DIR)/SDL2 --prefix $(DESTINATION_DIR)
 
 build_SDL2_ttf: build_SDL2 build_freetype
-	cmake -S SDL2_ttf -B $(BUILD_DIR)/SDL2_ttf $(CMAKE_FLAGS) -DBUILD_SHARED_LIBS=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=OFF -DSDL2_DIR=$(DESTINATION_DIR)/lib/cmake/SDL2 -DFREETYPE_INCLUDE_DIRS=$(DESTINATION_DIR)/include/freetype2
+	cmake -S SDL2_ttf -B $(BUILD_DIR)/SDL2_ttf $(CMAKE_FLAGS) -DBUILD_SHARED_LIBS=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=OFF -DSDL2_DIR=$(DESTINATION_DIR)/lib/cmake/SDL2 -DFREETYPE_INCLUDE_DIRS=$(DESTINATION_DIR)/include/freetype2 -DSDL2TTF_DEBUG_POSTFIX=
 	cmake --build $(BUILD_DIR)/SDL2_ttf --target=SDL2_ttf --parallel
 	cmake --install $(BUILD_DIR)/SDL2_ttf --prefix $(DESTINATION_DIR)
 
@@ -131,6 +131,7 @@ build_mbedtls: mbedtls
 
 build_mesa: build_vulkan_headers
 	meson setup --reconfigure $(BUILD_DIR)/mesa mesa \
+		--buildtype=$(CONFIG_LOWERCASED) \
 		-Dgallium-drivers= \
 		-Dvulkan-drivers=gfxstream \
 		-Dplatforms=webrogue \
@@ -175,8 +176,9 @@ build_vulkan_headers:
 	cmake --install $(BUILD_DIR)/vulkan_headers --prefix $(DESTINATION_DIR)
 
 build_angle: build_vulkan_headers
-	sh build_angle.sh
-	cp $(BUILD_DIR)/libEGL.a $(DESTINATION_DIR)/lib/libEGL.a
+	CONFIG=$(CONFIG) BUILD_DIR=$(BUILD_DIR) sh build_angle.sh
+	mkdir -p $(DESTINATION_DIR)/lib
+	cp $(BUILD_DIR)/angle/libEGL.a $(DESTINATION_DIR)/lib/libEGL.a
 
 clean_mbedtls:
 	rm -rf mbedtls
