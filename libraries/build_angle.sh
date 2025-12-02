@@ -1,6 +1,10 @@
 set -ex
 cd $(dirname $0)
 
+export VPYTHON_VIRTUALENV_ROOT=/tmp/vpython-root
+export XDG_CACHE_HOME=/tmp
+export HOME=/tmp
+
 if [ ! -d "angle" ] || [ ! -d "chromium-build" ]; then
     sh get_angle.sh
 fi
