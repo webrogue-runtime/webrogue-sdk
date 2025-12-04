@@ -118,10 +118,10 @@ build_curl: build_mbedtls
 mbedtls:
 	curl -L https://github.com/Mbed-TLS/mbedtls/releases/download/mbedtls-3.6.5/mbedtls-3.6.5.tar.bz2 | tar -xj
 	mv mbedtls-3.6.5 mbedtls
-# 	cp mbedtls_patch/mbedtls_config.h mbedtls/include/mbedtls/mbedtls_config.h
-# 	cp mbedtls_patch/timing.c mbedtls/library/timing.c
-# 	cp mbedtls_patch/platform_util.c mbedtls/library/platform_util.c
-# 	cp mbedtls_patch/net_sockets.c mbedtls/library/net_sockets.c
+	sed -i 's@//#define MBEDTLS_NO_PLATFORM_ENTROPY@#define MBEDTLS_NO_PLATFORM_ENTROPY@' mbedtls/include/mbedtls/mbedtls_config.h
+	sed -i 's@#define MBEDTLS_TIMING_C@//#define MBEDTLS_TIMING_C@' mbedtls/include/mbedtls/mbedtls_config.h
+	sed -i 's@#define MBEDTLS_NET_C@//#define MBEDTLS_NET_C@' mbedtls/include/mbedtls/mbedtls_config.h
+	sed -i 's@defined(__HAIKU__)@defined(__HAIKU__) || defined(__wasi__)@' mbedtls/library/platform_util.c
 
 build_mbedtls: mbedtls
 	cd mbedtls && cmake -S . -B $(BUILD_DIR)/mbedtls $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DESTINATION_DIR) -DBUILD_SHARED_LIBS=OFF -DENABLE_TESTING=Off -DGEN_FILES=OFF -DENABLE_PROGRAMS=OFF
