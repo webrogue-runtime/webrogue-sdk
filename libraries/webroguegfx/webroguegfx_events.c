@@ -2,8 +2,9 @@
 // clang-format off
 #include "webroguegfx.h"
 #include <stdlib.h>
+#include <string.h>
 
-#define WEBROGUE_MAX_ENCODED_EVENT_SIZE 20
+#define WEBROGUE_MAX_ENCODED_EVENT_SIZE 44
 
 __attribute__((import_name("poll")))
 __attribute__((import_module("webrogue_gfx")))
@@ -54,11 +55,12 @@ webrogue_event webroguegfx_poll() {
     result.type = GET(uint32_t, 0);
     switch (result.type) {
         case WEBROGUE_EVENT_TYPE_MOUSE_BUTTON: {
-            BUF_SIZE(20);
-            result.inner.mouse_button.button = GET(uint32_t, 4);
-            result.inner.mouse_button.down = GET(uint8_t, 16);
-            result.inner.mouse_button.x = GET(uint32_t, 8);
-            result.inner.mouse_button.y = GET(uint32_t, 12);
+            BUF_SIZE(16);
+            result.inner.mouse_button.button = GET(uint8_t, 12);
+            result.inner.mouse_button.down = GET(uint8_t, 13);
+            result.inner.mouse_button.x = GET(uint32_t, 4);
+            result.inner.mouse_button.y = GET(uint32_t, 8);
+            result.inner.mouse_button.is_touch = GET(uint8_t, 14);
             return result;
         }
         case WEBROGUE_EVENT_TYPE_MOUSE_MOTION: {
@@ -68,9 +70,12 @@ webrogue_event webroguegfx_poll() {
             return result;
         }
         case WEBROGUE_EVENT_TYPE_KEY: {
-            BUF_SIZE(12);
-            result.inner.key.down = GET(uint8_t, 8);
-            result.inner.key.scancode = GET(uint32_t, 4);
+            BUF_SIZE(44);
+            result.inner.key.down = GET(uint8_t, 40);
+            result.inner.key.named_key = GET(uint16_t, 36);
+            result.inner.key.physical_key = GET(uint16_t, 38);
+            result.inner.key.text_length = GET(uint8_t, 41);
+            memcpy(&result.inner.key.text, current_pointer + 4, 32);
             return result;
         }
         case WEBROGUE_EVENT_TYPE_QUIT: {
@@ -83,11 +88,6 @@ webrogue_event webroguegfx_poll() {
         }
         case WEBROGUE_EVENT_TYPE_GL_RESIZED: {
             BUF_SIZE(4);
-            return result;
-        }
-        case WEBROGUE_EVENT_TYPE_TEXT_INPUT: {
-            BUF_SIZE(8);
-            result.inner.text_input.c = GET(uint8_t, 4);
             return result;
         }
         default: {

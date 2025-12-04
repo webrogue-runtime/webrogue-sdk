@@ -1,4 +1,4 @@
-all: copy_glad copy_gles2 copy_gles3 copy_khr build_webroguegfx build_cxxemulatedthrow build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_mbedtls build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle # build_curl
+all: copy_glad copy_gles2 copy_gles3 copy_khr build_webroguegfx build_cxxemulatedthrow build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls # build_curl 
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 SDK_DIR:=$(shell dirname $(CURRENT_DIR))
 DESTINATION_DIR=$(SDK_DIR)/opt/$(TOOLCHAIN)
@@ -116,13 +116,12 @@ build_curl: build_mbedtls
 	cmake --install $(BUILD_DIR)/curl --prefix $(DESTINATION_DIR)
 
 mbedtls:
-	curl -L https://github.com/Mbed-TLS/mbedtls/releases/download/mbedtls-3.6.2/mbedtls-3.6.2.tar.bz2 | tar -xj
-	mv mbedtls-3.6.2 mbedtls
-	# TODO use diff
-	cp mbedtls_patch/mbedtls_config.h mbedtls/include/mbedtls/mbedtls_config.h
-	cp mbedtls_patch/timing.c mbedtls/library/timing.c
-	cp mbedtls_patch/platform_util.c mbedtls/library/platform_util.c
-	cp mbedtls_patch/net_sockets.c mbedtls/library/net_sockets.c
+	curl -L https://github.com/Mbed-TLS/mbedtls/releases/download/mbedtls-3.6.5/mbedtls-3.6.5.tar.bz2 | tar -xj
+	mv mbedtls-3.6.5 mbedtls
+# 	cp mbedtls_patch/mbedtls_config.h mbedtls/include/mbedtls/mbedtls_config.h
+# 	cp mbedtls_patch/timing.c mbedtls/library/timing.c
+# 	cp mbedtls_patch/platform_util.c mbedtls/library/platform_util.c
+# 	cp mbedtls_patch/net_sockets.c mbedtls/library/net_sockets.c
 
 build_mbedtls: mbedtls
 	cd mbedtls && cmake -S . -B $(BUILD_DIR)/mbedtls $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DESTINATION_DIR) -DBUILD_SHARED_LIBS=OFF -DENABLE_TESTING=Off -DGEN_FILES=OFF -DENABLE_PROGRAMS=OFF
