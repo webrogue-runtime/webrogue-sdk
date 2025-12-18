@@ -8,7 +8,7 @@
 	branch = webrogue
 [submodule "libraries/harfbuzz"]
 	path = libraries/harfbuzz
-	url = https://github.com/harfbuzz/harfbuzz.git
+	url = https://github.com/webrogue-runtime/harfbuzz.git
 [submodule "libraries/libpng"]
 	path = libraries/libpng
 	url = https://github.com/pnggroup/libpng.git
@@ -49,3 +49,12 @@
 	path = libraries/Vulkan-Docs
 	url = https://github.com/webrogue-runtime/Vulkan-Docs.git
 	branch = webrogue
+[submodule "libraries/gtk"]
+	path = libraries/gtk
+	url = https://github.com/webrogue-runtime/gtk.git
+[submodule "libraries/libffi"]
+	path = libraries/libffi
+	url = https://github.com/webrogue-runtime/libffi.git
+[submodule "libraries/glib"]
+	path = libraries/glib
+	url = https://github.com/webrogue-runtime/glib.git
