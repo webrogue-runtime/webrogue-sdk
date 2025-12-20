@@ -22,4 +22,6 @@ RUN chmod -R a+rwx /fakehome/.cargo/
 RUN mkdir -p /.cache && chmod 777 /.cache
 # RUN chmod -R a+r /wasi_arch.txt
 
-RUN apt-get -y install libglib2.0-bin libglib2.0-dev-bin 
+RUN apt-get -y install libglib2.0-bin libglib2.0-dev-bin
+RUN apt-get -y install glslc
+RUN apt-get -y install sassc

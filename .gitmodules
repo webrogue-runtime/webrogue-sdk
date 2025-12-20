@@ -58,3 +58,12 @@
 [submodule "libraries/glib"]
 	path = libraries/glib
 	url = https://github.com/webrogue-runtime/glib.git
+[submodule "libraries/libexpat"]
+	path = libraries/libexpat
+	url = https://github.com/libexpat/libexpat.git
+[submodule "libraries/fontconfig"]
+	path = libraries/fontconfig
+	url = https://github.com/webrogue-runtime/fontconfig.git
+[submodule "libraries/cairo"]
+	path = libraries/cairo
+	url = https://github.com/webrogue-runtime/cairo.git
