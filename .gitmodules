@@ -67,3 +67,9 @@
 [submodule "libraries/cairo"]
 	path = libraries/cairo
 	url = https://github.com/webrogue-runtime/cairo.git
+[submodule "meson"]
+	path = meson
+	url = https://github.com/mesonbuild/meson.git
+[submodule "libraries/pango"]
+	path = libraries/pango
+	url = https://github.com/webrogue-runtime/pango.git

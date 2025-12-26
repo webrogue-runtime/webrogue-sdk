@@ -1,0 +1,3 @@
+#!/usr/bin/sh
+
+/meson/meson.py $@

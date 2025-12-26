@@ -15,6 +15,7 @@ run_in_docker() {
         -v $SDK_DIR/cargo/cache:/fakehome/.cargo/registry/cache \
         -v $SDK_DIR/cargo/index:/fakehome/.cargo/registry/index \
         -v $SDK_DIR/opt:/opt \
+        -v $SDK_DIR/meson:/meson \
         -v $SDK_DIR/package:/package \
         $DOCKER_USER_FLAGS \
         -t $image_name \
