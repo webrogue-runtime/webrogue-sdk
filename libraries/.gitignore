@@ -6,3 +6,7 @@
 /.gcs_entries
 /.cipd
 /_bad_scm
+/a.out
+/depot_tools
+/angle
+/chromium-build

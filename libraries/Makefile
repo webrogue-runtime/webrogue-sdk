@@ -1,4 +1,4 @@
-all: build_cairo build_pango build_gtk build_glib build_fontconfig build_expat copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_webroguegfx build_cxxemulatedthrow build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls build_libffi # build_curl
+all: copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_webroguegfx build_cxxemulatedthrow build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls build_libffi # build_curl build_cairo build_pango build_gtk build_glib build_fontconfig build_expat
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 SDK_DIR:=$(shell dirname $(CURRENT_DIR))
 DESTINATION_DIR=$(SDK_DIR)/opt/$(TOOLCHAIN)
@@ -229,10 +229,10 @@ build_cairo: build_glib build_png build_fontconfig build_harfbuzz build_freetype
 		-Dtests=disabled \
 		-Dfontconfig=enabled \
 		-Dglib=enabled \
+		-Dpixman:tests=disabled \
+ 		-Dpixman:demos=disabled \
 		--buildtype=$(CONFIG_LOWERCASED) \
 		--cross-file=$(DESTINATION_DIR)/meson_cross.txt
-# 		-Dpixman:tests=disabled \
-# 		-Dpixman:demos=disabled \
 
 	meson install -C $(BUILD_DIR)/cairo
 	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
@@ -246,10 +246,10 @@ build_pango: build_cairo build_glib
 		-Ddefault_library=static \
 		-Dbuild-utils=false \
 		-Dbuild-testsuite=false \
+		-Dfribidi:bin=false \
+		-Dfribidi:tests=false \
 		--buildtype=$(CONFIG_LOWERCASED) \
 		--cross-file=$(DESTINATION_DIR)/meson_cross.txt
-# 		-Dfribidi:bin=false \
-# 		-Dfribidi:tests=false \
 
 	meson install -C $(BUILD_DIR)/pango
 	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
@@ -272,6 +272,7 @@ build_gtk: build_pango build_cairo build_glib build_mesa copy_egl copy_khr
 		-Dgdk-pixbuf:jpeg=disabled \
 		-Dgdk-pixbuf:png=enabled \
 		-Dgdk-pixbuf:man=false \
+		-Dgdk-pixbuf:gio_sniffing=false \
 		--buildtype=$(CONFIG_LOWERCASED) \
 		--cross-file=$(DESTINATION_DIR)/meson_cross.txt
 	meson install -C $(BUILD_DIR)/gtk
