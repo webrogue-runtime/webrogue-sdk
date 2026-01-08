@@ -73,3 +73,9 @@
 [submodule "libraries/pango"]
 	path = libraries/pango
 	url = https://github.com/webrogue-runtime/pango.git
+[submodule "libraries/libxml2"]
+	path = libraries/libxml2
+	url = https://github.com/webrogue-runtime/libxml2.git
+[submodule "libraries/gdk-pixbuf"]
+	path = libraries/gdk-pixbuf
+	url = https://github.com/webrogue-runtime/gdk-pixbuf.git

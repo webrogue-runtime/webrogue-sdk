@@ -1,4 +1,4 @@
-all: copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_webroguegfx build_cxxemulatedthrow build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls build_libffi # build_curl build_cairo build_pango build_gtk build_glib build_fontconfig build_expat
+all: copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_webroguegfx build_cxxemulatedthrow build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls # build_libffi build_cairo build_pango build_gtk build_glib build_fontconfig build_expat build_libxml2 build_gdk-pixbuf # build_curl
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 SDK_DIR:=$(shell dirname $(CURRENT_DIR))
 DESTINATION_DIR=$(SDK_DIR)/opt/$(TOOLCHAIN)
@@ -12,10 +12,10 @@ $(DESTINATION_DIR)/include/glad:
 	mkdir -p $(DESTINATION_DIR)/include/glad 
 	cp -r glfw/deps/glad $(DESTINATION_DIR)/include
 
-copy_gles2: $(DESTINATION_DIR)/include/GLES2 
+copy_gles2: $(DESTINATION_DIR)/include/GLES2
 
 $(DESTINATION_DIR)/include/GLES2:
-	mkdir -p $(DESTINATION_DIR)/include/GLES2 
+	mkdir -p $(DESTINATION_DIR)/include/GLES2
 	cp -r GLES2 $(DESTINATION_DIR)/include
 
 copy_gles3: $(DESTINATION_DIR)/include/GLES3
@@ -41,13 +41,12 @@ build_webroguegfx: copy_gles2 copy_gles3 copy_khr build_mesa
 	cmake -S webroguegfx -B $(BUILD_DIR)/webroguegfx $(CMAKE_FLAGS) -DMESA_PATH=$(BUILD_DIR)/mesa 
 	cmake --build $(BUILD_DIR)/webroguegfx --target=webroguegfx --parallel
 	cmake --install $(BUILD_DIR)/webroguegfx --prefix $(DESTINATION_DIR)
-	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
+# 	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
 
 build_cxxemulatedthrow:
 	cd cxxemulatedthrow && cmake -S . -B $(BUILD_DIR)/cxxemulatedthrow $(CMAKE_FLAGS)
 	cmake --build $(BUILD_DIR)/cxxemulatedthrow --target=cxxemulatedthrow --parallel
 	cmake --install $(BUILD_DIR)/cxxemulatedthrow --prefix $(DESTINATION_DIR)
-	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
 
 build_SDL2: build_webroguegfx build_libsamplerate
 	cmake -S SDL2 -B $(BUILD_DIR)/SDL2 $(CMAKE_FLAGS) -DSDL_STATIC=ON -DSDL_SHARED=OFF -DSDL_CMAKE_DEBUG_POSTFIX=
@@ -219,7 +218,7 @@ build_glib: build_libffi build_zlib
 	meson install -C $(BUILD_DIR)/glib
 	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
 
-build_cairo: build_glib build_png build_fontconfig build_harfbuzz build_freetype 
+build_cairo: build_glib build_png build_fontconfig build_harfbuzz build_freetype  build_gdk-pixbuf
 	PKG_CONFIG=/usr/bin/pkg-config \
 	PKG_CONFIG_PATH=$(DESTINATION_DIR)/lib/pkgconfig \
 	PKG_CONFIG_LIBDIR=$(DESTINATION_DIR)/lib \
@@ -254,7 +253,7 @@ build_pango: build_cairo build_glib
 	meson install -C $(BUILD_DIR)/pango
 	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
 
-build_gtk: build_pango build_cairo build_glib build_mesa copy_egl copy_khr
+build_gtk: build_pango build_cairo build_glib build_mesa copy_egl copy_khr build_libxml2 build_gdk-pixbuf
 	PKG_CONFIG=/usr/bin/pkg-config \
 	PKG_CONFIG_PATH=$(DESTINATION_DIR)/lib/pkgconfig \
 	PKG_CONFIG_LIBDIR=$(DESTINATION_DIR)/lib \
@@ -269,10 +268,8 @@ build_gtk: build_pango build_cairo build_glib build_mesa copy_egl copy_khr
 		-Dbuild-tests=false \
 		-Dbuild-testsuite=false \
 		-Dbuild-examples=false \
-		-Dgdk-pixbuf:jpeg=disabled \
-		-Dgdk-pixbuf:png=enabled \
-		-Dgdk-pixbuf:man=false \
-		-Dgdk-pixbuf:gio_sniffing=false \
+		-Dlibjpeg-turbo:tests=disabled \
+		-Dlibrsvg:tests=disabled \
 		--buildtype=$(CONFIG_LOWERCASED) \
 		--cross-file=$(DESTINATION_DIR)/meson_cross.txt
 	meson install -C $(BUILD_DIR)/gtk
@@ -290,6 +287,36 @@ build_fontconfig: build_expat build_freetype
 		--buildtype=$(CONFIG_LOWERCASED) \
 		--cross-file=$(DESTINATION_DIR)/meson_cross.txt
 	meson install -C $(BUILD_DIR)/fontconfig
+	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
+
+build_libxml2:
+	PKG_CONFIG=/usr/bin/pkg-config \
+	PKG_CONFIG_PATH=$(DESTINATION_DIR)/lib/pkgconfig \
+	PKG_CONFIG_LIBDIR=$(DESTINATION_DIR)/lib \
+	meson setup --reconfigure $(BUILD_DIR)/libxml2 libxml2 \
+	 	-Dprefix=$(DESTINATION_DIR) \
+		-Ddefault_library=static \
+		--buildtype=$(CONFIG_LOWERCASED) \
+		--cross-file=$(DESTINATION_DIR)/meson_cross.txt
+	meson install -C $(BUILD_DIR)/libxml2
+	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
+
+build_gdk-pixbuf: build_libxml2
+	PKG_CONFIG=/usr/bin/pkg-config \
+	PKG_CONFIG_PATH=$(DESTINATION_DIR)/lib/pkgconfig \
+	PKG_CONFIG_LIBDIR=$(DESTINATION_DIR)/lib \
+	meson setup --reconfigure $(BUILD_DIR)/gdk-pixbuf gdk-pixbuf \
+	 	-Dprefix=$(DESTINATION_DIR) \
+		-Ddefault_library=static \
+		-Djpeg=disabled \
+		-Dpng=enabled \
+		-Dgif=disabled \
+		-Dman=false \
+		-Dgio_sniffing=false \
+		-Dbuiltin_loaders=all \
+		--buildtype=$(CONFIG_LOWERCASED) \
+		--cross-file=$(DESTINATION_DIR)/meson_cross.txt
+	meson install -C $(BUILD_DIR)/gdk-pixbuf
 	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
 
 build_expat:

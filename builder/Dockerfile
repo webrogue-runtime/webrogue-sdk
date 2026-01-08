@@ -4,6 +4,8 @@ RUN apt-get update && apt-get -y install ca-certificates gpg wget curl build-ess
 
 RUN bash -c 'case "$(uname -p)" in aarch64) echo arm64 ;; *) uname -p ;; esac' > /wasi_arch.txt
 RUN curl -L https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-28/wasi-sdk-28.0-$(cat /wasi_arch.txt)-linux.tar.gz | tar -xz && mv wasi-sdk-28.0-$(cat /wasi_arch.txt)-linux /wasi-sdk
+RUN llvm-ar qLs /wasi-sdk/share/wasi-sysroot/lib/wasm32-wasip1-threads/libc.a /wasi-sdk/share/wasi-sysroot/lib/wasm32-wasip1-threads/libsetjmp.a
+RUN echo '!<arch>' >/wasi-sdk/share/wasi-sysroot/lib/wasm32-wasip1-threads/libsetjmp.a
 
 RUN test -f /usr/share/doc/kitware-archive-keyring/copyright || wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
 RUN echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ noble main' | tee /etc/apt/sources.list.d/kitware.list >/dev/null

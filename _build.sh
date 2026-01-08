@@ -34,11 +34,16 @@ do
 
     for VERSION_TO_MOVE in wasm32-wasip1-threads
     do
-        rm -rf  package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/llvm-lto # TODO add lto
+        rm -rf package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/llvm-lto # TODO add lto
         cp -r opt/wasip1/include/* package/webrogue-sdk-$SDK/share/wasi-sysroot/include/$VERSION_TO_MOVE
         cp -r opt/wasip1/lib/* package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE
+        
         llvm-ar qLs package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libc++abi.a package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libcxxemulatedthrow.a
         rm package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libcxxemulatedthrow.a
+        
+        llvm-ar qLs package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libc.a package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libsetjmp.a
+        echo '!<arch>' >package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libsetjmp.a
+    
         CMAKE_DIR_PATH=package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/cmake/$CMAKE_TARGETS_TO_PATCH
         CMAKE_TARGETS_FILES_TO_PATCH="
             $CMAKE_DIR_PATH/glfw3/glfw3Targets
