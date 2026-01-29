@@ -20,7 +20,7 @@ jobs:
     - name: Submodules
       run: |
         git submodule update --init --single-branch --depth=1
-        git -C libraries/glib update --init --single-branch --depth=1 subprojects/gvdb
+        git -C libraries/glib submodule update --init --single-branch --depth=1 subprojects/gvdb
   
     - name: Build
       run: |
