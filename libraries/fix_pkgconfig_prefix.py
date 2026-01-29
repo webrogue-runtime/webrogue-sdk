@@ -8,10 +8,10 @@ for pc_path in pc_paths:
         original_pc = file.read()
     pc = original_pc
 
-    pc = re.sub(r'prefix=/opt/[A-Za-z0-9]+', 'prefix=${pcfiledir}/../..', pc)
-    pc = re.sub(r'prefix=//opt/[A-Za-z0-9]+', 'prefix=${pcfiledir}/../..', pc)
-    pc = re.sub(r'/opt/[A-Za-z0-9]+/lib', '${pcfiledir}/../../lib', pc)
-    pc = re.sub(r'/opt/[A-Za-z0-9]+/include', '${pcfiledir}/../../include', pc)
+    pc = re.sub(r'prefix=/opt/[A-Za-z0-9\-]+', 'prefix=${pcfiledir}/../..', pc)
+    pc = re.sub(r'prefix=//opt/[A-Za-z0-9\-]+', 'prefix=${pcfiledir}/../..', pc)
+    pc = re.sub(r'/opt/[A-Za-z0-9\-]+/lib', '${pcfiledir}/../../lib', pc)
+    pc = re.sub(r'/opt/[A-Za-z0-9\-]+/include', '${pcfiledir}/../../include', pc)
     pc = pc.replace('prefix=/usr/local', 'prefix=${pcfiledir}/../..')
     pc = pc.replace('/usr/local', '${prefix}')
 
