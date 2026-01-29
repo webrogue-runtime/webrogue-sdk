@@ -35,40 +35,44 @@ do
     for VERSION_TO_MOVE in wasm32-wasip1-threads
     do
         rm -rf package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/llvm-lto # TODO add lto
-        cp -r opt/wasip1/include/* package/webrogue-sdk-$SDK/share/wasi-sysroot/include/$VERSION_TO_MOVE
-        cp -r opt/wasip1/lib/* package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE
-        
-        llvm-ar qLs package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libc++abi.a package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libcxxemulatedthrow.a
-        rm package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libcxxemulatedthrow.a
+
+        mkdir -p package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/include
+        cp -r opt/wasip1/include/* package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/include
+
+        mkdir -p package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/lib
+        cp -r opt/wasip1/lib/* package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/lib
+
+        llvm-ar qLs package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libc++abi.a package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/lib/libcxxemulatedthrow.a
+        rm package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/lib/libcxxemulatedthrow.a
         
         llvm-ar qLs package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libc.a package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libsetjmp.a
         echo '!<arch>' >package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libsetjmp.a
     
-        CMAKE_DIR_PATH=package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/cmake/$CMAKE_TARGETS_TO_PATCH
-        CMAKE_TARGETS_FILES_TO_PATCH="
-            $CMAKE_DIR_PATH/glfw3/glfw3Targets
-            $CMAKE_DIR_PATH/SDL2/SDL2testTargets
-            $CMAKE_DIR_PATH/SDL2/SDL2staticTargets
-            $CMAKE_DIR_PATH/SDL2/SDL2mainTargets
-            $CMAKE_DIR_PATH/SDL3/SDL3staticTargets
-            $CMAKE_DIR_PATH/SDL3/SDL3testTargets
-            $CMAKE_DIR_PATH/SDL2_ttf/SDL2_ttf-static-targets
-            $CMAKE_DIR_PATH/SDL3_ttf/SDL3_ttf-static-targets
-            $CMAKE_DIR_PATH/SampleRate/SampleRateTargets
-        "
+        # CMAKE_DIR_PATH=package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/lib/cmake/$CMAKE_TARGETS_TO_PATCH
+        # CMAKE_TARGETS_FILES_TO_PATCH="
+        #     $CMAKE_DIR_PATH/glfw3/glfw3Targets
+        #     $CMAKE_DIR_PATH/SDL2/SDL2testTargets
+        #     $CMAKE_DIR_PATH/SDL2/SDL2staticTargets
+        #     $CMAKE_DIR_PATH/SDL2/SDL2mainTargets
+        #     $CMAKE_DIR_PATH/SDL3/SDL3staticTargets
+        #     $CMAKE_DIR_PATH/SDL3/SDL3testTargets
+        #     $CMAKE_DIR_PATH/SDL2_ttf/SDL2_ttf-static-targets
+        #     $CMAKE_DIR_PATH/SDL3_ttf/SDL3_ttf-static-targets
+        #     $CMAKE_DIR_PATH/SampleRate/SampleRateTargets
+        # "
 
-        CMAKE_TARGETS_FILES_TO_PATCH="
-            $CMAKE_DIR_PATH/glfw3/glfw3Targets
-            $CMAKE_DIR_PATH/SDL2/SDL2testTargets
-            $CMAKE_DIR_PATH/SDL2/SDL2staticTargets
-            $CMAKE_DIR_PATH/SDL2/SDL2mainTargets
-        "
+        # CMAKE_TARGETS_FILES_TO_PATCH="
+        #     $CMAKE_DIR_PATH/glfw3/glfw3Targets
+        #     $CMAKE_DIR_PATH/SDL2/SDL2testTargets
+        #     $CMAKE_DIR_PATH/SDL2/SDL2staticTargets
+        #     $CMAKE_DIR_PATH/SDL2/SDL2mainTargets
+        # "
 
-        for CMAKE_TARGETS_FILE_TO_PATCH in $CMAKE_TARGETS_FILES_TO_PATCH
-        do
-            sed -i "s/\${_IMPORT_PREFIX}\\/lib\\//\${_IMPORT_PREFIX}\\/$VERSION_TO_MOVE\\//g" $CMAKE_TARGETS_FILE_TO_PATCH-$CONFIG_LOWERCASED.cmake
-            sed -i "s/\${_IMPORT_PREFIX}\\/include/\${_IMPORT_PREFIX}\\/..\\/include\\/$VERSION_TO_MOVE/g" $CMAKE_TARGETS_FILE_TO_PATCH.cmake
-        done
+        # for CMAKE_TARGETS_FILE_TO_PATCH in $CMAKE_TARGETS_FILES_TO_PATCH
+        # do
+        #     sed -i "s/\${_IMPORT_PREFIX}\\/lib\\//\${_IMPORT_PREFIX}\\/$VERSION_TO_MOVE\\//g" $CMAKE_TARGETS_FILE_TO_PATCH-$CONFIG_LOWERCASED.cmake
+        #     sed -i "s/\${_IMPORT_PREFIX}\\/include/\${_IMPORT_PREFIX}\\/..\\/include\\/$VERSION_TO_MOVE/g" $CMAKE_TARGETS_FILE_TO_PATCH.cmake
+        # done
     done
 
     rm package/webrogue-sdk-$SDK/share/cmake/wasi-sdk-p1.cmake

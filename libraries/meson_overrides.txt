@@ -1,0 +1,2 @@
+[binaries]
+gdbus-codegen = '/opt/wasip1/bin/gdbus-codegen'

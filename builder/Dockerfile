@@ -1,6 +1,6 @@
 FROM ubuntu:25.04
 
-RUN apt-get update && apt-get -y install ca-certificates gpg wget curl build-essential lld llvm bzip2 subversion git unzip rsync python3 default-jre python3-mako python3-pip autotools-dev autoconf libtool texinfo pkg-config libglib2.0-bin libglib2.0-dev-bin glslc sassc ninja-build
+RUN apt-get update && apt-get -y install ca-certificates gpg wget curl build-essential lld llvm bzip2 subversion git unzip rsync python3 default-jre python3-mako python3-pip autotools-dev autoconf libtool texinfo pkg-config libglib2.0-bin libglib2.0-dev-bin glslc sassc ninja-build gperf
 
 RUN bash -c 'case "$(uname -p)" in aarch64) echo arm64 ;; *) uname -p ;; esac' > /wasi_arch.txt
 RUN curl -L https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-28/wasi-sdk-28.0-$(cat /wasi_arch.txt)-linux.tar.gz | tar -xz && mv wasi-sdk-28.0-$(cat /wasi_arch.txt)-linux /wasi-sdk
@@ -24,3 +24,4 @@ RUN chmod -R a+rwx /fakehome/.cargo/
 RUN mkdir -p /.cache && chmod 777 /.cache
 # RUN chmod -R a+r /wasi_arch.txt
 ENV PATH="/opt:$PATH"
+RUN rm -rf /usr/bin/gdbus-codegen /usr/share/glib-2.0/codegen

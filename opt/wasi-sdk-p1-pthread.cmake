@@ -5,15 +5,15 @@ set(CMAKE_SYSTEM_VERSION 1)
 set(CMAKE_SYSTEM_PROCESSOR wasm32)
 set(triple wasm32-wasip1-threads)
 set(COMPILE_FLAGS "-pthread -mllvm -wasm-enable-sjlj -mllvm -wasm-use-legacy-eh=false")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COMPILE_FLAGS}")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMPILE_FLAGS}")
+set(CMAKE_C_FLAGS_INIT "${CMAKE_C_FLAGS_INIT} ${COMPILE_FLAGS}")
+set(CMAKE_CXX_FLAGS_INIT "${CMAKE_CXX_FLAGS_INIT} ${COMPILE_FLAGS}")
 # wasi-threads requires --import-memory.
 # wasi requires --export-memory.
 # (--export-memory is implicit unless --import-memory is given)
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--import-memory")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--export-memory")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--max-memory=4294967296")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lsetjmp")
+set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} -Wl,--import-memory")
+set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} -Wl,--export-memory")
+set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} -Wl,--max-memory=4294967296")
+set(CMAKE_EXE_LINKER_FLAGS_INIT "${CMAKE_EXE_LINKER_FLAGS_INIT} -L${WASI_SDK_PREFIX}/share/webrogue-sysroot/${triple}/lib")
 
 if(WIN32)
 	set(WASI_HOST_EXE_SUFFIX ".exe")
@@ -27,15 +27,23 @@ if(NOT WASI_SDK_PREFIX)
 endif()
 
 # Just for clangd
-set(CMAKE_C_STANDARD_INCLUDE_DIRECTORIES "${WASI_SDK_PREFIX}/share/wasi-sysroot/include/${triple}")
-set(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES "${WASI_SDK_PREFIX}/share/wasi-sysroot/include/${triple}/c++/v1" "${WASI_SDK_PREFIX}/share/wasi-sysroot/include/${triple}")
+set(
+	CMAKE_C_STANDARD_INCLUDE_DIRECTORIES
+	"${WASI_SDK_PREFIX}/share/wasi-sysroot/include/${triple}"
+	"${WASI_SDK_PREFIX}/share/webrogue-sysroot/${triple}/include"
+)
+set(
+	CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES
+	"${WASI_SDK_PREFIX}/share/wasi-sysroot/include/${triple}/c++/v1"
+	"${WASI_SDK_PREFIX}/share/webrogue-sysroot/${triple}/include"
+)
 
 set(CMAKE_C_COMPILER "${WASI_SDK_PREFIX}/bin/clang${WASI_HOST_EXE_SUFFIX}")
 set(CMAKE_CXX_COMPILER "${WASI_SDK_PREFIX}/bin/clang++${WASI_HOST_EXE_SUFFIX}")
 set(CMAKE_ASM_COMPILER "${WASI_SDK_PREFIX}/bin/clang${WASI_HOST_EXE_SUFFIX}")
 set(CMAKE_AR "${WASI_SDK_PREFIX}/bin/llvm-ar${WASI_HOST_EXE_SUFFIX}")
 set(CMAKE_RANLIB "${WASI_SDK_PREFIX}/bin/llvm-ranlib${WASI_HOST_EXE_SUFFIX}")
-list(APPEND CMAKE_PREFIX_PATH "${WASI_SDK_PREFIX}/share/wasi-sysroot/lib/${triple}/cmake")
+list(APPEND CMAKE_PREFIX_PATH "${WASI_SDK_PREFIX}/share/webrogue-sysroot/${triple}/lib/cmake")
 set(CMAKE_C_COMPILER_TARGET ${triple})
 set(CMAKE_CXX_COMPILER_TARGET ${triple})
 set(CMAKE_ASM_COMPILER_TARGET ${triple})
@@ -47,5 +55,13 @@ set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 
-set(CMAKE_INCLUDE_PATH "${WASI_SDK_PREFIX}/share/wasi-sysroot/include/${triple}")
-set(CMAKE_LIBRARY_PATH "${WASI_SDK_PREFIX}/share/wasi-sysroot/lib/${triple}")
+set(
+	CMAKE_INCLUDE_PATH
+	"${WASI_SDK_PREFIX}/share/wasi-sysroot/include/${triple}"
+	"${WASI_SDK_PREFIX}/share/webrogue-sysroot/${triple}/include"
+)
+set(
+	CMAKE_LIBRARY_PATH
+	"${WASI_SDK_PREFIX}/share/wasi-sysroot/lib/${triple}"
+	"${WASI_SDK_PREFIX}/share/webrogue-sysroot/${triple}/lib"
+)

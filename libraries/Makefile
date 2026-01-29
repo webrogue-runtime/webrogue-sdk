@@ -1,11 +1,20 @@
-all: copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_webroguegfx build_cxxemulatedthrow build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls # build_libffi build_cairo build_pango build_gtk build_glib build_fontconfig build_expat build_libxml2 build_gdk-pixbuf # build_curl
+all: build_volk_in_loaders_cloth copy_pkgconfig copy_gl copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_webroguegfx build_cxxemulatedthrow build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls build_libffi build_cairo build_pango build_gtk build_glib build_fontconfig build_expat build_libxml2 build_gdk-pixbuf # build_curl
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 SDK_DIR:=$(shell dirname $(CURRENT_DIR))
 DESTINATION_DIR=$(SDK_DIR)/opt/$(TOOLCHAIN)
 BUILD_DIR=$(CURRENT_DIR)/build/wasip1/$(CONFIG)
 CMAKE_FLAGS=--toolchain=$(DESTINATION_DIR)/toolchain.cmake -DWASI_SDK_PREFIX=/wasi-sdk -DCMAKE_BUILD_TYPE=$(CONFIG) -Wno-dev
 
+copy_pkgconfig:
+	mkdir -p $(DESTINATION_DIR)/lib/pkgconfig
+	cp -r pkgconfig/*.pc $(DESTINATION_DIR)/lib/pkgconfig
+
 # copy headers
+copy_gl: $(DESTINATION_DIR)/include/GL
+
+$(DESTINATION_DIR)/include/GL:
+	cp -r GL $(DESTINATION_DIR)/include
+
 copy_glad: $(DESTINATION_DIR)/include/glad
 
 $(DESTINATION_DIR)/include/glad:
@@ -82,9 +91,9 @@ build_glfw: build_webroguegfx
 	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
 
 build_jpeg: 
-	cd jpeg && cmake -S . -B $(BUILD_DIR)/jpeg $(CMAKE_FLAGS)
-	cmake --build $(BUILD_DIR)/jpeg --target=jpeg --parallel
-	cmake --install $(BUILD_DIR)/jpeg --prefix $(DESTINATION_DIR)
+	cd libjpeg-turbo && cmake -S . -B $(BUILD_DIR)/libjpeg-turbo $(CMAKE_FLAGS) -DENABLE_SHARED=NO -DWITH_TOOLS=NO
+	cmake --build $(BUILD_DIR)/libjpeg-turbo --parallel
+	cmake --install $(BUILD_DIR)/libjpeg-turbo --prefix $(DESTINATION_DIR)
 	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
 
 build_png: build_zlib
@@ -103,6 +112,7 @@ build_zlib:
 	cp $(DESTINATION_DIR)/lib/libzlibstatic.a $(DESTINATION_DIR)/lib/libzlib.a
 	cp $(DESTINATION_DIR)/lib/libzlibstatic.a $(DESTINATION_DIR)/lib/libz.a
 	cp $(BUILD_DIR)/zlib/zlib.pc $(DESTINATION_DIR)/lib/pkgconfig/libz.pc
+	cp $(BUILD_DIR)/zlib/zlib.pc $(DESTINATION_DIR)/lib/pkgconfig/zlib.pc
 	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
 
 build_libsamplerate: 
@@ -139,6 +149,7 @@ build_harfbuzz: build_freetype build_glib
 		-Dutilities=disabled \
 		-Dgobject=disabled \
 		-Dtests=disabled \
+		-Dcairo=disabled \
 		--buildtype=$(CONFIG_LOWERCASED) \
 		--cross-file=$(DESTINATION_DIR)/meson_cross.txt
 	meson install -C $(BUILD_DIR)/harfbuzz
@@ -209,6 +220,8 @@ build_glib: build_libffi build_zlib
 	PKG_CONFIG_LIBDIR=$(DESTINATION_DIR)/lib \
 	meson setup --reconfigure $(BUILD_DIR)/glib glib \
 	 	-Dprefix=$(DESTINATION_DIR) \
+		--wrap-mode=nofallback \
+		--force-fallback-for=libpcre2-8,intl \
 		-Dxattr=false \
 		-Ddefault_library=static \
 		-Dproxy-libintl:default_library=static \
@@ -224,6 +237,8 @@ build_cairo: build_glib build_png build_fontconfig build_harfbuzz build_freetype
 	PKG_CONFIG_LIBDIR=$(DESTINATION_DIR)/lib \
 	meson setup --reconfigure $(BUILD_DIR)/cairo cairo \
 	 	-Dprefix=$(DESTINATION_DIR) \
+		--wrap-mode=nofallback \
+		--force-fallback-for=pixman \
 		-Ddefault_library=static \
 		-Dtests=disabled \
 		-Dfontconfig=enabled \
@@ -242,6 +257,8 @@ build_pango: build_cairo build_glib
 	PKG_CONFIG_LIBDIR=$(DESTINATION_DIR)/lib \
 	meson setup --reconfigure $(BUILD_DIR)/pango pango \
 	 	-Dprefix=$(DESTINATION_DIR) \
+		--wrap-mode=nofallback \
+		--force-fallback-for=fribidi \
 		-Ddefault_library=static \
 		-Dbuild-utils=false \
 		-Dbuild-testsuite=false \
@@ -253,13 +270,16 @@ build_pango: build_cairo build_glib
 	meson install -C $(BUILD_DIR)/pango
 	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
 
-build_gtk: build_pango build_cairo build_glib build_mesa copy_egl copy_khr build_libxml2 build_gdk-pixbuf
+build_gtk: build_pango build_cairo build_glib build_mesa copy_egl copy_khr build_libxml2 build_gdk-pixbuf build_volk_in_loaders_cloth build_webroguegfx
 	PKG_CONFIG=/usr/bin/pkg-config \
 	PKG_CONFIG_PATH=$(DESTINATION_DIR)/lib/pkgconfig \
 	PKG_CONFIG_LIBDIR=$(DESTINATION_DIR)/lib \
 	meson setup --reconfigure $(BUILD_DIR)/gtk gtk \
 	 	-Dprefix=$(DESTINATION_DIR) \
+		--wrap-mode=nofallback \
+		--force-fallback-for=libepoxy,libjpeg-turbo,librsvg-2.0,libcroco-0.6,libtiff-4,graphene-gobject-1.0 \
 		-Dwebrogue-backend=true \
+		-Dvulkan=enabled \
 		-Dlibepoxy:glx=no \
 		-Dlibepoxy:x11=false \
 		-Dmedia-gstreamer=disabled \
@@ -271,7 +291,8 @@ build_gtk: build_pango build_cairo build_glib build_mesa copy_egl copy_khr build
 		-Dlibjpeg-turbo:tests=disabled \
 		-Dlibrsvg:tests=disabled \
 		--buildtype=$(CONFIG_LOWERCASED) \
-		--cross-file=$(DESTINATION_DIR)/meson_cross.txt
+		--cross-file=$(DESTINATION_DIR)/meson_cross.txt \
+		--cross-file=meson_overrides.txt
 	meson install -C $(BUILD_DIR)/gtk
 	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
 
@@ -281,6 +302,7 @@ build_fontconfig: build_expat build_freetype
 	PKG_CONFIG_LIBDIR=$(DESTINATION_DIR)/lib \
 	meson setup --reconfigure $(BUILD_DIR)/fontconfig fontconfig \
 	 	-Dprefix=$(DESTINATION_DIR) \
+		--wrap-mode=nofallback \
 		-Ddefault_library=static \
 		-Dtests=disabled \
 		-Dtools=disabled \
@@ -295,22 +317,24 @@ build_libxml2:
 	PKG_CONFIG_LIBDIR=$(DESTINATION_DIR)/lib \
 	meson setup --reconfigure $(BUILD_DIR)/libxml2 libxml2 \
 	 	-Dprefix=$(DESTINATION_DIR) \
+		--wrap-mode=nofallback \
 		-Ddefault_library=static \
 		--buildtype=$(CONFIG_LOWERCASED) \
 		--cross-file=$(DESTINATION_DIR)/meson_cross.txt
 	meson install -C $(BUILD_DIR)/libxml2
 	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
 
-build_gdk-pixbuf: build_libxml2
+build_gdk-pixbuf: build_libxml2 build_jpeg
 	PKG_CONFIG=/usr/bin/pkg-config \
 	PKG_CONFIG_PATH=$(DESTINATION_DIR)/lib/pkgconfig \
 	PKG_CONFIG_LIBDIR=$(DESTINATION_DIR)/lib \
 	meson setup --reconfigure $(BUILD_DIR)/gdk-pixbuf gdk-pixbuf \
 	 	-Dprefix=$(DESTINATION_DIR) \
 		-Ddefault_library=static \
-		-Djpeg=disabled \
+		-Djpeg=enabled \
 		-Dpng=enabled \
 		-Dgif=disabled \
+		-Dtiff=disabled \
 		-Dman=false \
 		-Dgio_sniffing=false \
 		-Dbuiltin_loaders=all \
@@ -324,6 +348,11 @@ build_expat:
 	cmake --build $(BUILD_DIR)/expat --parallel
 	cmake --install $(BUILD_DIR)/expat --prefix $(DESTINATION_DIR)
 	python3 fix_pkgconfig_prefix.py $(DESTINATION_DIR)/lib/pkgconfig/*.pc
+
+build_volk_in_loaders_cloth: build_vulkan_headers
+	cd volk-in-loaders-cloth && cmake -S . -B $(BUILD_DIR)/volk-in-loaders-cloth $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DESTINATION_DIR) -DBUILD_SHARED_LIBS=OFF -DVOLK_IN_LOADERS_CLOTH=ON -DVOLK_INSTALL=ON -DVILC_DEFINES="-DVK_USE_PLATFORM_WEBROGUE"
+	cmake --build $(BUILD_DIR)/volk-in-loaders-cloth --target=vulkan --parallel
+	cmake --install $(BUILD_DIR)/volk-in-loaders-cloth --prefix $(DESTINATION_DIR)
 
 clean_mbedtls:
 	rm -rf mbedtls

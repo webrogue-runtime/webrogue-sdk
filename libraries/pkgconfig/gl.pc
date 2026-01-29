@@ -1,0 +1,9 @@
+prefix=${pcfiledir}/../..
+includedir=${prefix}/include
+libdir=${exec_prefix}/lib
+
+Name: GL
+Description: Some sort of OpenGL library and headers, idk.
+Version: 1.2
+Libs: -L${libdir} -lEGL
+Cflags: -I${includedir}

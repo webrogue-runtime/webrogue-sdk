@@ -79,3 +79,9 @@
 [submodule "libraries/gdk-pixbuf"]
 	path = libraries/gdk-pixbuf
 	url = https://github.com/webrogue-runtime/gdk-pixbuf.git
+[submodule "libraries/volk-in-loaders-cloth"]
+	path = libraries/volk-in-loaders-cloth
+	url = https://github.com/webrogue-runtime/volk-in-loaders-cloth.git
+[submodule "libraries/libjpeg-turbo"]
+	path = libraries/libjpeg-turbo
+	url = https://github.com/libjpeg-turbo/libjpeg-turbo.git

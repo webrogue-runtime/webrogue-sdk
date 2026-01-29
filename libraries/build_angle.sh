@@ -65,6 +65,7 @@ GN_ARGS="--args=\
     use_custom_libcxx=false \
     angle_enable_abseil=false \
     angle_has_frame_capture=false \
+    angle_shared_libvulkan=false \
     angle_enable_vulkan_validation_layers=false \
     angle_vulkan_headers_dir=\"$VULKAN_HEADERS_DIR\"
 "
@@ -108,5 +109,4 @@ rm -f $OUT_DIR/libEGL.a
     $OUT_DIR/obj/src/libANGLE/renderer/vulkan/**/*.o \
     $OUT_DIR/obj/third_party/vulkan_memory_allocator/vulkan_memory_allocator/*.o \
     $OUT_DIR/obj/third_party/astc-encoder/astcenc/*.o \
-    $OUT_DIR/obj/src/third_party/volk/volk/*.o \
     $EXTRA_OBJECTS \
