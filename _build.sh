@@ -1,8 +1,8 @@
 set -ex
 
 SDK_ROOT="$(pwd)"
-CONFIG=Debug
-# CONFIG=Release
+# CONFIG=Debug
+CONFIG=Release
 CONFIG_LOWERCASED=$(echo "$CONFIG" | tr '[:upper:]' '[:lower:]')
 make -C libraries TOOLCHAIN=wasip1 CONFIG=$CONFIG CONFIG_LOWERCASED=$CONFIG_LOWERCASED #1>/dev/null
 
