@@ -11,20 +11,27 @@ if len(sys.argv) != 3:
 cached_dist = sys.argv[1]
 dist = sys.argv[2]
 
-if dist == cached_dist:
-    quit()
-
 def patch_pc(pc_path):
     with open(pc_path, "r") as file:
         original_pc = file.read()
     pc = original_pc
 
     pc = re.sub(r'prefix=/opt/[A-Za-z0-9\-]+/cached', 'prefix=${pcfiledir}/../..', pc)
+    pc = re.sub(r'prefix=//opt/[A-Za-z0-9\-]+', 'prefix=${pcfiledir}/../..', pc)
+
     pc = re.sub(r'prefix=//opt/[A-Za-z0-9\-]+/cached', 'prefix=${pcfiledir}/../..', pc)
+    pc = re.sub(r'prefix=/opt/[A-Za-z0-9\-]+', 'prefix=${pcfiledir}/../..', pc)
+
     pc = re.sub(r'/opt/[A-Za-z0-9\-]+/cached/lib', '${pcfiledir}/../../lib', pc)
+    pc = re.sub(r'/opt/[A-Za-z0-9\-]+/lib', '${pcfiledir}/../../lib', pc)
+
     pc = re.sub(r'/opt/[A-Za-z0-9\-]+/cached/include', '${pcfiledir}/../../include', pc)
+    pc = re.sub(r'/opt/[A-Za-z0-9\-]+/include', '${pcfiledir}/../../include', pc)
+
     pc = pc.replace('prefix=/usr/local', 'prefix=${pcfiledir}/../..')
+
     pc = pc.replace('/usr/local', '${prefix}')
+
     pc = pc.replace('/opt/libjpeg-turbo', '${pcfiledir}/../..')
     
 
@@ -32,7 +39,13 @@ def patch_pc(pc_path):
         with open(pc_path, "w") as file:
             pc = file.write(pc)
 
-if not os.path.exists(cached_dist):
+for root, dirs, files in os.walk(cached_dist):
+    for file in files:
+        src_file = os.path.join(root, file)
+        if str(src_file)[-3:] == ".pc":
+            patch_pc(src_file)
+
+if dist == cached_dist or not os.path.exists(cached_dist):
     quit()
 
 for root, dirs, files in os.walk(cached_dist):
@@ -47,8 +60,6 @@ for root, dirs, files in os.walk(cached_dist):
     
     for file in files:
         src_file = os.path.join(root, file)
-        if str(src_file)[-3:] == ".pc":
-            patch_pc(src_file)
         dst_file = os.path.join(target_dir, file)
         
         if not os.path.exists(dst_file) or not filecmp.cmp(src_file, dst_file, shallow=False):
