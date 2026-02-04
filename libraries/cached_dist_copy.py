@@ -11,6 +11,9 @@ if len(sys.argv) != 3:
 cached_dist = sys.argv[1]
 dist = sys.argv[2]
 
+if dist == cached_dist:
+    quit()
+
 def patch_pc(pc_path):
     with open(pc_path, "r") as file:
         original_pc = file.read()

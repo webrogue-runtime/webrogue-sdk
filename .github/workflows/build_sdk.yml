@@ -24,7 +24,7 @@ jobs:
   
     - name: Build
       run: |
-        sh build.sh
+        WEBROGUE_SDK_UNCACHED=1 sh build.sh
 
     - name: Archive SDK
       run: |

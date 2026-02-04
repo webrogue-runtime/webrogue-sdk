@@ -1,10 +1,21 @@
 set -ex
 
+if [ "${WEBROGUE_SDK_DEBUG:-0}" = "1" ]; then
+    CONFIG=Debug
+else
+    CONFIG=Release
+fi
+
 SDK_ROOT="$(pwd)"
-# CONFIG=Debug
-CONFIG=Release
 CONFIG_LOWERCASED=$(echo "$CONFIG" | tr '[:upper:]' '[:lower:]')
-make -C libraries TOOLCHAIN=wasip1 CONFIG=$CONFIG CONFIG_LOWERCASED=$CONFIG_LOWERCASED #1>/dev/null
+
+if [ "${WEBROGUE_SDK_UNCACHED:-0}" = "1" ]; then
+    DEST_DIR_APPEND=
+else
+    DEST_DIR_APPEND=/cached
+fi
+
+make -C libraries TOOLCHAIN=wasip1 CONFIG=$CONFIG CONFIG_LOWERCASED=$CONFIG_LOWERCASED DEST_DIR_APPEND=$DEST_DIR_APPEND #1>/dev/null
 
 # these version strings must be kept in sync with builder/Dockerfile
 SDK_VERSION=28.0
