@@ -12,7 +12,7 @@ In addition to `libc` and `libc++` from WASI SDK, Webrogue SDK bundles a number 
 
 ### WebrogueGFX
 
-A Webrogue-specific library. It provides a relatively simple API access underlying graphics and windowing systems, and to receive UI events like clicks, keystrokes and touch events. WebrogueGFX is used by other high-level libraries like GLFW and GTK in realm of Webrogue.
+A Webrogue-specific library. It provides a relatively simple API to access underlying graphics and windowing systems, and to receive UI events like clicks, keystrokes and touch events. WebrogueGFX is used by other high-level libraries like GLFW and GTK in realm of Webrogue.
 
 ### Vulkan
 
