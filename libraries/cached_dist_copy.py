@@ -16,22 +16,14 @@ def patch_pc(pc_path):
         original_pc = file.read()
     pc = original_pc
 
-    pc = re.sub(r'prefix=/opt/[A-Za-z0-9\-]+/cached', 'prefix=${pcfiledir}/../..', pc)
-    pc = re.sub(r'prefix=//opt/[A-Za-z0-9\-]+', 'prefix=${pcfiledir}/../..', pc)
-
-    pc = re.sub(r'prefix=//opt/[A-Za-z0-9\-]+/cached', 'prefix=${pcfiledir}/../..', pc)
-    pc = re.sub(r'prefix=/opt/[A-Za-z0-9\-]+', 'prefix=${pcfiledir}/../..', pc)
-
-    pc = re.sub(r'/opt/[A-Za-z0-9\-]+/cached/lib', '${pcfiledir}/../../lib', pc)
-    pc = re.sub(r'/opt/[A-Za-z0-9\-]+/lib', '${pcfiledir}/../../lib', pc)
-
-    pc = re.sub(r'/opt/[A-Za-z0-9\-]+/cached/include', '${pcfiledir}/../../include', pc)
-    pc = re.sub(r'/opt/[A-Za-z0-9\-]+/include', '${pcfiledir}/../../include', pc)
+    for dist_pattern in [r'[A-Za-z0-9\-]+/cached', r'[A-Za-z0-9\-]+']:
+        pc = re.sub(fr'prefix=/opt/{dist_pattern}', 'prefix=${pcfiledir}/../..', pc)
+        pc = re.sub(fr'prefix=//opt/{dist_pattern}', 'prefix=${pcfiledir}/../..', pc)
+        pc = re.sub(fr'/opt/{dist_pattern}/lib', '${pcfiledir}/../../lib', pc)
+        pc = re.sub(fr'/opt/{dist_pattern}/include', '${pcfiledir}/../../include', pc)
 
     pc = pc.replace('prefix=/usr/local', 'prefix=${pcfiledir}/../..')
-
     pc = pc.replace('/usr/local', '${prefix}')
-
     pc = pc.replace('/opt/libjpeg-turbo', '${pcfiledir}/../..')
     
 

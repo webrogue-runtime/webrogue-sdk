@@ -9,13 +9,10 @@ extern "C" {
 #endif
 
 typedef struct wr_window_s wr_window_s;
-typedef wr_window_s* wr_window;
+typedef wr_window_s *wr_window;
 
-void webroguegfx_make_window(wr_window *out_window);
-void webroguegfx_window_size(wr_window window, int *width, int *height);
-void webroguegfx_gl_size(wr_window window, int *width, int *height);
-uint64_t webroguegfx_vulkan_make_surface(wr_window window, uint64_t vk_instance);
-
+// clang-format off
+// BEGIN GENERATED CODE
 // Events
 typedef enum webrogue_mouse_button {
     WEBROGUE_MOUSE_BUTTON_UNKNOWN = 0,
@@ -40,8 +37,6 @@ typedef enum webrogue_named_key {
     WEBROGUE_NAMED_KEY_SHIFT = 10,
     WEBROGUE_NAMED_KEY_SYMBOL = 11,
     WEBROGUE_NAMED_KEY_SYMBOL_LOCK = 12,
-    WEBROGUE_NAMED_KEY_HYPER = 13,
-    WEBROGUE_NAMED_KEY_SUPER = 14,
     WEBROGUE_NAMED_KEY_ENTER = 15,
     WEBROGUE_NAMED_KEY_TAB = 16,
     WEBROGUE_NAMED_KEY_ARROW_DOWN = 17,
@@ -482,9 +477,6 @@ typedef enum webrogue_physical_key {
     WEBROGUE_PHYSICAL_KEY_AUDIO_VOLUME_MUTE = 140,
     WEBROGUE_PHYSICAL_KEY_AUDIO_VOLUME_UP = 141,
     WEBROGUE_PHYSICAL_KEY_WAKE_UP = 142,
-    WEBROGUE_PHYSICAL_KEY_HYPER = 143,
-    WEBROGUE_PHYSICAL_KEY_SUPER = 144,
-    WEBROGUE_PHYSICAL_KEY_TURBO = 145,
     WEBROGUE_PHYSICAL_KEY_ABORT = 146,
     WEBROGUE_PHYSICAL_KEY_RESUME = 147,
     WEBROGUE_PHYSICAL_KEY_SUSPEND = 148,
@@ -599,8 +591,24 @@ typedef struct webrogue_event {
         struct webrogue_event_key key;
     } inner;
 } webrogue_event;
+// END GENERATED CODE
+// clang-format on
 
+// General
+
+void webroguegfx_make_window(wr_window *out_window);
+void webroguegfx_window_size(wr_window window, int *width, int *height);
+void webroguegfx_gl_size(wr_window window, int *width, int *height);
 webrogue_event webroguegfx_poll();
+
+// Vulkan
+
+uint64_t webroguegfx_vulkan_make_surface(wr_window window,
+                                         uint64_t vk_instance);
+
+// CPU rendering
+
+void webroguegfx_present_pixels(wr_window window, uint8_t *buf, uint32_t len);
 
 #ifdef __cplusplus
 }

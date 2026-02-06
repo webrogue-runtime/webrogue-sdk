@@ -6,8 +6,8 @@ add_library(
     webroguegfx
     STATIC
     webroguegfx.c
-    webroguegfx_events.c
     webroguegfx_vulkan.c
+    webroguegfx_cpu_rendering.c
 )
 
 set_target_properties(
