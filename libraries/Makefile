@@ -161,7 +161,6 @@ build_harfbuzz: build_freetype build_glib
 		-Dgobject=disabled \
 		-Dtests=disabled \
 		-Dcairo=disabled \
-		
 		$(MESA_FLAG)
 	meson install -C $(BUILD_DIR)/harfbuzz
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
@@ -197,7 +196,6 @@ build_libffi:
 build_mesa: build_vulkan_headers
 	meson setup --reconfigure $(BUILD_DIR)/mesa mesa \
 	 	-Dprefix=$(DEST_DIR) \
-		
 		-Dgallium-drivers= \
 		-Dvulkan-drivers=gfxstream \
 		-Dplatforms=webrogue \
@@ -238,7 +236,6 @@ build_glib: build_libffi build_zlib
 		-Dxattr=false \
 		-Dproxy-libintl:default_library=static \
 		-Dtests=false \
-		
 		$(MESA_FLAG)
 	meson install -C $(BUILD_DIR)/glib
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
@@ -256,7 +253,6 @@ build_cairo: build_glib build_png build_fontconfig build_harfbuzz build_freetype
 		-Dglib=enabled \
 		-Dpixman:tests=disabled \
  		-Dpixman:demos=disabled \
-		
 		$(MESA_FLAG)
 
 	meson install -C $(BUILD_DIR)/cairo
@@ -274,7 +270,6 @@ build_pango: build_cairo build_glib
 		-Dbuild-testsuite=false \
 		-Dfribidi:bin=false \
 		-Dfribidi:tests=false \
-		
 		$(MESA_FLAG)
 
 	meson install -C $(BUILD_DIR)/pango
@@ -299,7 +294,6 @@ build_gtk: build_pango build_cairo build_glib build_mesa copy_egl copy_khr build
 		-Dbuild-examples=false \
 		-Dlibjpeg-turbo:tests=disabled \
 		-Dlibrsvg:tests=disabled \
-		
 		--cross-file=meson_overrides.txt \
 		$(MESA_FLAG)
 	meson install -C $(BUILD_DIR)/gtk
@@ -314,7 +308,6 @@ build_fontconfig: build_expat build_freetype
 		--wrap-mode=nofallback \
 		-Dtests=disabled \
 		-Dtools=disabled \
-		
 		$(MESA_FLAG)
 	meson install -C $(BUILD_DIR)/fontconfig
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
@@ -326,7 +319,6 @@ build_libxml2:
 	meson setup --reconfigure $(BUILD_DIR)/libxml2 libxml2 \
 	 	-Dprefix=$(DEST_DIR) \
 		--wrap-mode=nofallback \
-		
 		$(MESA_FLAG)
 	meson install -C $(BUILD_DIR)/libxml2
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
@@ -344,7 +336,6 @@ build_gdk-pixbuf: build_libxml2 build_jpeg
 		-Dman=false \
 		-Dgio_sniffing=false \
 		-Dbuiltin_loaders=all \
-		
 		$(MESA_FLAG)
 	meson install -C $(BUILD_DIR)/gdk-pixbuf
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
