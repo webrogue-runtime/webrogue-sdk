@@ -14,6 +14,15 @@ void webroguegfx_make_window(wr_window *out_window) {
   imported_webrogue_gfx_make_window(&window->handle);
 }
 
+__attribute__((import_name("destroy_window")))
+__attribute__((import_module("webrogue_gfx"))) void
+imported_webrogue_gfx_destroy_window(wr_window_handle window);
+
+void webroguegfx_destroy_window(wr_window window) {
+  imported_webrogue_gfx_destroy_window(window->handle);
+  free(window);
+}
+
 __attribute__((import_name("get_window_size")))
 __attribute__((import_module("webrogue_gfx"))) void
 imported_webrogue_gfx_get_window_size(wr_window_handle window,

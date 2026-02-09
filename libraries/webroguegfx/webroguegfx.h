@@ -597,6 +597,7 @@ typedef struct webrogue_event {
 // General
 
 void webroguegfx_make_window(wr_window *out_window);
+void webroguegfx_destroy_window(wr_window window);
 void webroguegfx_window_size(wr_window window, int *width, int *height);
 void webroguegfx_gl_size(wr_window window, int *width, int *height);
 webrogue_event webroguegfx_poll();

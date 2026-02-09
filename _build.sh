@@ -15,7 +15,7 @@ else
     DEST_DIR_APPEND=/cached
 fi
 
-make -C libraries TOOLCHAIN=wasip1 CONFIG=$CONFIG CONFIG_LOWERCASED=$CONFIG_LOWERCASED DEST_DIR_APPEND=$DEST_DIR_APPEND #1>/dev/null
+make -C libraries TOOLCHAIN=wasip1 CONFIG=$CONFIG CONFIG_LOWERCASED=$CONFIG_LOWERCASED DEST_DIR_APPEND=$DEST_DIR_APPEND
 
 # these version strings must be kept in sync with builder/Dockerfile
 SDK_VERSION=30.0
