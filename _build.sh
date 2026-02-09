@@ -18,8 +18,8 @@ fi
 make -C libraries TOOLCHAIN=wasip1 CONFIG=$CONFIG CONFIG_LOWERCASED=$CONFIG_LOWERCASED DEST_DIR_APPEND=$DEST_DIR_APPEND #1>/dev/null
 
 # these version strings must be kept in sync with builder/Dockerfile
-SDK_VERSION=28.0
-SDK_MAJOR_VERSION=28
+SDK_VERSION=30.0
+SDK_MAJOR_VERSION=30
 
 for SDK in x86_64-linux arm64-linux x86_64-windows x86_64-macos arm64-macos
 do
