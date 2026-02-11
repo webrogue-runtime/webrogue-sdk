@@ -1,0 +1,29 @@
+{
+    "name": "sdl_dev",
+    "id": "webrogue.examples.SDLDev",
+    "version": "0.1.0",
+    "main": "build/sdl_dev",
+    "filesystem": {
+        "resources": [
+            {
+                "mapped_path": "/app/FreeSans.otf",
+                "real_path": "FreeSans.otf"
+            }
+        ]
+    },
+    "icons": {
+        "normal": {
+            "path": "icon.png",
+            "inset": 0.22,
+            "background": {
+                "red": 1,
+                "green": 1,
+                "blue": 1
+            }
+        }
+    },
+    "graphics_api": {
+        "vulkan": "required",
+        "cpu_rendering": "disabled"
+    }
+}

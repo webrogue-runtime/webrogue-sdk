@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "webrogue",
+            "request": "launch",
+            "name": "Debug Webrogue Application",
+            "program": "${workspaceRoot}/webrogue.json"
+        }
+    ]
+}

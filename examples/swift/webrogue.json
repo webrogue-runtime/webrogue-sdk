@@ -1,0 +1,10 @@
+{
+    "name": "simple",
+    "id": "io.github.webrogue_runtime.examples.simple",
+    "version": "0.1.0",
+    "main": ".build/debug/main.wasm",
+    "graphics_api": {
+        "vulkan": "required",
+        "cpu_rendering": "disabled"
+    }
+}

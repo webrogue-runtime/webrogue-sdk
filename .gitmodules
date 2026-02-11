@@ -85,3 +85,9 @@
 [submodule "libraries/libjpeg-turbo"]
 	path = libraries/libjpeg-turbo
 	url = https://github.com/libjpeg-turbo/libjpeg-turbo.git
+[submodule "examples/raylib/raylib"]
+	path = examples/raylib/raylib
+	url = https://github.com/webrogue-runtime/raylib.git
+[submodule "examples/stk/stk-code"]
+	path = examples/stk/stk-code
+	url = https://github.com/webrogue-runtime/stk-code.git

@@ -1,0 +1,21 @@
+{
+    "name": "glfw glxgears gles",
+    "id": "io.github.webrogue_runtime.GLFWGLXGearsGLES",
+    "version": "0.1.0",
+    "main": "main.wasm",
+    "icons": {
+        "normal": {
+            "path": "icon.png",
+            "inset": 0.28,
+            "background": {
+                "red": 0,
+                "green": 0,
+                "blue": 0
+            }
+        }
+    },
+    "graphics_api": {
+        "vulkan": "required",
+        "cpu_rendering": "disabled"
+    }
+}

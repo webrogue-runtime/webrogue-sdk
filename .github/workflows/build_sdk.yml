@@ -26,6 +26,11 @@ jobs:
       run: |
         WEBROGUE_SDK_UNCACHED=1 sh build.sh
 
+    - name: Build examples
+      run: |
+        sh webrogue-sdk/examples/make_image.sh
+        sh webrogue-sdk/examples/build.sh
+
     - name: Archive SDK
       run: |
         tar czf webrogue-sdk-x86_64-linux.tar.gz -C package/ webrogue-sdk-x86_64-linux/

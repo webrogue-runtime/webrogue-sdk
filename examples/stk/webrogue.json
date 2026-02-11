@@ -1,0 +1,40 @@
+{
+    "name": "stk",
+    "id": "org.supertuxkart.stk",
+    "version": "1.0.1",
+    "main": "stk-code/build/bin/supertuxkart",
+    "icons": {
+        "normal": {
+            "path": "stk-code/data/supertuxkart_1024.png",
+            "inset": 0.28,
+            "background": {
+                "red": 1,
+                "green": 1,
+                "blue": 1
+            }
+        }
+    },
+    "filesystem": {
+        "resources": [
+            {
+                "real_path": "stk-code/data",
+                "mapped_path": "/app/data"
+            }
+        ],
+        "persistent": [
+            {
+                "mapped_path": "/persistent",
+                "name": "persistent"
+            }
+        ]
+    },
+    "env": {
+        "SUPERTUXKART_HIGHSCOREDIR": "/persistent",
+        "SUPERTUXKART_DATADIR": "/app",
+        "HOME": "/persistent"
+    },
+    "graphics_api": {
+        "vulkan": "required",
+        "cpu_rendering": "disabled"
+    }
+}

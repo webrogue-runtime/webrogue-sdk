@@ -1,0 +1,21 @@
+{
+    "name": "CPU rendering example",
+    "id": "io.github.webrogue_runtime.CPURenderingExample",
+    "version": "0.1.0",
+    "main": "build/main",
+    "icons": {
+        "normal": {
+            "path": "icon.png",
+            "inset": 0.28,
+            "background": {
+                "red": 1,
+                "green": 1,
+                "blue": 1
+            }
+        }
+    },
+    "graphics_api": {
+        "vulkan": "disabled",
+        "cpu_rendering": "required"
+    }
+}

@@ -1,0 +1,5 @@
+/*/*.wrapp
+!/empty/empty.wrapp
+.DS_Store
+/target
+/webrogue-wrapp-cli

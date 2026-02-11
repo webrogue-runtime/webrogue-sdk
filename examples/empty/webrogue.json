@@ -1,0 +1,20 @@
+{
+    "name": "empty",
+    "id": "io.github.webrogue_runtime.examples.empty",
+    "version": "0.1.0",
+    "icons": {
+        "normal": {
+            "path": "icon.png",
+            "inset": 0.0,
+            "background": {
+                "red": 0,
+                "green": 0,
+                "blue": 0
+            }
+        }
+    },
+    "graphics_api": {
+        "vulkan": "disabled",
+        "cpu_rendering": "disabled"
+    }
+}

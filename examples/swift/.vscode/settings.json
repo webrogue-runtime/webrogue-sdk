@@ -1,0 +1,9 @@
+{
+    "swift.swiftSDK": "wasm32-unknown-wasip1-threads",
+    "swift.buildArguments": [
+        "-Xcc",
+        "-I/home/someone/repos/webrogue/webrogue-sdk/package/webrogue-sdk-x86_64-linux/share/wasi-sysroot/include/wasm32-wasip1-threads",
+        "-Xlinker",
+        "-L/home/someone/repos/webrogue/webrogue-sdk/package/webrogue-sdk-x86_64-linux/share/wasi-sysroot/lib/wasm32-wasip1-threads"
+    ]
+}
