@@ -26,7 +26,6 @@ run_in_builder_docker() {
 examples_builder_image_name=webrogue_sdk_examples_builder
 run_in_examples_builder_docker() {
     docker run \
-        -it \
         --rm \
         -v $(pwd):/examples_host_dir \
         -v $(dirname $(pwd))/webrogue-sdk/libraries:/libraries \
