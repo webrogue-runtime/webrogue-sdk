@@ -28,8 +28,8 @@ jobs:
 
     - name: Build examples
       run: |
-        sh webrogue-sdk/examples/make_image.sh
-        sh webrogue-sdk/examples/build.sh
+        sh examples/make_image.sh
+        sh examples/build.sh
 
     - name: Archive SDK
       run: |
