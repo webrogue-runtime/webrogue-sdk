@@ -5,6 +5,7 @@ project(webroguegfx VERSION 0.0.1)
 add_library(
     webroguegfx
     STATIC
+    webroguegfx.h
     webroguegfx.c
     webroguegfx_vulkan.c
     webroguegfx_cpu_rendering.c

@@ -606,6 +606,11 @@ webrogue_event webroguegfx_poll();
 
 uint64_t webroguegfx_vulkan_make_surface(wr_window window,
                                          uint64_t vk_instance);
+void webroguegfx_vulkan_commit_buffer(const void *buf, size_t len);
+void webroguegfx_vulkan_ret_buffer_read(const void *buf, size_t len);
+void webroguegfx_vulkan_register_blob(uint64_t blobId, uint64_t size,
+                                      void *buf);
+uint8_t webroguegfx_vulkan_check();
 
 // CPU rendering
 

@@ -56,7 +56,7 @@ $(FINAL_DEST_DIR)/include/EGL:
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
 
 # build and install libs
-build_webroguegfx: copy_gles2 copy_gles3 copy_khr build_mesa
+build_webroguegfx: copy_gles2 copy_gles3 copy_khr
 	cmake -S webroguegfx -B $(BUILD_DIR)/webroguegfx $(CMAKE_FLAGS) -DMESA_PATH=$(BUILD_DIR)/mesa 
 	cmake --build $(BUILD_DIR)/webroguegfx --target=webroguegfx --parallel
 	cmake --install $(BUILD_DIR)/webroguegfx --prefix $(DEST_DIR)
@@ -193,7 +193,7 @@ build_libffi:
 	$(MAKE) -C $(BUILD_DIR)/libffi install
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
 
-build_mesa: build_vulkan_headers
+build_mesa: build_vulkan_headers build_webroguegfx
 	meson setup --reconfigure $(BUILD_DIR)/mesa mesa \
 	 	-Dprefix=$(DEST_DIR) \
 		-Dgallium-drivers= \
