@@ -15,7 +15,24 @@
         }
     },
     "graphics_api": {
-        "vulkan": "required",
-        "cpu_rendering": "disabled"
+        "vulkan": "disabled",
+        "cpu_rendering": "required"
+    },
+    "env": {
+        "FONTCONFIG_FILE": "/usr/share/fonts/fonts.conf"
+    },
+    "filesystem": {
+        "resources": [
+            {
+                "real_path": "data",
+                "mapped_path": "/"
+            }
+        ],
+        "persistent": [
+            {
+                "mapped_path": "/.cache",
+                "name": "cache"
+            }
+        ]
     }
 }
