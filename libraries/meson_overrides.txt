@@ -1,2 +1,2 @@
 [binaries]
-gdbus-codegen = '/opt/wasip1/bin/gdbus-codegen'
+gdbus-codegen = '/sdk_dir/opt/wasip1/bin/gdbus-codegen'

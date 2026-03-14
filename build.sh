@@ -8,5 +8,6 @@ cd ..
 run_in_builder_docker "
     export WEBROGUE_SDK_UNCACHED="$WEBROGUE_SDK_UNCACHED";
     export WEBROGUE_SDK_DEBUG="$WEBROGUE_SDK_DEBUG";
+    cd /sdk_dir;
     $(cat _build.sh)
 "

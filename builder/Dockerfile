@@ -23,5 +23,5 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | HOME=/fakehome s
 RUN chmod -R a+rwx /fakehome/.cargo/
 RUN mkdir -p /.cache && chmod 777 /.cache
 # RUN chmod -R a+r /wasi_arch.txt
-ENV PATH="/opt:$PATH"
+ENV PATH="/sdk_dir/opt:$PATH"
 RUN rm -rf /usr/bin/gdbus-codegen /usr/share/glib-2.0/codegen

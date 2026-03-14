@@ -17,10 +17,10 @@ def patch_pc(pc_path):
     pc = original_pc
 
     for dist_pattern in [r'[A-Za-z0-9\-]+/cached', r'[A-Za-z0-9\-]+']:
-        pc = re.sub(fr'prefix=/opt/{dist_pattern}', 'prefix=${pcfiledir}/../..', pc)
-        pc = re.sub(fr'prefix=//opt/{dist_pattern}', 'prefix=${pcfiledir}/../..', pc)
-        pc = re.sub(fr'/opt/{dist_pattern}/lib', '${pcfiledir}/../../lib', pc)
-        pc = re.sub(fr'/opt/{dist_pattern}/include', '${pcfiledir}/../../include', pc)
+        pc = re.sub(fr'prefix=/sdk_dir/opt/{dist_pattern}', 'prefix=${pcfiledir}/../..', pc)
+        pc = re.sub(fr'prefix=//sdk_dir/opt/{dist_pattern}', 'prefix=${pcfiledir}/../..', pc)
+        pc = re.sub(fr'/sdk_dir/opt/{dist_pattern}/lib', '${pcfiledir}/../../lib', pc)
+        pc = re.sub(fr'/sdk_dir/opt/{dist_pattern}/include', '${pcfiledir}/../../include', pc)
 
     pc = pc.replace('prefix=/usr/local', 'prefix=${pcfiledir}/../..')
     pc = pc.replace('/usr/local', '${prefix}')

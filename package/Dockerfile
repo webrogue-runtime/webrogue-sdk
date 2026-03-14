@@ -11,5 +11,5 @@ RUN apt-get -y install cmake
 
 RUN rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 
-COPY webrogue-sdk /opt/webrogue-sdk
-ENV PATH="/opt/webrogue-sdk/bin/:$PATH"
+COPY webrogue-sdk /sdk_dir/package/webrogue-sdk
+ENV PATH="/sdk_dir/package/webrogue-sdk/bin/:$PATH"

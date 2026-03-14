@@ -1,6 +1,6 @@
 [constants]
 toolchain = '/wasi-sdk'
-common_flags = ['-isystem', '/opt/wasip1/include', '-isystem',  toolchain / 'share/wasi-sysroot/include/wasm32-wasip1-threads', '-D_POSIX_SOURCE=1', '-D_WASI_EMULATED_PTHREAD', '-D_GNU_SOURCE=1', '-pthread', '-mllvm', '-wasm-enable-sjlj', '-mllvm', '-wasm-use-legacy-eh=false', '-Wno-unused-command-line-argument', '-lsetjmp']
+common_flags = ['-isystem', '/sdk_dir/opt/wasip1/include', '-isystem',  toolchain / 'share/wasi-sysroot/include/wasm32-wasip1-threads', '-D_POSIX_SOURCE=1', '-D_WASI_EMULATED_PTHREAD', '-D_GNU_SOURCE=1', '-pthread', '-mllvm', '-wasm-enable-sjlj', '-mllvm', '-wasm-use-legacy-eh=false', '-Wno-unused-command-line-argument', '-lsetjmp']
 
 [binaries]
 c = toolchain / 'bin/wasm32-wasip1-threads-clang'
