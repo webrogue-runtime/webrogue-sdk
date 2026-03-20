@@ -17,4 +17,4 @@ stk-assets.timestamp:
 	touch stk-assets.timestamp
 
 clean:
-	rm -rf stk-code/build
+	rm -rf stk-code/build stk-assets.timestamp
