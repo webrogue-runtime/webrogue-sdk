@@ -1,10 +1,20 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <webroguegfx/webroguegfx.h>
+#include <pthread.h>
+#include <unistd.h>
+
+void *print_message_function(void *ptr) {
+  // abort();
+  return NULL;
+}
 
 int main(int argc, char **argv) {
   wr_window window;
   webroguegfx_make_window(&window);
+
+  pthread_t thread1;
+  pthread_create(&thread1, NULL, print_message_function, "Thread 1");
   int width, height;
   uint8_t *buffer = malloc(1);
   char needs_resize = 1;
@@ -33,18 +43,21 @@ int main(int argc, char **argv) {
       webroguegfx_gl_size(window, &width, &height);
       buffer = realloc(buffer, width * height * 4);
       needs_resize = 0;
+    
+      for (int x = 0; x < width; x++)
+        for (int y = 0; y < height; y++) {
+          int offset = 4 * (x + width * y);
+          buffer[offset + 3] = 0;
+          // Red
+          buffer[offset + 2] = x % 256;
+          // Green
+          buffer[offset + 1] = y % 256;
+          // Blue
+          buffer[offset + 0] = (x * y) % 256;
+        }
+      webroguegfx_present_pixels(window, buffer, width * height * 4);
     }
-    for (int x = 0; x < width; x++)
-      for (int y = 0; y < height; y++) {
-        int offset = 4 * (x + width * y);
-        buffer[offset + 3] = 0;
-        // Red
-        buffer[offset + 2] = x % 256;
-        // Green
-        buffer[offset + 1] = y % 256;
-        // Blue
-        buffer[offset + 0] = (x * y) % 256;
-      }
-    webroguegfx_present_pixels(window, buffer, width * height * 4);
+    usleep(10 * 1000);
   }
+  return 0;
 }
