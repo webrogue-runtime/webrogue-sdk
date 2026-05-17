@@ -1,14 +1,14 @@
 gears: main.wasm
 	echo
 
-CC = "/opt/webrogue-sdk/bin/clang"
+CC = "/sdk_dir/package/webrogue-sdk/bin/clang"
 
 CFLAGS = --target=wasm32-wasip1-threads \
 	-pthread \
 	-g \
 	-O0 \
-	-I/opt/webrogue-sdk/share/webrogue-sysroot/wasm32-wasip1-threads/include \
-	-L/opt/webrogue-sdk/share/webrogue-sysroot/wasm32-wasip1-threads/lib
+	-I/sdk_dir/package/webrogue-sdk/share/webrogue-sysroot/wasm32-wasip1-threads/include \
+	-L/sdk_dir/package/webrogue-sdk/share/webrogue-sysroot/wasm32-wasip1-threads/lib
 
 CLFLAGS = -Wl,--no-entry \
 	-Wl,--import-memory \
