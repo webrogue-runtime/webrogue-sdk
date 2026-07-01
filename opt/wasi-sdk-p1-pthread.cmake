@@ -6,7 +6,7 @@ set(CMAKE_SYSTEM_PROCESSOR wasm32)
 set(triple wasm32-wasip1-threads)
 set(COMPILE_FLAGS "-pthread -mllvm -wasm-enable-sjlj -mllvm -wasm-use-legacy-eh=false")
 set(CMAKE_C_FLAGS_INIT "${CMAKE_C_FLAGS_INIT} ${COMPILE_FLAGS}")
-set(CMAKE_CXX_FLAGS_INIT "${CMAKE_CXX_FLAGS_INIT} ${COMPILE_FLAGS}")
+set(CMAKE_CXX_FLAGS_INIT "${CMAKE_CXX_FLAGS_INIT} -fwasm-exceptions ${COMPILE_FLAGS}")
 # wasi-threads requires --import-memory.
 # wasi requires --export-memory.
 # (--export-memory is implicit unless --import-memory is given)

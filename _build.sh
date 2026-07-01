@@ -18,8 +18,8 @@ fi
 make -C libraries TOOLCHAIN=wasip1 CONFIG=$CONFIG CONFIG_LOWERCASED=$CONFIG_LOWERCASED DEST_DIR_APPEND=$DEST_DIR_APPEND
 
 # these version strings must be kept in sync with builder/Dockerfile
-SDK_VERSION=30.0
-SDK_MAJOR_VERSION=30
+SDK_VERSION=33.0
+SDK_MAJOR_VERSION=33
 
 for SDK in x86_64-linux arm64-linux x86_64-windows x86_64-macos arm64-macos
 do
@@ -45,7 +45,11 @@ do
 
     for VERSION_TO_MOVE in wasm32-wasip1-threads
     do
-        rm -rf package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/llvm-lto # TODO add lto
+        # TODO add lto
+        rm -rf package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/llvm-lto 
+        rm -rf package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/eh/llvm-lto
+        rm -rf package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/noeh
+
 
         mkdir -p package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/include
         cp -r opt/wasip1/include/* package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/include
@@ -53,9 +57,12 @@ do
         mkdir -p package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/lib
         cp -r opt/wasip1/lib/* package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/lib
 
-        llvm-ar qLs package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libc++abi.a package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/lib/libcxxemulatedthrow.a
-        rm package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/lib/libcxxemulatedthrow.a
+        llvm-ar qLs package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/eh/libc++abi.a package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/eh/libunwind.a
+        echo '!<arch>' > package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/eh/libunwind.a
         
+        mv package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/eh/* package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE
+        rmdir package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/eh
+
         llvm-ar qLs package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libc.a package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libsetjmp.a
         echo '!<arch>' >package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libsetjmp.a
     

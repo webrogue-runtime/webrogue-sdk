@@ -1,4 +1,4 @@
-all: build_volk_in_loaders_cloth copy_pkgconfig copy_gl copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_webroguegfx build_cxxemulatedthrow build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls build_libffi build_cairo build_pango build_gtk build_glib build_fontconfig build_expat build_libxml2 build_gdk-pixbuf # build_curl
+all: build_volk_in_loaders_cloth copy_pkgconfig copy_gl copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_webroguegfx build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls build_libffi build_cairo build_pango build_gtk build_glib build_fontconfig build_expat build_libxml2 build_gdk-pixbuf # build_curl
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 SDK_DIR:=$(shell dirname $(CURRENT_DIR))
 FINAL_DEST_DIR=$(SDK_DIR)/opt/$(TOOLCHAIN)
@@ -60,12 +60,6 @@ build_webroguegfx: copy_gles2 copy_gles3 copy_khr
 	cmake -S webroguegfx -B $(BUILD_DIR)/webroguegfx $(CMAKE_FLAGS) -DMESA_PATH=$(BUILD_DIR)/mesa 
 	cmake --build $(BUILD_DIR)/webroguegfx --target=webroguegfx --parallel
 	cmake --install $(BUILD_DIR)/webroguegfx --prefix $(DEST_DIR)
-	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
-
-build_cxxemulatedthrow:
-	cd cxxemulatedthrow && cmake -S . -B $(BUILD_DIR)/cxxemulatedthrow $(CMAKE_FLAGS)
-	cmake --build $(BUILD_DIR)/cxxemulatedthrow --target=cxxemulatedthrow --parallel
-	cmake --install $(BUILD_DIR)/cxxemulatedthrow --prefix $(DEST_DIR)
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
 
 build_SDL2: build_webroguegfx build_libsamplerate

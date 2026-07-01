@@ -6,7 +6,8 @@ docker --version | grep podman >/dev/null || {
 SDK_DIR=$(dirname $(pwd))
 
 builder_image_name=webrogue_sdk_builder
-docker build -t $builder_image_name .
+DOCKER_PLATFORM_FLAGS="--platform linux/amd64"
+docker build $DOCKER_PLATFORM_FLAGS -t $builder_image_name . 
 run_in_builder_docker() {
     docker run \
         --rm \
@@ -18,6 +19,7 @@ run_in_builder_docker() {
         -v $SDK_DIR/meson:/sdk_dir/meson \
         -v $SDK_DIR/package:/sdk_dir/package \
         $DOCKER_USER_FLAGS \
+        $DOCKER_PLATFORM_FLAGS \
         -t $builder_image_name \
         bash -c "$1"
 }
@@ -30,6 +32,7 @@ run_in_examples_builder_docker() {
         -v $(pwd):/sdk_dir/examples \
         -v $(dirname $(pwd))/webrogue-sdk/libraries:/sdk_dir/libraries \
         $DOCKER_USER_FLAGS \
+        $DOCKER_PLATFORM_FLAGS \
         -t $examples_builder_image_name \
         bash -c "$1"
 }

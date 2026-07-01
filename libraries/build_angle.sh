@@ -60,7 +60,7 @@ GN_ARGS="--args=\
     is_official_build=$IS_OFFICIAL_BUILD \
     chrome_pgo_phase=0 \
     clang_base_path=\"/wasi-sdk\" \
-    clang_version=\"21\" \
+    clang_version=\"22\" \
     clang_use_chrome_plugins=false \
     use_custom_libcxx=false \
     angle_enable_abseil=false \
