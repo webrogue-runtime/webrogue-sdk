@@ -4,14 +4,10 @@
     "version": "0.1.0",
     "main": "main.wasm",
     "icons": {
-        "normal": {
+        "light": {
             "path": "icon.png",
-            "inset": 0.28,
-            "background": {
-                "red": 0,
-                "green": 0,
-                "blue": 0
-            }
+            "inset": 0,
+            "background": "#000000"
         }
     },
     "graphics_api": {

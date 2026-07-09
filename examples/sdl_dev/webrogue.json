@@ -12,14 +12,10 @@
         ]
     },
     "icons": {
-        "normal": {
+        "light": {
             "path": "icon.png",
             "inset": 0.22,
-            "background": {
-                "red": 1,
-                "green": 1,
-                "blue": 1
-            }
+            "background": "#FFFFFF"
         }
     },
     "graphics_api": {

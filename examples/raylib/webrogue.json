@@ -4,14 +4,15 @@
     "version": "0.1.0",
     "main": "build/webrogue_raylib_example",
     "icons": {
-        "normal": {
+        "light": {
             "path": "icon.png",
             "inset": 0.28,
-            "background": {
-                "red": 1,
-                "green": 1,
-                "blue": 1
-            }
+            "background": "#FFFFFF"
+        },
+        "dark": {
+            "path": "icon.png",
+            "inset": 0.28,
+            "background": "#282828"
         }
     },
     "graphics_api": {

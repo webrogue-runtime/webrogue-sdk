@@ -4,14 +4,15 @@
     "version": "0.1.0",
     "main": "build/main",
     "icons": {
-        "normal": {
+        "light": {
             "path": "icon.png",
             "inset": 0.28,
-            "background": {
-                "red": 1,
-                "green": 1,
-                "blue": 1
-            }
+            "background": "#FFFFFF"
+        },
+        "dark": {
+            "path": "icon.png",
+            "inset": 0.28,
+            "background": "#000000"
         }
     },
     "graphics_api": {
