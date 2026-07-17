@@ -91,3 +91,6 @@
 [submodule "examples/stk/stk-code"]
 	path = examples/stk/stk-code
 	url = https://github.com/webrogue-runtime/stk-code.git
+[submodule "libraries/venus-protocol"]
+	path = libraries/venus-protocol
+	url = https://github.com/webrogue-runtime/venus-protocol.git

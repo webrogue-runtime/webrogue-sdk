@@ -876,6 +876,9 @@ demo_prepare_texture_image(struct demo *demo, const uint32_t *tex_colors,
         err = vkMapMemory(demo->device, tex_obj->mem, 0,
                           mem_alloc.allocationSize, 0, &data);
         assert(!err);
+        // data = aligned_alloc(16 * 1024, 16 * 1024);
+        // printf("vkMapMemory returned %p\n", data);
+        // data = (void *)((uintptr_t)data + 2 * 1024 * 1024 * 1024);
 
         for (y = 0; y < tex_height; y++) {
             uint32_t *row = (uint32_t *)((char *)data + layout.rowPitch * y);

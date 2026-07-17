@@ -17,7 +17,7 @@ A Webrogue-specific library. It provides a relatively simple API to access under
 ### Vulkan
 
 Mesa driver with modified GFXStream allows to do seemly impossible: use Vulkan graphics and compute API from inside of WebAssembly VM.
-This driver includes WSI extension called `VK_WEBROGUE_surface` (gated behind `VK_USE_PLATFORM_WEBROGUE` macro and unavailable in upstream spec yet). ICD library is bundled as `libvulkan_gfxstream.a`, but you can use `libvulkan.a` library in addition to simplify loading of Vulkan entrypoints.
+This driver includes WSI extension called `VK_WEBROGUE_surface` (gated behind `VK_USE_PLATFORM_WEBROGUE` macro and unavailable in upstream spec yet). ICD library is bundled as `libvulkan_virtio.a`, but you can use `libvulkan.a` library in addition to simplify loading of Vulkan entrypoints.
 
 ### OpenGL ES and EGL
 

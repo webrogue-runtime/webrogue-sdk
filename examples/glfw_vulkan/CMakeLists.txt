@@ -10,7 +10,7 @@ add_executable(main main.c)
 
 find_library(WEBROGUEGFX_LIBRARY webroguegfx REQUIRED)
 find_library(EGL_LIBRARY EGL REQUIRED)
-find_library(VULKAN_GFXSTREAM_LIBRARY vulkan_gfxstream REQUIRED)
+find_library(VULKAN_VIRTIO_LIBRARY vulkan_virtio REQUIRED)
 
 target_include_directories(
     main
@@ -25,6 +25,6 @@ target_link_libraries(
     c++
     c++abi
     webroguegfx
-    -Wl,--export=vkGetInstanceProcAddr vulkan vulkan_gfxstream
+    -Wl,--export=vkGetInstanceProcAddr vulkan vulkan_virtio
     -Wl,--export=eglGetProcAddress EGL
 )

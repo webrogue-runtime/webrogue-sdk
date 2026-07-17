@@ -604,13 +604,25 @@ webrogue_event webroguegfx_poll();
 
 // Vulkan
 
-uint64_t webroguegfx_vulkan_make_surface(wr_window window,
-                                         uint64_t vk_instance);
-void webroguegfx_vulkan_commit_buffer(const void *buf, size_t len);
-void webroguegfx_vulkan_ret_buffer_read(const void *buf, size_t len);
-void webroguegfx_vulkan_register_blob(uint64_t blobId, uint64_t size,
-                                      void *buf);
 uint8_t webroguegfx_vulkan_check();
+uint32_t webroguegfx_get_vulkan_window_id(wr_window window);
+void webroguegfx_vulkan_register_blob(uint32_t res_id, uint8_t *buf, uint32_t buf_len);
+uint32_t webroguegfx_vulkan_create_blob(void *ptr, uint32_t size, uint64_t blob_id);
+void webroguegfx_vulkan_resource_unref(uint32_t res_id);
+uint32_t webroguegfx_vulkan_sync_create(uint64_t value);
+void webroguegfx_vulkan_sync_unref(uint32_t sync_id);
+uint64_t webroguegfx_vulkan_sync_read(uint32_t sync_id);
+void webroguegfx_vulkan_sync_write(uint32_t sync_id, uint64_t value);
+void webroguegfx_vulkan_submit_cmd(const uint8_t *headers, uint32_t headers_len,
+                                   const uint8_t *cmds, uint32_t cmds_len,
+                                   const uint8_t *syncs, uint32_t syncs_len);
+uint32_t webroguegfx_vulkan_sync_wait(uint32_t flags, uint32_t timeout,
+                                      const uint8_t *syncs, uint32_t syncs_len);
+uint32_t webroguegfx_vulkan_get_max_timeline_count();
+uint32_t webroguegfx_vulkan_get_capset(uint32_t id, uint32_t version,
+                                       uint8_t *capset, uint32_t capset_size);
+void webroguegfx_vulkan_context_init(uint32_t capset_id);
+void webroguegfx_vulkan_create_renderer(const char *name, uint32_t name_len);
 
 // CPU rendering
 

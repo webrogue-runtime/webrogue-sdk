@@ -21,7 +21,7 @@ CLFLAGS = -Wl,--no-entry \
 	-lEGL \
 	-Wl,--export=eglGetProcAddress \
 	-lvulkan \
-	-lvulkan_gfxstream \
+	-lvulkan_virtio \
 
 main.wasm: gears.c docker.Makefile
 	${CC} $(CFLAGS) $(CLFLAGS) gears.c \
