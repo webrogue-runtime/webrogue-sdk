@@ -604,13 +604,14 @@ webrogue_event webroguegfx_poll();
 
 // Vulkan
 
-uint64_t webroguegfx_vulkan_make_surface(wr_window window,
-                                         uint64_t vk_instance);
-void webroguegfx_vulkan_commit_buffer(const void *buf, size_t len);
-void webroguegfx_vulkan_ret_buffer_read(const void *buf, size_t len);
-void webroguegfx_vulkan_register_blob(uint64_t blobId, uint64_t size,
-                                      void *buf);
 uint8_t webroguegfx_vulkan_check();
+void webroguegfx_vtest_write(const uint8_t *data, uint32_t data_len);
+void webroguegfx_vtest_read(uint8_t *data, uint32_t data_len);
+// void webroguegfx_vtest_register_blob(uint64_t blob_id, uint8_t *buf, uint32_t buf_len);
+uint32_t webroguegfx_vtest_receive_fd();
+// That thing just allows guest to map any host's fd to it's linear memory. Super unsafe
+// TODO replace with something better
+void webroguegfx_vtest_map_fd(uint32_t fd, uint8_t *buf, uint32_t buf_len);
 
 // CPU rendering
 

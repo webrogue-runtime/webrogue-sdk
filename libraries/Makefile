@@ -191,7 +191,7 @@ build_mesa: build_vulkan_headers build_webroguegfx
 	meson setup --reconfigure $(BUILD_DIR)/mesa mesa \
 	 	-Dprefix=$(DEST_DIR) \
 		-Dgallium-drivers= \
-		-Dvulkan-drivers=gfxstream \
+		-Dvulkan-drivers=virtio \
 		-Dplatforms=webrogue \
 		-Dglx=disabled \
 		-Dllvm=disabled \

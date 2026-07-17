@@ -34,10 +34,10 @@ endif()
 
 target_link_libraries(sdl_dev ${SDL_LIB_NAME} SDL${USE_SDL_VERSION}_ttf freetype png zlib webroguegfx)
 
-target_link_libraries(sdl_dev ${SDL_LIB_NAME} vulkan_gfxstream c++ c++abi)
+target_link_libraries(sdl_dev ${SDL_LIB_NAME} vulkan_virtio)
 target_link_options(sdl_dev PRIVATE -Wl,--export=vk_icdGetInstanceProcAddr)
 
-target_link_libraries(sdl_dev ${SDL_LIB_NAME} EGL vulkan)
+target_link_libraries(sdl_dev ${SDL_LIB_NAME} EGL vulkan c++ c++abi)
 target_link_options(sdl_dev PRIVATE -Wl,--export=eglGetProcAddress)
 
 if(USE_SDL_VERSION EQUAL 2)
