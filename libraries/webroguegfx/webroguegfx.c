@@ -148,3 +148,13 @@ webrogue_event webroguegfx_poll() {
 }
 // END GENERATED CODE
 // clang-format on
+
+__attribute__((import_name("get_os_family")))
+__attribute__((import_module("webrogue_gfx"))) void
+imported_webrogue_gfx_get_os_family(uint8_t *out_os_family);
+
+enum webrogue_os_family webroguegfx_get_os_family() {
+  uint8_t os_family;
+  imported_webrogue_gfx_get_os_family(&os_family);
+  return (enum webrogue_os_family)os_family;
+}

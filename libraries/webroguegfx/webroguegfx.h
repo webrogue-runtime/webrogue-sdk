@@ -628,6 +628,19 @@ void webroguegfx_vulkan_create_renderer(const char *name, uint32_t name_len);
 
 void webroguegfx_present_pixels(wr_window window, uint8_t *buf, uint32_t len);
 
+// OS info
+
+enum webrogue_os_family {
+    WEBROGUE_OS_FAMILY_UNKNOWN = 0,
+    WEBROGUE_OS_FAMILY_LINUX = 1,
+    WEBROGUE_OS_FAMILY_WINDOWS = 2,
+    WEBROGUE_OS_FAMILY_MACOS = 3,
+    WEBROGUE_OS_FAMILY_ANDROID = 4,
+    WEBROGUE_OS_FAMILY_IOS = 5,
+};
+
+enum webrogue_os_family webroguegfx_get_os_family();
+
 #ifdef __cplusplus
 }
 #endif
