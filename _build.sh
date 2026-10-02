@@ -15,53 +15,31 @@ else
     DEST_DIR_APPEND=/cached
 fi
 
-make -C libraries TOOLCHAIN=wasip1 CONFIG=$CONFIG CONFIG_LOWERCASED=$CONFIG_LOWERCASED DEST_DIR_APPEND=$DEST_DIR_APPEND
-
-# these version strings must be kept in sync with builder/Dockerfile
-SDK_VERSION=33.0
-SDK_MAJOR_VERSION=33
+make -C libraries TOOLCHAIN=wasip3 CONFIG=$CONFIG CONFIG_LOWERCASED=$CONFIG_LOWERCASED DEST_DIR_APPEND=$DEST_DIR_APPEND
 
 for SDK in x86_64-linux arm64-linux x86_64-windows x86_64-macos arm64-macos
 do
     cd $SDK_ROOT/package
-    test -d wasi-sdk-$SDK_VERSION-$SDK || {
-        curl -L https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-$SDK_MAJOR_VERSION/wasi-sdk-$SDK_VERSION-$SDK.tar.gz | tar -xz
-    }
     rm -rf webrogue-sdk-$SDK
-    cp -r wasi-sdk-$SDK_VERSION-$SDK webrogue-sdk-$SDK
+    cp -r wasi-sdk-prebuilt/wasi-sdk-$SDK webrogue-sdk-$SDK
+    ls
+    cp -r wasi-sysroot webrogue-sdk-$SDK/share
     cd $SDK_ROOT
 
-    for VERSION_TO_REMOVE in wasm32-wasi wasm32-wasi-threads wasm32-wasip1 wasm32-wasip2
-    do
-        for DIR_TO_REMOVE in include lib share
-        do
-            rm -rf package/webrogue-sdk-$SDK/share/wasi-sysroot/$DIR_TO_REMOVE/$VERSION_TO_REMOVE
-        done
-        rm -f package/webrogue-sdk-$SDK/bin/$VERSION_TO_REMOVE-clang
-        rm -f package/webrogue-sdk-$SDK/bin/$VERSION_TO_REMOVE-clang++
-        rm -f package/webrogue-sdk-$SDK/bin/$VERSION_TO_REMOVE-clang.exe
-        rm -f package/webrogue-sdk-$SDK/bin/$VERSION_TO_REMOVE-clang++.exe
-    done
-
-    for VERSION_TO_MOVE in wasm32-wasip1-threads
+    for VERSION_TO_MOVE in wasm32-wasip3
     do
         # TODO add lto
         rm -rf package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/llvm-lto 
-        rm -rf package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/eh/llvm-lto
-        rm -rf package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/noeh
-
 
         mkdir -p package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/include
-        cp -r opt/wasip1/include/* package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/include
+        cp -r opt/wasip3/include/* package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/include
 
         mkdir -p package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/lib
-        cp -r opt/wasip1/lib/* package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/lib
+        cp -r opt/wasip3/lib/* package/webrogue-sdk-$SDK/share/webrogue-sysroot/$VERSION_TO_MOVE/lib
 
-        llvm-ar qLs package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/eh/libc++abi.a package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/eh/libunwind.a
-        echo '!<arch>' > package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/eh/libunwind.a
+        llvm-ar qLs package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libc++abi.a package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libunwind.a
+        echo '!<arch>' > package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libunwind.a
         
-        mv package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/eh/* package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE
-        rmdir package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/eh
 
         llvm-ar qLs package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libc.a package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libsetjmp.a
         echo '!<arch>' >package/webrogue-sdk-$SDK/share/wasi-sysroot/lib/$VERSION_TO_MOVE/libsetjmp.a
@@ -95,7 +73,7 @@ do
 
     rm package/webrogue-sdk-$SDK/share/cmake/wasi-sdk-p1.cmake
     rm package/webrogue-sdk-$SDK/share/cmake/wasi-sdk-p2.cmake
+    rm package/webrogue-sdk-$SDK/share/cmake/wasi-sdk-p3.cmake
     rm package/webrogue-sdk-$SDK/share/cmake/wasi-sdk-pthread.cmake
-    rm package/webrogue-sdk-$SDK/share/cmake/wasi-sdk.cmake
-    cp opt/wasi-sdk-p1-pthread.cmake package/webrogue-sdk-$SDK/share/cmake/wasi-sdk-p1-pthread.cmake
+    cp opt/wasi-sdk-p3.cmake package/webrogue-sdk-$SDK/share/cmake/wasi-sdk-p3.cmake
 done

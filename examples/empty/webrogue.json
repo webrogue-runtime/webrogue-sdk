@@ -1,7 +1,8 @@
 {
     "name": "empty",
-    "id": "io.github.webrogue_runtime.examples.empty",
+    "id": "io.github.webrogue-runtime.examples.empty",
     "version": "0.1.0",
+    "main": "main.wasm",
     "graphics_api": {
         "vulkan": "disabled",
         "cpu_rendering": "disabled"

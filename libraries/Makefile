@@ -1,9 +1,9 @@
-all: build_volk_in_loaders_cloth copy_pkgconfig copy_gl copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_webroguegfx build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls build_libffi build_cairo build_pango build_gtk build_glib build_fontconfig build_expat build_libxml2 build_gdk-pixbuf # build_curl
+all: build_volk_in_loaders_cloth copy_pkgconfig copy_gl copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_libwr4c build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls build_libffi build_cairo build_pango build_gtk build_glib build_fontconfig build_expat build_libxml2 build_gdk-pixbuf # build_curl
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 SDK_DIR:=$(shell dirname $(CURRENT_DIR))
 FINAL_DEST_DIR=$(SDK_DIR)/opt/$(TOOLCHAIN)
 DEST_DIR=$(FINAL_DEST_DIR)$(DEST_DIR_APPEND)
-BUILD_DIR=$(CURRENT_DIR)/build/wasip1/$(CONFIG)
+BUILD_DIR=$(CURRENT_DIR)/build/wasip3/$(CONFIG)
 CMAKE_FLAGS=--toolchain=$(FINAL_DEST_DIR)/toolchain.cmake -DWASI_SDK_PREFIX=/wasi-sdk -DCMAKE_BUILD_TYPE=$(CONFIG) -Wno-dev
 MESA_FLAG=--cross-file=$(FINAL_DEST_DIR)/meson_cross.txt -Ddefault_library=static --buildtype=$(CONFIG_LOWERCASED)
 
@@ -56,13 +56,13 @@ $(FINAL_DEST_DIR)/include/EGL:
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
 
 # build and install libs
-build_webroguegfx: copy_gles2 copy_gles3 copy_khr
-	cmake -S webroguegfx -B $(BUILD_DIR)/webroguegfx $(CMAKE_FLAGS) -DMESA_PATH=$(BUILD_DIR)/mesa 
-	cmake --build $(BUILD_DIR)/webroguegfx --target=webroguegfx --parallel
-	cmake --install $(BUILD_DIR)/webroguegfx --prefix $(DEST_DIR)
+build_libwr4c: copy_gles2 copy_gles3 copy_khr
+	cmake -S libwr4c -B $(BUILD_DIR)/libwr4c $(CMAKE_FLAGS) -DMESA_PATH=$(BUILD_DIR)/mesa 
+	cmake --build $(BUILD_DIR)/libwr4c --target=wr4c --parallel
+	cmake --install $(BUILD_DIR)/libwr4c --prefix $(DEST_DIR)
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
 
-build_SDL2: build_webroguegfx build_libsamplerate
+build_SDL2: build_libwr4c build_libsamplerate
 	cmake -S SDL2 -B $(BUILD_DIR)/SDL2 $(CMAKE_FLAGS) -DSDL_STATIC=ON -DSDL_SHARED=OFF -DSDL_CMAKE_DEBUG_POSTFIX=
 	cmake --build $(BUILD_DIR)/SDL2 --target=SDL2-static --parallel
 	cmake --build $(BUILD_DIR)/SDL2 --target=SDL2main --parallel
@@ -76,7 +76,7 @@ build_SDL2_ttf: build_SDL2 build_freetype
 	cmake --install $(BUILD_DIR)/SDL2_ttf --prefix $(DEST_DIR)
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
 
-build_SDL3: build_webroguegfx
+build_SDL3: build_libwr4c
 	cmake -S SDL3 -B $(BUILD_DIR)/SDL3 $(CMAKE_FLAGS) -DSDL_STATIC=ON -DSDL_SHARED=OFF
 	cmake --build $(BUILD_DIR)/SDL3 --target=SDL3-static --parallel
 	cmake --build $(BUILD_DIR)/SDL3 --target=SDL3_test --parallel
@@ -89,7 +89,7 @@ build_SDL3_ttf: build_SDL3 build_freetype
 	cmake --install $(BUILD_DIR)/SDL3_ttf --prefix $(DEST_DIR)
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
 
-build_glfw: build_webroguegfx
+build_glfw: build_libwr4c
 	cmake -S glfw -B $(BUILD_DIR)/glfw $(CMAKE_FLAGS) -DGLFW_BUILD_EXAMPLES=ON -DGLFW_BUILD_WEBROGUE=ON
 	cmake --build $(BUILD_DIR)/glfw --target=glfw --parallel
 	cmake --install $(BUILD_DIR)/glfw --prefix $(DEST_DIR)
@@ -102,7 +102,7 @@ build_jpeg:
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
 
 build_png: build_zlib
-	cd libpng && cmake -S . -B $(BUILD_DIR)/png $(CMAKE_FLAGS) -DZLIB_LIBRARY=$(FINAL_DEST_DIR)/lib/libzlib.a -DZLIB_INCLUDE_DIR=$(FINAL_DEST_DIR)/include -DPNG_SHARED=OFF -DPNG_STATIC=ON
+	cd libpng && cmake -S . -B $(BUILD_DIR)/png $(CMAKE_FLAGS) -DZLIB_LIBRARY=$(FINAL_DEST_DIR)/lib/libzlib.a -DZLIB_INCLUDE_DIR=$(FINAL_DEST_DIR)/include -DPNG_SHARED=OFF -DPNG_STATIC=ON -DCMAKE_VERBOSE_MAKEFILE=ON
 	cmake --build $(BUILD_DIR)/png --target=png_static --parallel
 	cmake --install $(BUILD_DIR)/png --prefix $(DEST_DIR)
 	# TODO ln -S
@@ -182,12 +182,12 @@ build_mbedtls: mbedtls
 build_libffi:
     # Delete Makefile in build directory to rerun autogen and configure scripts
 	mkdir -p $(BUILD_DIR)/libffi
-	[ -f $(BUILD_DIR)/libffi/Makefile ] || (cd libffi && ./autogen.sh && cd $(BUILD_DIR)/libffi && $(CURRENT_DIR)/libffi/configure --host=wasm32-webrogue-wasip1 CC=/wasi-sdk/bin/wasm32-wasip1-threads-clang --prefix=$(DEST_DIR) --disable-shared --enable-static)
+	[ -f $(BUILD_DIR)/libffi/Makefile ] || (cd libffi && ./autogen.sh && cd $(BUILD_DIR)/libffi && $(CURRENT_DIR)/libffi/configure --host=wasm32-webrogue-wasip3 CC=/wasi-sdk/bin/wasm32-wasip3-clang --prefix=$(DEST_DIR) --disable-shared --enable-static)
 	$(MAKE) -C $(BUILD_DIR)/libffi
 	$(MAKE) -C $(BUILD_DIR)/libffi install
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
 
-build_mesa: build_vulkan_headers build_webroguegfx
+build_mesa: build_vulkan_headers build_libwr4c
 	meson setup --reconfigure $(BUILD_DIR)/mesa mesa \
 	 	-Dprefix=$(DEST_DIR) \
 		-Dgallium-drivers= \
@@ -269,7 +269,7 @@ build_pango: build_cairo build_glib
 	meson install -C $(BUILD_DIR)/pango
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
 
-build_gtk: build_pango build_cairo build_glib build_mesa copy_egl copy_khr build_libxml2 build_gdk-pixbuf build_volk_in_loaders_cloth build_webroguegfx
+build_gtk: build_pango build_cairo build_glib build_mesa copy_egl copy_khr build_libxml2 build_gdk-pixbuf build_volk_in_loaders_cloth build_libwr4c
 	PKG_CONFIG=/usr/bin/pkg-config \
 	PKG_CONFIG_PATH=$(FINAL_DEST_DIR)/lib/pkgconfig \
 	PKG_CONFIG_LIBDIR=$(FINAL_DEST_DIR)/lib \

@@ -1,6 +1,6 @@
 {
     "name": "raylib example",
-    "id": "io.github.webrogue_runtime.examples.raylib",
+    "id": "io.github.webrogue-runtime.examples.raylib",
     "version": "0.1.0",
     "main": "build/webrogue_raylib_example",
     "icons": {

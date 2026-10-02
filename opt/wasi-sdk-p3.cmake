@@ -3,7 +3,7 @@
 set(CMAKE_SYSTEM_NAME WASI)
 set(CMAKE_SYSTEM_VERSION 1)
 set(CMAKE_SYSTEM_PROCESSOR wasm32)
-set(triple wasm32-wasip1-threads)
+set(triple wasm32-wasip3)
 set(COMPILE_FLAGS "-pthread -mllvm -wasm-enable-sjlj -mllvm -wasm-use-legacy-eh=false")
 set(CMAKE_C_FLAGS_INIT "${CMAKE_C_FLAGS_INIT} ${COMPILE_FLAGS}")
 set(CMAKE_CXX_FLAGS_INIT "${CMAKE_CXX_FLAGS_INIT} -fwasm-exceptions ${COMPILE_FLAGS}")
@@ -39,9 +39,9 @@ set(
 	"${WASI_SDK_PREFIX}/share/webrogue-sysroot/${triple}/include"
 )
 
-set(CMAKE_C_COMPILER "${WASI_SDK_PREFIX}/bin/clang${WASI_HOST_EXE_SUFFIX}")
-set(CMAKE_CXX_COMPILER "${WASI_SDK_PREFIX}/bin/clang++${WASI_HOST_EXE_SUFFIX}")
-set(CMAKE_ASM_COMPILER "${WASI_SDK_PREFIX}/bin/clang${WASI_HOST_EXE_SUFFIX}")
+set(CMAKE_C_COMPILER "${WASI_SDK_PREFIX}/bin/${triple}-clang${WASI_HOST_EXE_SUFFIX}")
+set(CMAKE_CXX_COMPILER "${WASI_SDK_PREFIX}/bin/${triple}-clang++${WASI_HOST_EXE_SUFFIX}")
+set(CMAKE_ASM_COMPILER "${WASI_SDK_PREFIX}/bin/${triple}-clang${WASI_HOST_EXE_SUFFIX}")
 set(CMAKE_AR "${WASI_SDK_PREFIX}/bin/llvm-ar${WASI_HOST_EXE_SUFFIX}")
 set(CMAKE_RANLIB "${WASI_SDK_PREFIX}/bin/llvm-ranlib${WASI_HOST_EXE_SUFFIX}")
 list(APPEND CMAKE_PREFIX_PATH "${WASI_SDK_PREFIX}/share/webrogue-sysroot/${triple}/lib/cmake")

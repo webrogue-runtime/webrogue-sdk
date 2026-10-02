@@ -10,11 +10,11 @@ if [ ! -d "angle" ] || [ ! -d "chromium-build" ]; then
 fi
 export PATH="$(pwd)/depot_tools:$PATH"
 
-WEBROGUEGFX_SRC=webroguegfx/webroguegfx.h
-WEBROGUEGFX_DEST=angle/third_party/webroguegfx/include/webroguegfx/webroguegfx.h
+WR4C_SRC=libwr4c/wr4c.h
+WR4C_DEST=angle/third_party/libwr4c/include/libwr4c/wr4c.h
 
-if [ ! -f "$WEBROGUEGFX_DEST" ] || ! cmp -s "$WEBROGUEGFX_SRC" "$WEBROGUEGFX_DEST"; then
-    cp "$WEBROGUEGFX_SRC" "$WEBROGUEGFX_DEST"
+if [ ! -f "$WR4C_DEST" ] || ! cmp -s "$WR4C_SRC" "$WR4C_DEST"; then
+    cp "$WR4C_SRC" "$WR4C_DEST"
 fi
 
 VULKAN_HEADERS_DIR="$(pwd)/Vulkan-Headers"
@@ -42,7 +42,7 @@ esac
 
 GN_ARGS="--args=\
     target_cpu=\"wasm32\" \
-    target_os=\"wasip1\" \
+    target_os=\"wasip3\" \
     is_debug=$IS_DEBUG \
     angle_build_all=false \
     angle_enable_null=false \
@@ -60,7 +60,7 @@ GN_ARGS="--args=\
     is_official_build=$IS_OFFICIAL_BUILD \
     chrome_pgo_phase=0 \
     clang_base_path=\"/wasi-sdk\" \
-    clang_version=\"22\" \
+    clang_version=\"23\" \
     clang_use_chrome_plugins=false \
     use_custom_libcxx=false \
     angle_enable_abseil=false \

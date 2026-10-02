@@ -3,7 +3,8 @@ FROM ubuntu:25.04
 RUN apt-get update && apt-get -y install ca-certificates gpg wget curl build-essential lld llvm bzip2 subversion git unzip rsync python3 default-jre python3-mako python3-pip autotools-dev autoconf libtool texinfo pkg-config libglib2.0-bin libglib2.0-dev-bin glslc sassc ninja-build gperf
 
 RUN bash -c 'case "$(uname -p)" in aarch64) echo arm64 ;; *) uname -p ;; esac' > /wasi_arch.txt
-RUN curl -L https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-33/wasi-sdk-33.0-$(cat /wasi_arch.txt)-linux.tar.gz | tar -xz && mv wasi-sdk-33.0-$(cat /wasi_arch.txt)-linux /wasi-sdk
+# WASI SDK version must be kept in sync with ../_build.sh
+RUN curl -L https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-34/wasi-sdk-34.0-$(cat /wasi_arch.txt)-linux.tar.gz | tar -xz && mv wasi-sdk-34.0-$(cat /wasi_arch.txt)-linux /wasi-sdk
 RUN llvm-ar qLs /wasi-sdk/share/wasi-sysroot/lib/wasm32-wasip1-threads/libc.a /wasi-sdk/share/wasi-sysroot/lib/wasm32-wasip1-threads/libsetjmp.a
 RUN echo '!<arch>' >/wasi-sdk/share/wasi-sysroot/lib/wasm32-wasip1-threads/libsetjmp.a
 
@@ -25,3 +26,9 @@ RUN mkdir -p /.cache && chmod 777 /.cache
 # RUN chmod -R a+r /wasi_arch.txt
 ENV PATH="/sdk_dir/opt:$PATH"
 RUN rm -rf /usr/bin/gdbus-codegen /usr/share/glib-2.0/codegen
+
+RUN rm -rf /wasi-sdk/share/wasi-sysroot
+COPY wasi-sysroot /wasi-sdk/share/wasi-sysroot
+
+# RUN echo '--sysroot=<CFGDIR>/../share/wasi-sysroot' >/wasi-sdk/bin/wasm32-wasip3-clang.cfg
+# RUN echo '--sysroot=<CFGDIR>/../share/wasi-sysroot' >/wasi-sdk/bin/wasm32-wasip3-clang++.cfg

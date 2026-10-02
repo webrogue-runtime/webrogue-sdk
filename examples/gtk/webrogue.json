@@ -1,6 +1,6 @@
 {
     "name": "GTK example",
-    "id": "io.github.webrogue_runtime.GtkExample",
+    "id": "io.github.webrogue-runtime.GtkExample",
     "version": "0.1.0",
     "main": "build/main",
     "icons": {
