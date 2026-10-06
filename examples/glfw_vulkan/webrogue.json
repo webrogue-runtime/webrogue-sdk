@@ -1,6 +1,6 @@
 {
     "name": "GLFW Vulkan example",
-    "id": "io.github.webrogue_runtime.GlfwVulkanExample",
+    "id": "io.github.webrogue-runtime.GlfwVulkanExample",
     "version": "0.1.0",
     "main": "build/main",
     "icons": {

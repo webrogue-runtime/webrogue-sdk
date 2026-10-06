@@ -663,6 +663,14 @@ typedef struct webrogue_gfx_windowing_borrow_window_t {
 
 typedef uint32_t webrogue_gfx_windowing_stream_window_event_t;
 
+typedef struct webrogue_gfx_vulkan_own_renderer_t {
+  int32_t __handle;
+} webrogue_gfx_vulkan_own_renderer_t;
+
+typedef struct webrogue_gfx_vulkan_borrow_renderer_t {
+  int32_t __handle;
+} webrogue_gfx_vulkan_borrow_renderer_t;
+
 typedef struct webrogue_gfx_vulkan_own_linear_memory_marker_t {
   int32_t __handle;
 } webrogue_gfx_vulkan_own_linear_memory_marker_t;
@@ -693,22 +701,23 @@ extern void webrogue_gfx_windowing_close_window(webrogue_gfx_windowing_own_windo
 
 // Imported Functions from `webrogue:gfx/vulkan`
 extern bool webrogue_gfx_vulkan_check_presence(void);
-extern void webrogue_gfx_vulkan_register_blob(uint32_t res_id, uint32_t buf_ptr, uint32_t buf_len, webrogue_gfx_vulkan_borrow_linear_memory_marker_t memory);
-extern uint32_t webrogue_gfx_vulkan_create_blob(uint64_t blob_id, uint32_t buf_ptr, uint32_t buf_len, webrogue_gfx_vulkan_borrow_linear_memory_marker_t memory);
-extern void webrogue_gfx_vulkan_resource_unref(uint32_t res_id);
-extern uint32_t webrogue_gfx_vulkan_create_sync(uint64_t value);
-extern void webrogue_gfx_vulkan_sync_unref(uint32_t sync_id);
-extern uint64_t webrogue_gfx_vulkan_sync_read(uint32_t sync_id);
-extern void webrogue_gfx_vulkan_sync_write(uint32_t sync_id, uint64_t value);
-extern void webrogue_gfx_vulkan_submit_cmd(gfx_list_u8_t *headers, gfx_list_u8_t *cmds, gfx_list_u8_t *syncs);
-extern int32_t webrogue_gfx_vulkan_sync_wait(uint32_t flags, uint32_t timeout, gfx_list_u32_t *syncs);
-extern uint32_t webrogue_gfx_vulkan_get_max_timeline_count(void);
-extern void webrogue_gfx_vulkan_get_capset(uint32_t id, uint32_t version, gfx_list_u8_t *ret);
-extern void webrogue_gfx_vulkan_context_init(uint32_t capset_id);
-extern void webrogue_gfx_vulkan_create_renderer(gfx_list_u8_t *name);
+extern webrogue_gfx_vulkan_own_renderer_t webrogue_gfx_vulkan_constructor_renderer(gfx_list_u8_t *name);
+extern void webrogue_gfx_vulkan_method_renderer_register_blob(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t res_id, uint32_t buf_ptr, uint32_t buf_len, webrogue_gfx_vulkan_borrow_linear_memory_marker_t memory);
+extern uint32_t webrogue_gfx_vulkan_method_renderer_create_blob(webrogue_gfx_vulkan_borrow_renderer_t self, uint64_t blob_id, uint32_t buf_ptr, uint32_t buf_len, webrogue_gfx_vulkan_borrow_linear_memory_marker_t memory);
+extern void webrogue_gfx_vulkan_method_renderer_resource_unref(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t res_id);
+extern uint32_t webrogue_gfx_vulkan_method_renderer_create_sync(webrogue_gfx_vulkan_borrow_renderer_t self, uint64_t value);
+extern void webrogue_gfx_vulkan_method_renderer_sync_unref(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t sync_id);
+extern uint64_t webrogue_gfx_vulkan_method_renderer_sync_read(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t sync_id);
+extern void webrogue_gfx_vulkan_method_renderer_sync_write(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t sync_id, uint64_t value);
+extern void webrogue_gfx_vulkan_method_renderer_submit_cmd(webrogue_gfx_vulkan_borrow_renderer_t self, gfx_list_u8_t *headers, gfx_list_u8_t *cmds, gfx_list_u8_t *syncs);
+extern int32_t webrogue_gfx_vulkan_method_renderer_sync_wait(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t flags, uint32_t timeout, gfx_list_u32_t *syncs);
+extern uint32_t webrogue_gfx_vulkan_method_renderer_get_max_timeline_count(webrogue_gfx_vulkan_borrow_renderer_t self);
+extern void webrogue_gfx_vulkan_method_renderer_get_capset(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t id, uint32_t version, gfx_list_u8_t *ret);
+extern void webrogue_gfx_vulkan_method_renderer_context_init(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t capset_id);
 extern bool webrogue_gfx_vulkan_static_linear_memory_marker_create(uint32_t ptr, gfx_list_u8_t *data, webrogue_gfx_vulkan_own_linear_memory_marker_t *ret);
 
 // Imported Functions from `webrogue:gfx/cpu-rendering`
+// TODO return an error if, for example, size changed
 extern void webrogue_gfx_cpu_rendering_present_pixels(webrogue_gfx_cpu_rendering_borrow_window_t window, gfx_list_u32_t *buf);
 
 // Imported Functions from `webrogue:gfx/device-info`
@@ -738,6 +747,12 @@ gfx_waitable_status_t webrogue_gfx_windowing_stream_window_event_cancel_write(we
 void webrogue_gfx_windowing_stream_window_event_drop_readable(webrogue_gfx_windowing_stream_window_event_t reader);
 void webrogue_gfx_windowing_stream_window_event_drop_writable(webrogue_gfx_windowing_stream_window_event_writer_t writer);
 
+
+extern void webrogue_gfx_vulkan_renderer_drop_own(webrogue_gfx_vulkan_own_renderer_t handle);
+
+extern void webrogue_gfx_vulkan_renderer_drop_borrow(webrogue_gfx_vulkan_borrow_renderer_t handle);
+
+extern webrogue_gfx_vulkan_borrow_renderer_t webrogue_gfx_vulkan_borrow_renderer(webrogue_gfx_vulkan_own_renderer_t handle);
 
 extern void webrogue_gfx_vulkan_linear_memory_marker_drop_own(webrogue_gfx_vulkan_own_linear_memory_marker_t handle);
 

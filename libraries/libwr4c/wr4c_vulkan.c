@@ -5,6 +5,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+static webrogue_gfx_vulkan_borrow_renderer_t
+borrow_renderer(wr4c_vulkan_renderer_t renderer) {
+  webrogue_gfx_vulkan_own_renderer_t own = { .__handle = renderer };
+  return webrogue_gfx_vulkan_borrow_renderer(own);
+}
+
 uint8_t wr4c_vulkan_check() {
   return webrogue_gfx_vulkan_check_presence();
 }
@@ -21,7 +27,7 @@ void init_linear_memory() {
   data.len = 1024;
   data.ptr = malloc(data.len);
   for (size_t i = 0; i < data.len; i++) {
-    data.ptr[i] = (uint8_t)rand(); 
+    data.ptr[i] = (uint8_t)rand();
   }
   if(!webrogue_gfx_vulkan_static_linear_memory_marker_create((uint32_t)data.ptr, &data, &linear_memory)) {
     fprintf(stderr, "webrogue_gfx_vulkan_static_linear_memory_marker_create failed\n");
@@ -31,75 +37,98 @@ void init_linear_memory() {
   linear_memory_initialized = true;
 }
 
-void wr4c_vulkan_register_blob(uint32_t res_id, uint8_t *buf, uint32_t buf_len) {
+void wr4c_vulkan_register_blob(wr4c_vulkan_renderer_t renderer, uint32_t res_id,
+                               uint8_t *buf, uint32_t buf_len) {
   init_linear_memory();
   webrogue_gfx_vulkan_borrow_linear_memory_marker_t borrow_linear_memory = webrogue_gfx_vulkan_borrow_linear_memory_marker(linear_memory);
-  webrogue_gfx_vulkan_register_blob(res_id, (uint32_t) buf, buf_len, borrow_linear_memory);
+  webrogue_gfx_vulkan_method_renderer_register_blob(borrow_renderer(renderer), res_id,
+                                                     (uint32_t) buf, buf_len,
+                                                     borrow_linear_memory);
 }
 
-uint32_t wr4c_vulkan_create_blob(void *ptr, uint32_t size, uint64_t blob_id) {
+uint32_t wr4c_vulkan_create_blob(wr4c_vulkan_renderer_t renderer, void *ptr,
+                                 uint32_t size, uint64_t blob_id) {
   init_linear_memory();
   webrogue_gfx_vulkan_borrow_linear_memory_marker_t borrow_linear_memory = webrogue_gfx_vulkan_borrow_linear_memory_marker(linear_memory);
-  return webrogue_gfx_vulkan_create_blob(blob_id, (uint32_t) ptr, size, borrow_linear_memory);
+  return webrogue_gfx_vulkan_method_renderer_create_blob(borrow_renderer(renderer),
+                                                          blob_id, (uint32_t) ptr,
+                                                          size, borrow_linear_memory);
 }
 
-void wr4c_vulkan_resource_unref(uint32_t res_id) {
-  webrogue_gfx_vulkan_resource_unref(res_id);
+void wr4c_vulkan_resource_unref(wr4c_vulkan_renderer_t renderer, uint32_t res_id) {
+  webrogue_gfx_vulkan_method_renderer_resource_unref(borrow_renderer(renderer), res_id);
 }
 
-uint32_t wr4c_vulkan_sync_create(uint64_t value) {
-  return webrogue_gfx_vulkan_create_sync(value);
+uint32_t wr4c_vulkan_sync_create(wr4c_vulkan_renderer_t renderer, uint64_t value) {
+  return webrogue_gfx_vulkan_method_renderer_create_sync(borrow_renderer(renderer), value);
 }
 
-void wr4c_vulkan_sync_unref(uint32_t sync_id) {
-  webrogue_gfx_vulkan_sync_unref(sync_id);
+void wr4c_vulkan_sync_unref(wr4c_vulkan_renderer_t renderer, uint32_t sync_id) {
+  webrogue_gfx_vulkan_method_renderer_sync_unref(borrow_renderer(renderer), sync_id);
 }
 
 
-uint64_t wr4c_vulkan_sync_read(uint32_t sync_id) {
-  return webrogue_gfx_vulkan_sync_read(sync_id);
+uint64_t wr4c_vulkan_sync_read(wr4c_vulkan_renderer_t renderer, uint32_t sync_id) {
+  return webrogue_gfx_vulkan_method_renderer_sync_read(borrow_renderer(renderer), sync_id);
 }
 
-void wr4c_vulkan_sync_write(uint32_t sync_id, uint64_t value) {
-  webrogue_gfx_vulkan_sync_write(sync_id, value);
+void wr4c_vulkan_sync_write(wr4c_vulkan_renderer_t renderer, uint32_t sync_id,
+                            uint64_t value) {
+  webrogue_gfx_vulkan_method_renderer_sync_write(borrow_renderer(renderer), sync_id,
+                                                 value);
 }
 
-void wr4c_vulkan_submit_cmd(const uint8_t *headers, uint32_t headers_len,
-                                   const uint8_t *cmds, uint32_t cmds_len,
-                                   const uint8_t *syncs, uint32_t syncs_len) {
+void wr4c_vulkan_submit_cmd(wr4c_vulkan_renderer_t renderer,
+                            const uint8_t *headers, uint32_t headers_len,
+                            const uint8_t *cmds, uint32_t cmds_len,
+                            const uint8_t *syncs, uint32_t syncs_len) {
   gfx_list_u8_t headers_list = { .ptr=(uint8_t *)headers, .len=headers_len };
   gfx_list_u8_t cmds_list = { .ptr=(uint8_t *)cmds, .len=cmds_len };
   gfx_list_u8_t syncs_list = { .ptr=(uint8_t *)syncs, .len=syncs_len };
-  return webrogue_gfx_vulkan_submit_cmd(&headers_list, &cmds_list, &syncs_list);
+  return webrogue_gfx_vulkan_method_renderer_submit_cmd(borrow_renderer(renderer),
+                                                         &headers_list, &cmds_list,
+                                                         &syncs_list);
 }
 
-uint32_t wr4c_vulkan_sync_wait(uint32_t flags, uint32_t timeout,
-                                      const uint32_t *syncs, uint32_t syncs_len) {
+uint32_t wr4c_vulkan_sync_wait(wr4c_vulkan_renderer_t renderer, uint32_t flags,
+                               uint32_t timeout, const uint32_t *syncs,
+                               uint32_t syncs_len) {
   gfx_list_u32_t headers = { .ptr=(uint32_t *)syncs, .len=syncs_len };
-  return webrogue_gfx_vulkan_sync_wait(flags, timeout, &headers);
+  return webrogue_gfx_vulkan_method_renderer_sync_wait(borrow_renderer(renderer),
+                                                        flags, timeout, &headers);
 }
 
-uint32_t wr4c_vulkan_get_max_timeline_count() {
-  return webrogue_gfx_vulkan_get_max_timeline_count();
+uint32_t wr4c_vulkan_get_max_timeline_count(wr4c_vulkan_renderer_t renderer) {
+  return webrogue_gfx_vulkan_method_renderer_get_max_timeline_count(borrow_renderer(renderer));
 }
 
-uint32_t wr4c_vulkan_get_capset(uint32_t id, uint32_t version,
-                                       uint8_t *capset, uint32_t capset_size) {
+uint32_t wr4c_vulkan_get_capset(wr4c_vulkan_renderer_t renderer, uint32_t id,
+                                uint32_t version, uint8_t *capset,
+                                uint32_t capset_size) {
   gfx_list_u8_t ret;
-  webrogue_gfx_vulkan_get_capset(id, version, &ret);
+  webrogue_gfx_vulkan_method_renderer_get_capset(borrow_renderer(renderer), id,
+                                                  version, &ret);
   uint32_t actual_size = ret.len;
   memcpy(capset, ret.ptr, actual_size < capset_size ? actual_size : capset_size);
   gfx_list_u8_free(&ret);
   return actual_size;
 }
 
-void wr4c_vulkan_context_init(uint32_t capset_id) {
-  webrogue_gfx_vulkan_context_init(capset_id);
+void wr4c_vulkan_context_init(wr4c_vulkan_renderer_t renderer, uint32_t capset_id) {
+  webrogue_gfx_vulkan_method_renderer_context_init(borrow_renderer(renderer), capset_id);
 }
 
-void wr4c_vulkan_create_renderer(const char *name, uint32_t name_len) {
+wr4c_vulkan_renderer_t wr4c_vulkan_create_renderer(const char *name,
+                                                    uint32_t name_len) {
   gfx_list_u8_t name_list = { .ptr = (uint8_t *)name, .len = name_len };
-  webrogue_gfx_vulkan_create_renderer(&name_list);
+  webrogue_gfx_vulkan_own_renderer_t renderer =
+      webrogue_gfx_vulkan_constructor_renderer(&name_list);
+  return renderer.__handle;
+}
+
+void wr4c_vulkan_destroy_renderer(wr4c_vulkan_renderer_t renderer) {
+  webrogue_gfx_vulkan_own_renderer_t own = { .__handle = renderer };
+  webrogue_gfx_vulkan_renderer_drop_own(own);
 }
 
 uint32_t wr4c_get_vulkan_window_id(wr4c_window_t window) {

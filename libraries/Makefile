@@ -1,4 +1,4 @@
-all: build_volk_in_loaders_cloth copy_pkgconfig copy_gl copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_libwr4c build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls build_libffi build_cairo build_pango build_gtk build_glib build_fontconfig build_expat build_libxml2 build_gdk-pixbuf # build_curl
+all: build_volk_in_loaders_cloth copy_pkgconfig copy_gl copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_libwr4c build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls build_libffi build_cairo build_pango build_gtk build_glib build_fontconfig build_expat build_libxml2 build_gdk-pixbuf build_shaderc # build_curl
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 SDK_DIR:=$(shell dirname $(CURRENT_DIR))
 FINAL_DEST_DIR=$(SDK_DIR)/opt/$(TOOLCHAIN)
@@ -344,6 +344,16 @@ build_volk_in_loaders_cloth: build_vulkan_headers
 	cd volk-in-loaders-cloth && cmake -S . -B $(BUILD_DIR)/volk-in-loaders-cloth $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DEST_DIR) -DBUILD_SHARED_LIBS=OFF -DVOLK_IN_LOADERS_CLOTH=ON -DVOLK_INSTALL=ON -DVILC_DEFINES="-DVK_USE_PLATFORM_WEBROGUE"
 	cmake --build $(BUILD_DIR)/volk-in-loaders-cloth --target=vulkan --parallel
 	cmake --install $(BUILD_DIR)/volk-in-loaders-cloth --prefix $(DEST_DIR)
+	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
+
+build_shaderc:
+	cd shaderc && ./utils/git-sync-deps
+	python3 -c 'from pathlib import Path; import re; p=Path("shaderc/third_party/spirv-tools/source/CMakeLists.txt"); s=p.read_text(); marker="# Webrogue: skip the SPIRV-Tools shared target"; pattern=r"# Always build.*?target_compile_definitions\(.*?PUBLIC SPIRV_TOOLS_SHAREDLIB\n\)"; patched=re.sub(pattern, marker, s, count=1, flags=re.S); old_static="set(SPIRV_TOOLS_TARGETS $${SPIRV_TOOLS}-static $${SPIRV_TOOLS}-shared)"; old_default="set(SPIRV_TOOLS_TARGETS $${SPIRV_TOOLS} $${SPIRV_TOOLS}-shared)"; assert marker in s or (patched != s and old_static in s and old_default in s); p.write_text(s if marker in s else patched.replace(old_static, "set(SPIRV_TOOLS_TARGETS $${SPIRV_TOOLS}-static)").replace(old_default, "set(SPIRV_TOOLS_TARGETS $${SPIRV_TOOLS})"))'
+	python3 -c 'from pathlib import Path; import re; p=Path("shaderc/libshaderc/CMakeLists.txt"); s=p.read_text(); marker="# Webrogue: shared shaderc target disabled"; patched=re.sub(r"add_library\(shaderc_shared SHARED.*?set_target_properties\(shaderc_shared PROPERTIES SOVERSION 1\)\n", marker+"\n", s, count=1, flags=re.S); patched=re.sub(r"shaderc_add_tests\(\n  TEST_PREFIX shaderc_shared\n.*?^[^\n]*\)\n", "", patched, count=1, flags=re.S|re.M); patched=patched.replace("install(TARGETS shaderc shaderc_shared", "install(TARGETS shaderc"); patched=re.sub(r"target_link_libraries\(shaderc_shared PRIVATE[^\n]*\n", "", patched, count=1); assert marker in s or (marker in patched and "shaderc_shared" not in patched); p.write_text(s if marker in s else patched)'
+	cd shaderc && cmake -S . -B $(BUILD_DIR)/shaderc $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DEST_DIR) -DBUILD_SHARED_LIBS=OFF -DSHADERC_SKIP_TESTS=ON -DSHADERC_SKIP_EXAMPLES=ON -DSHADERC_SKIP_COPYRIGHT_CHECK=ON -DSHADERC_ENABLE_WERROR=OFF -DSPIRV_TOOLS_LIBRARY_TYPE=STATIC -DSPIRV_SKIP_EXECUTABLES=ON -DENABLE_GLSLANG_BINARIES=OFF -DSHADERC_SKIP_EXECUTABLES=ON
+	cmake --build $(BUILD_DIR)/shaderc --target shaderc SPIRV-Tools-reduce SPIRV-Tools-link SPIRV-Tools-lint SPIRV-Tools-diff spirv-tools-pkg-config glslang MachineIndependent GenericCodeGen glslang-default-resource-limits shaderc_combined shaderc-pkg-config shaderc_static-pkg-config shaderc_combined-pkg-config --parallel
+	cmake --install $(BUILD_DIR)/shaderc --prefix $(DEST_DIR)
+	rm $(DEST_DIR)/lib/pkgconfig/shaderc.pc
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
 
 clean_mbedtls:

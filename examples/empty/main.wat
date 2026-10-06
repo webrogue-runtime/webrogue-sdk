@@ -1,1 +1,1 @@
-(module)
+(component)

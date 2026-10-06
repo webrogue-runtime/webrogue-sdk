@@ -27,44 +27,44 @@ extern void __wasm_import_webrogue_gfx_windowing_close_window(int32_t);
 __attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("check-presence")))
 extern int32_t __wasm_import_webrogue_gfx_vulkan_check_presence(void);
 
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("register-blob")))
-extern void __wasm_import_webrogue_gfx_vulkan_register_blob(int32_t, int32_t, int32_t, int32_t);
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[constructor]renderer")))
+extern int32_t __wasm_import_webrogue_gfx_vulkan_constructor_renderer(uint8_t *, size_t);
 
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("create-blob")))
-extern int32_t __wasm_import_webrogue_gfx_vulkan_create_blob(int64_t, int32_t, int32_t, int32_t);
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.register-blob")))
+extern void __wasm_import_webrogue_gfx_vulkan_method_renderer_register_blob(int32_t, int32_t, int32_t, int32_t, int32_t);
 
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("resource-unref")))
-extern void __wasm_import_webrogue_gfx_vulkan_resource_unref(int32_t);
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.create-blob")))
+extern int32_t __wasm_import_webrogue_gfx_vulkan_method_renderer_create_blob(int32_t, int64_t, int32_t, int32_t, int32_t);
 
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("create-sync")))
-extern int32_t __wasm_import_webrogue_gfx_vulkan_create_sync(int64_t);
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.resource-unref")))
+extern void __wasm_import_webrogue_gfx_vulkan_method_renderer_resource_unref(int32_t, int32_t);
 
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("sync-unref")))
-extern void __wasm_import_webrogue_gfx_vulkan_sync_unref(int32_t);
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.create-sync")))
+extern int32_t __wasm_import_webrogue_gfx_vulkan_method_renderer_create_sync(int32_t, int64_t);
 
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("sync-read")))
-extern int64_t __wasm_import_webrogue_gfx_vulkan_sync_read(int32_t);
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.sync-unref")))
+extern void __wasm_import_webrogue_gfx_vulkan_method_renderer_sync_unref(int32_t, int32_t);
 
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("sync-write")))
-extern void __wasm_import_webrogue_gfx_vulkan_sync_write(int32_t, int64_t);
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.sync-read")))
+extern int64_t __wasm_import_webrogue_gfx_vulkan_method_renderer_sync_read(int32_t, int32_t);
 
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("submit-cmd")))
-extern void __wasm_import_webrogue_gfx_vulkan_submit_cmd(uint8_t *, size_t, uint8_t *, size_t, uint8_t *, size_t);
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.sync-write")))
+extern void __wasm_import_webrogue_gfx_vulkan_method_renderer_sync_write(int32_t, int32_t, int64_t);
 
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("sync-wait")))
-extern int32_t __wasm_import_webrogue_gfx_vulkan_sync_wait(int32_t, int32_t, uint8_t *, size_t);
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.submit-cmd")))
+extern void __wasm_import_webrogue_gfx_vulkan_method_renderer_submit_cmd(int32_t, uint8_t *, size_t, uint8_t *, size_t, uint8_t *, size_t);
 
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("get-max-timeline-count")))
-extern int32_t __wasm_import_webrogue_gfx_vulkan_get_max_timeline_count(void);
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.sync-wait")))
+extern int32_t __wasm_import_webrogue_gfx_vulkan_method_renderer_sync_wait(int32_t, int32_t, int32_t, uint8_t *, size_t);
 
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("get-capset")))
-extern void __wasm_import_webrogue_gfx_vulkan_get_capset(int32_t, int32_t, uint8_t *);
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.get-max-timeline-count")))
+extern int32_t __wasm_import_webrogue_gfx_vulkan_method_renderer_get_max_timeline_count(int32_t);
 
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("context-init")))
-extern void __wasm_import_webrogue_gfx_vulkan_context_init(int32_t);
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.get-capset")))
+extern void __wasm_import_webrogue_gfx_vulkan_method_renderer_get_capset(int32_t, int32_t, int32_t, uint8_t *);
 
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("create-renderer")))
-extern void __wasm_import_webrogue_gfx_vulkan_create_renderer(uint8_t *, size_t);
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.context-init")))
+extern void __wasm_import_webrogue_gfx_vulkan_method_renderer_context_init(int32_t, int32_t);
 
 __attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[static]linear-memory-marker.create")))
 extern void __wasm_import_webrogue_gfx_vulkan_static_linear_memory_marker_create(int32_t, uint8_t *, size_t, uint8_t *);
@@ -181,6 +181,21 @@ void webrogue_gfx_windowing_stream_window_event_drop_writable(webrogue_gfx_windo
   webrogue_gfx_windowing_stream_window_event__drop_writable(writer);
 }
 
+
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[resource-drop]renderer")))
+extern void __wasm_import_webrogue_gfx_vulkan_renderer_drop(int32_t handle);
+
+void webrogue_gfx_vulkan_renderer_drop_own(webrogue_gfx_vulkan_own_renderer_t handle) {
+  __wasm_import_webrogue_gfx_vulkan_renderer_drop(handle.__handle);
+}
+
+void webrogue_gfx_vulkan_renderer_drop_borrow(webrogue_gfx_vulkan_borrow_renderer_t handle) {
+  __wasm_import_webrogue_gfx_vulkan_renderer_drop(handle.__handle);
+}
+
+webrogue_gfx_vulkan_borrow_renderer_t webrogue_gfx_vulkan_borrow_renderer(webrogue_gfx_vulkan_own_renderer_t arg) {
+  return (webrogue_gfx_vulkan_borrow_renderer_t) { arg.__handle };
+}
 
 __attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[resource-drop]linear-memory-marker")))
 extern void __wasm_import_webrogue_gfx_vulkan_linear_memory_marker_drop(int32_t handle);
@@ -355,65 +370,66 @@ bool webrogue_gfx_vulkan_check_presence(void) {
   return ret;
 }
 
-void webrogue_gfx_vulkan_register_blob(uint32_t res_id, uint32_t buf_ptr, uint32_t buf_len, webrogue_gfx_vulkan_borrow_linear_memory_marker_t memory) {
-  __wasm_import_webrogue_gfx_vulkan_register_blob((int32_t) (res_id), (int32_t) (buf_ptr), (int32_t) (buf_len), (memory).__handle);
+webrogue_gfx_vulkan_own_renderer_t webrogue_gfx_vulkan_constructor_renderer(gfx_list_u8_t *name) {
+  int32_t ret = __wasm_import_webrogue_gfx_vulkan_constructor_renderer((uint8_t *) (*name).ptr, (*name).len);
+  return (webrogue_gfx_vulkan_own_renderer_t) { ret };
 }
 
-uint32_t webrogue_gfx_vulkan_create_blob(uint64_t blob_id, uint32_t buf_ptr, uint32_t buf_len, webrogue_gfx_vulkan_borrow_linear_memory_marker_t memory) {
-  int32_t ret = __wasm_import_webrogue_gfx_vulkan_create_blob((int64_t) (blob_id), (int32_t) (buf_ptr), (int32_t) (buf_len), (memory).__handle);
+void webrogue_gfx_vulkan_method_renderer_register_blob(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t res_id, uint32_t buf_ptr, uint32_t buf_len, webrogue_gfx_vulkan_borrow_linear_memory_marker_t memory) {
+  __wasm_import_webrogue_gfx_vulkan_method_renderer_register_blob((self).__handle, (int32_t) (res_id), (int32_t) (buf_ptr), (int32_t) (buf_len), (memory).__handle);
+}
+
+uint32_t webrogue_gfx_vulkan_method_renderer_create_blob(webrogue_gfx_vulkan_borrow_renderer_t self, uint64_t blob_id, uint32_t buf_ptr, uint32_t buf_len, webrogue_gfx_vulkan_borrow_linear_memory_marker_t memory) {
+  int32_t ret = __wasm_import_webrogue_gfx_vulkan_method_renderer_create_blob((self).__handle, (int64_t) (blob_id), (int32_t) (buf_ptr), (int32_t) (buf_len), (memory).__handle);
   return (uint32_t) (ret);
 }
 
-void webrogue_gfx_vulkan_resource_unref(uint32_t res_id) {
-  __wasm_import_webrogue_gfx_vulkan_resource_unref((int32_t) (res_id));
+void webrogue_gfx_vulkan_method_renderer_resource_unref(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t res_id) {
+  __wasm_import_webrogue_gfx_vulkan_method_renderer_resource_unref((self).__handle, (int32_t) (res_id));
 }
 
-uint32_t webrogue_gfx_vulkan_create_sync(uint64_t value) {
-  int32_t ret = __wasm_import_webrogue_gfx_vulkan_create_sync((int64_t) (value));
+uint32_t webrogue_gfx_vulkan_method_renderer_create_sync(webrogue_gfx_vulkan_borrow_renderer_t self, uint64_t value) {
+  int32_t ret = __wasm_import_webrogue_gfx_vulkan_method_renderer_create_sync((self).__handle, (int64_t) (value));
   return (uint32_t) (ret);
 }
 
-void webrogue_gfx_vulkan_sync_unref(uint32_t sync_id) {
-  __wasm_import_webrogue_gfx_vulkan_sync_unref((int32_t) (sync_id));
+void webrogue_gfx_vulkan_method_renderer_sync_unref(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t sync_id) {
+  __wasm_import_webrogue_gfx_vulkan_method_renderer_sync_unref((self).__handle, (int32_t) (sync_id));
 }
 
-uint64_t webrogue_gfx_vulkan_sync_read(uint32_t sync_id) {
-  int64_t ret = __wasm_import_webrogue_gfx_vulkan_sync_read((int32_t) (sync_id));
+uint64_t webrogue_gfx_vulkan_method_renderer_sync_read(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t sync_id) {
+  int64_t ret = __wasm_import_webrogue_gfx_vulkan_method_renderer_sync_read((self).__handle, (int32_t) (sync_id));
   return (uint64_t) (ret);
 }
 
-void webrogue_gfx_vulkan_sync_write(uint32_t sync_id, uint64_t value) {
-  __wasm_import_webrogue_gfx_vulkan_sync_write((int32_t) (sync_id), (int64_t) (value));
+void webrogue_gfx_vulkan_method_renderer_sync_write(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t sync_id, uint64_t value) {
+  __wasm_import_webrogue_gfx_vulkan_method_renderer_sync_write((self).__handle, (int32_t) (sync_id), (int64_t) (value));
 }
 
-void webrogue_gfx_vulkan_submit_cmd(gfx_list_u8_t *headers, gfx_list_u8_t *cmds, gfx_list_u8_t *syncs) {
-  __wasm_import_webrogue_gfx_vulkan_submit_cmd((uint8_t *) (*headers).ptr, (*headers).len, (uint8_t *) (*cmds).ptr, (*cmds).len, (uint8_t *) (*syncs).ptr, (*syncs).len);
+void webrogue_gfx_vulkan_method_renderer_submit_cmd(webrogue_gfx_vulkan_borrow_renderer_t self, gfx_list_u8_t *headers, gfx_list_u8_t *cmds, gfx_list_u8_t *syncs) {
+  __wasm_import_webrogue_gfx_vulkan_method_renderer_submit_cmd((self).__handle, (uint8_t *) (*headers).ptr, (*headers).len, (uint8_t *) (*cmds).ptr, (*cmds).len, (uint8_t *) (*syncs).ptr, (*syncs).len);
 }
 
-int32_t webrogue_gfx_vulkan_sync_wait(uint32_t flags, uint32_t timeout, gfx_list_u32_t *syncs) {
-  int32_t ret = __wasm_import_webrogue_gfx_vulkan_sync_wait((int32_t) (flags), (int32_t) (timeout), (uint8_t *) (*syncs).ptr, (*syncs).len);
+int32_t webrogue_gfx_vulkan_method_renderer_sync_wait(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t flags, uint32_t timeout, gfx_list_u32_t *syncs) {
+  int32_t ret = __wasm_import_webrogue_gfx_vulkan_method_renderer_sync_wait((self).__handle, (int32_t) (flags), (int32_t) (timeout), (uint8_t *) (*syncs).ptr, (*syncs).len);
   return ret;
 }
 
-uint32_t webrogue_gfx_vulkan_get_max_timeline_count(void) {
-  int32_t ret = __wasm_import_webrogue_gfx_vulkan_get_max_timeline_count();
+uint32_t webrogue_gfx_vulkan_method_renderer_get_max_timeline_count(webrogue_gfx_vulkan_borrow_renderer_t self) {
+  int32_t ret = __wasm_import_webrogue_gfx_vulkan_method_renderer_get_max_timeline_count((self).__handle);
   return (uint32_t) (ret);
 }
 
-void webrogue_gfx_vulkan_get_capset(uint32_t id, uint32_t version, gfx_list_u8_t *ret) {
+void webrogue_gfx_vulkan_method_renderer_get_capset(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t id, uint32_t version, gfx_list_u8_t *ret) {
   __attribute__((__aligned__(sizeof(void*))))
   uint8_t ret_area[(2*sizeof(void*))];
   uint8_t *ptr = (uint8_t *) &ret_area;
-  __wasm_import_webrogue_gfx_vulkan_get_capset((int32_t) (id), (int32_t) (version), ptr);
+  __wasm_import_webrogue_gfx_vulkan_method_renderer_get_capset((self).__handle, (int32_t) (id), (int32_t) (version), ptr);
   *ret = (gfx_list_u8_t) { (uint8_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + sizeof(void*)))) };
 }
 
-void webrogue_gfx_vulkan_context_init(uint32_t capset_id) {
-  __wasm_import_webrogue_gfx_vulkan_context_init((int32_t) (capset_id));
-}
-
-void webrogue_gfx_vulkan_create_renderer(gfx_list_u8_t *name) {
-  __wasm_import_webrogue_gfx_vulkan_create_renderer((uint8_t *) (*name).ptr, (*name).len);
+void webrogue_gfx_vulkan_method_renderer_context_init(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t capset_id) {
+  __wasm_import_webrogue_gfx_vulkan_method_renderer_context_init((self).__handle, (int32_t) (capset_id));
 }
 
 bool webrogue_gfx_vulkan_static_linear_memory_marker_create(uint32_t ptr, gfx_list_u8_t *data, webrogue_gfx_vulkan_own_linear_memory_marker_t *ret) {
