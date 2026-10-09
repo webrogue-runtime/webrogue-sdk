@@ -19,7 +19,6 @@ typedef enum wr4c_mouse_button_t {
     WR4C_MOUSE_BUTTON_LEFT = 1,
     WR4C_MOUSE_BUTTON_RIGHT = 2,
     WR4C_MOUSE_BUTTON_MIDDLE = 3,
-    
     WR4C_MOUSE_BUTTON_MAX = 0xFF,
 } wr4c_mouse_button_t;
 
@@ -329,7 +328,6 @@ typedef enum wr4c_named_key_t {
     WR4C_NAMED_KEY_F33 = 304,
     WR4C_NAMED_KEY_F34 = 305,
     WR4C_NAMED_KEY_F35 = 306,
-    
     WR4C_NAMED_KEY_MAX = 0xFFFF,
 } wr4c_named_key_t;
 
@@ -548,7 +546,6 @@ typedef enum wr4c_physical_key_t {
     WR4C_PHYSICAL_KEY_SELECT_TASK = 214,
     WR4C_PHYSICAL_KEY_SHOW_ALL_WINDOWS = 215,
     WR4C_PHYSICAL_KEY_ZOOM_TOGGLE = 216,
-    
     WR4C_PHYSICAL_KEY_MAX = 0xFFFF,
 } wr4c_physical_key_t;
 
@@ -608,34 +605,41 @@ wr4c_event_t wr4c_poll_timeout(double timeout);
 
 // Vulkan
 
-typedef int32_t wr4c_vulkan_renderer_t;
+typedef struct wr4c_vulkan_renderer_s wr4c_vulkan_renderer_s;
+typedef wr4c_vulkan_renderer_s *wr4c_vulkan_renderer_t;
 
 uint8_t wr4c_vulkan_check();
 uint32_t wr4c_get_vulkan_window_id(wr4c_window_t window);
 void wr4c_vulkan_register_blob(wr4c_vulkan_renderer_t renderer, uint32_t res_id,
                                uint8_t *buf, uint32_t buf_len);
-uint32_t wr4c_vulkan_create_blob(wr4c_vulkan_renderer_t renderer, void *ptr,
-                                 uint32_t size, uint64_t blob_id);
-void wr4c_vulkan_resource_unref(wr4c_vulkan_renderer_t renderer, uint32_t res_id);
-uint32_t wr4c_vulkan_sync_create(wr4c_vulkan_renderer_t renderer, uint64_t value);
+uint32_t wr4c_vulkan_create_shmem(wr4c_vulkan_renderer_t renderer, void *ptr,
+                                  uint32_t size);
+uint32_t wr4c_vulkan_create_device_memory_blob(wr4c_vulkan_renderer_t renderer,
+                                               uint64_t blob_id, uint64_t size);
+void wr4c_vulkan_resource_unref(wr4c_vulkan_renderer_t renderer,
+                                uint32_t res_id);
+uint32_t wr4c_vulkan_sync_create(wr4c_vulkan_renderer_t renderer,
+                                 uint64_t value);
 void wr4c_vulkan_sync_unref(wr4c_vulkan_renderer_t renderer, uint32_t sync_id);
-uint64_t wr4c_vulkan_sync_read(wr4c_vulkan_renderer_t renderer, uint32_t sync_id);
+uint64_t wr4c_vulkan_sync_read(wr4c_vulkan_renderer_t renderer,
+                               uint32_t sync_id);
 void wr4c_vulkan_sync_write(wr4c_vulkan_renderer_t renderer, uint32_t sync_id,
                             uint64_t value);
 void wr4c_vulkan_submit_cmd(wr4c_vulkan_renderer_t renderer,
                             const uint8_t *headers, uint32_t headers_len,
                             const uint8_t *cmds, uint32_t cmds_len,
                             const uint8_t *syncs, uint32_t syncs_len);
-uint32_t wr4c_vulkan_sync_wait(wr4c_vulkan_renderer_t renderer,
-                               uint32_t flags, uint32_t timeout,
-                               const uint32_t *syncs, uint32_t syncs_len);
+uint32_t wr4c_vulkan_sync_wait(wr4c_vulkan_renderer_t renderer, uint32_t flags,
+                               uint32_t timeout, const uint32_t *syncs,
+                               uint32_t syncs_len);
 uint32_t wr4c_vulkan_get_max_timeline_count(wr4c_vulkan_renderer_t renderer);
-uint32_t wr4c_vulkan_get_capset(wr4c_vulkan_renderer_t renderer,
-                                uint32_t id, uint32_t version,
-                                uint8_t *capset, uint32_t capset_size);
-void wr4c_vulkan_context_init(wr4c_vulkan_renderer_t renderer, uint32_t capset_id);
+uint32_t wr4c_vulkan_get_capset(wr4c_vulkan_renderer_t renderer, uint32_t id,
+                                uint32_t version, uint8_t *capset,
+                                uint32_t capset_size);
+void wr4c_vulkan_context_init(wr4c_vulkan_renderer_t renderer,
+                              uint32_t capset_id);
 wr4c_vulkan_renderer_t wr4c_vulkan_create_renderer(const char *name,
-                                                    uint32_t name_len);
+                                                   uint32_t name_len);
 void wr4c_vulkan_destroy_renderer(wr4c_vulkan_renderer_t renderer);
 
 // CPU rendering
@@ -645,12 +649,12 @@ void wr4c_present_pixels(wr4c_window_t window, uint8_t *buf, uint32_t len);
 // OS info
 
 enum wr4c_os_family_t {
-    WR4C_OS_FAMILY_UNKNOWN = 0,
-    WR4C_OS_FAMILY_LINUX = 1,
-    WR4C_OS_FAMILY_WINDOWS = 2,
-    WR4C_OS_FAMILY_MACOS = 3,
-    WR4C_OS_FAMILY_ANDROID = 4,
-    WR4C_OS_FAMILY_IOS = 5,
+  WR4C_OS_FAMILY_UNKNOWN = 0,
+  WR4C_OS_FAMILY_LINUX = 1,
+  WR4C_OS_FAMILY_WINDOWS = 2,
+  WR4C_OS_FAMILY_MACOS = 3,
+  WR4C_OS_FAMILY_ANDROID = 4,
+  WR4C_OS_FAMILY_IOS = 5,
 };
 
 enum wr4c_os_family_t wr4c_get_os_family();

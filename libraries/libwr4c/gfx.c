@@ -31,10 +31,13 @@ __attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[const
 extern int32_t __wasm_import_webrogue_gfx_vulkan_constructor_renderer(uint8_t *, size_t);
 
 __attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.register-blob")))
-extern void __wasm_import_webrogue_gfx_vulkan_method_renderer_register_blob(int32_t, int32_t, int32_t, int32_t, int32_t);
+extern void __wasm_import_webrogue_gfx_vulkan_method_renderer_register_blob(int32_t, int32_t, uint8_t *, size_t);
 
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.create-blob")))
-extern int32_t __wasm_import_webrogue_gfx_vulkan_method_renderer_create_blob(int32_t, int64_t, int32_t, int32_t, int32_t);
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.create-shmem")))
+extern int32_t __wasm_import_webrogue_gfx_vulkan_method_renderer_create_shmem(int32_t, uint8_t *, size_t);
+
+__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.create-device-memory-blob")))
+extern int32_t __wasm_import_webrogue_gfx_vulkan_method_renderer_create_device_memory_blob(int32_t, int64_t, int64_t);
 
 __attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.resource-unref")))
 extern void __wasm_import_webrogue_gfx_vulkan_method_renderer_resource_unref(int32_t, int32_t);
@@ -65,9 +68,6 @@ extern void __wasm_import_webrogue_gfx_vulkan_method_renderer_get_capset(int32_t
 
 __attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[method]renderer.context-init")))
 extern void __wasm_import_webrogue_gfx_vulkan_method_renderer_context_init(int32_t, int32_t);
-
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[static]linear-memory-marker.create")))
-extern void __wasm_import_webrogue_gfx_vulkan_static_linear_memory_marker_create(int32_t, uint8_t *, size_t, uint8_t *);
 
 // Imported Functions from `webrogue:gfx/cpu-rendering`
 
@@ -197,21 +197,6 @@ webrogue_gfx_vulkan_borrow_renderer_t webrogue_gfx_vulkan_borrow_renderer(webrog
   return (webrogue_gfx_vulkan_borrow_renderer_t) { arg.__handle };
 }
 
-__attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("[resource-drop]linear-memory-marker")))
-extern void __wasm_import_webrogue_gfx_vulkan_linear_memory_marker_drop(int32_t handle);
-
-void webrogue_gfx_vulkan_linear_memory_marker_drop_own(webrogue_gfx_vulkan_own_linear_memory_marker_t handle) {
-  __wasm_import_webrogue_gfx_vulkan_linear_memory_marker_drop(handle.__handle);
-}
-
-void webrogue_gfx_vulkan_linear_memory_marker_drop_borrow(webrogue_gfx_vulkan_borrow_linear_memory_marker_t handle) {
-  __wasm_import_webrogue_gfx_vulkan_linear_memory_marker_drop(handle.__handle);
-}
-
-webrogue_gfx_vulkan_borrow_linear_memory_marker_t webrogue_gfx_vulkan_borrow_linear_memory_marker(webrogue_gfx_vulkan_own_linear_memory_marker_t arg) {
-  return (webrogue_gfx_vulkan_borrow_linear_memory_marker_t) { arg.__handle };
-}
-
 void gfx_list_u32_free(gfx_list_u32_t *ptr) {
   size_t list_len = ptr->len;
   if (list_len > 0) {
@@ -219,11 +204,6 @@ void gfx_list_u32_free(gfx_list_u32_t *ptr) {
     for (size_t i = 0; i < list_len; i++) {
     }
     free(list_ptr);
-  }
-}
-
-void webrogue_gfx_vulkan_option_own_linear_memory_marker_free(webrogue_gfx_vulkan_option_own_linear_memory_marker_t *ptr) {
-  if (ptr->is_some) {
   }
 }
 
@@ -375,12 +355,17 @@ webrogue_gfx_vulkan_own_renderer_t webrogue_gfx_vulkan_constructor_renderer(gfx_
   return (webrogue_gfx_vulkan_own_renderer_t) { ret };
 }
 
-void webrogue_gfx_vulkan_method_renderer_register_blob(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t res_id, uint32_t buf_ptr, uint32_t buf_len, webrogue_gfx_vulkan_borrow_linear_memory_marker_t memory) {
-  __wasm_import_webrogue_gfx_vulkan_method_renderer_register_blob((self).__handle, (int32_t) (res_id), (int32_t) (buf_ptr), (int32_t) (buf_len), (memory).__handle);
+void webrogue_gfx_vulkan_method_renderer_register_blob(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t res_id, gfx_list_u8_t *buf) {
+  __wasm_import_webrogue_gfx_vulkan_method_renderer_register_blob((self).__handle, (int32_t) (res_id), (uint8_t *) (*buf).ptr, (*buf).len);
 }
 
-uint32_t webrogue_gfx_vulkan_method_renderer_create_blob(webrogue_gfx_vulkan_borrow_renderer_t self, uint64_t blob_id, uint32_t buf_ptr, uint32_t buf_len, webrogue_gfx_vulkan_borrow_linear_memory_marker_t memory) {
-  int32_t ret = __wasm_import_webrogue_gfx_vulkan_method_renderer_create_blob((self).__handle, (int64_t) (blob_id), (int32_t) (buf_ptr), (int32_t) (buf_len), (memory).__handle);
+uint32_t webrogue_gfx_vulkan_method_renderer_create_shmem(webrogue_gfx_vulkan_borrow_renderer_t self, gfx_list_u8_t *buf) {
+  int32_t ret = __wasm_import_webrogue_gfx_vulkan_method_renderer_create_shmem((self).__handle, (uint8_t *) (*buf).ptr, (*buf).len);
+  return (uint32_t) (ret);
+}
+
+uint32_t webrogue_gfx_vulkan_method_renderer_create_device_memory_blob(webrogue_gfx_vulkan_borrow_renderer_t self, uint64_t blob_id, uint64_t size) {
+  int32_t ret = __wasm_import_webrogue_gfx_vulkan_method_renderer_create_device_memory_blob((self).__handle, (int64_t) (blob_id), (int64_t) (size));
   return (uint32_t) (ret);
 }
 
@@ -430,27 +415,6 @@ void webrogue_gfx_vulkan_method_renderer_get_capset(webrogue_gfx_vulkan_borrow_r
 
 void webrogue_gfx_vulkan_method_renderer_context_init(webrogue_gfx_vulkan_borrow_renderer_t self, uint32_t capset_id) {
   __wasm_import_webrogue_gfx_vulkan_method_renderer_context_init((self).__handle, (int32_t) (capset_id));
-}
-
-bool webrogue_gfx_vulkan_static_linear_memory_marker_create(uint32_t ptr, gfx_list_u8_t *data, webrogue_gfx_vulkan_own_linear_memory_marker_t *ret) {
-  __attribute__((__aligned__(4)))
-  uint8_t ret_area[8];
-  uint8_t *ptr0 = (uint8_t *) &ret_area;
-  __wasm_import_webrogue_gfx_vulkan_static_linear_memory_marker_create((int32_t) (ptr), (uint8_t *) (*data).ptr, (*data).len, ptr0);
-  webrogue_gfx_vulkan_option_own_linear_memory_marker_t option;
-  switch ((int32_t) *((uint8_t*) (ptr0 + 0))) {
-    case 0: {
-      option.is_some = false;
-      break;
-    }
-    case 1: {
-      option.is_some = true;
-      option.val = (webrogue_gfx_vulkan_own_linear_memory_marker_t) { *((int32_t*) (ptr0 + 4)) };
-      break;
-    }
-  }
-  *ret = option.val;
-  return option.is_some;
 }
 
 void webrogue_gfx_cpu_rendering_present_pixels(webrogue_gfx_cpu_rendering_borrow_window_t window, gfx_list_u32_t *buf) {
