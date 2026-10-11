@@ -4,6 +4,7 @@ docker --version | grep podman >/dev/null || {
     DOCKER_USER_FLAGS="-u $(id -u ${USER}):$(id -g ${USER})"
 }
 SDK_DIR=$(dirname $(pwd))
+WEBROGUE_REPO_DIR=${WEBROGUE_REPO_ROOT:-$(git -C "$SDK_DIR" rev-parse --show-superproject-working-tree 2>/dev/null || true)}
 
 builder_image_name=webrogue_sdk_builder
 DOCKER_PLATFORM_FLAGS="--platform linux/amd64"
@@ -27,14 +28,20 @@ run_in_builder_docker() {
 
 examples_builder_image_name=webrogue_sdk_examples_builder
 run_in_examples_builder_docker() {
+    command_to_run=$1
+    set -- \
+        -v "$(pwd):/sdk_dir/examples" \
+        -v "$SDK_DIR/libraries:/sdk_dir/libraries"
+    if test -n "$WEBROGUE_REPO_DIR" && test -d "$WEBROGUE_REPO_DIR/tests"; then
+        set -- "$@" -v "$WEBROGUE_REPO_DIR/tests:/sdk_dir/tests"
+    fi
     docker run \
         --rm \
-        -v $(pwd):/sdk_dir/examples \
-        -v $(dirname $(pwd))/webrogue-sdk/libraries:/sdk_dir/libraries \
+        "$@" \
         $DOCKER_USER_FLAGS \
         $DOCKER_PLATFORM_FLAGS \
         -t $examples_builder_image_name \
-        bash -c "$1"
+        bash -c "$command_to_run"
 }
 
 #  \
