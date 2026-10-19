@@ -10,13 +10,13 @@ Webrogue SDK is a variant of [WASI SDK](https://github.com/WebAssembly/wasi-sdk)
 
 In addition to `libc` and `libc++` from WASI SDK, Webrogue SDK bundles a number of popular libraries needed to develop desktop and mobile apps and games. Most notable are:
 
-### WebrogueGFX
+### WR4C
 
-A Webrogue-specific library. It provides a relatively simple API to access underlying graphics and windowing systems, and to receive UI events like clicks, keystrokes and touch events. WebrogueGFX is used by other high-level libraries like GLFW and GTK in realm of Webrogue.
+A Webrogue-specific library. It provides a relatively simple API to access underlying graphics and windowing systems, and to receive UI events like clicks, keystrokes and touch events. WR4C is used by other high-level libraries like GLFW and GTK in realm of Webrogue.
 
 ### Vulkan
 
-Mesa driver with modified GFXStream allows to do seemly impossible: use Vulkan graphics and compute API from inside of WebAssembly VM.
+Mesa driver with modified Venus allows to do seemly impossible: use Vulkan graphics and compute API from inside of WebAssembly VM.
 This driver includes WSI extension called `VK_WEBROGUE_surface` (gated behind `VK_USE_PLATFORM_WEBROGUE` macro and unavailable in upstream spec yet). ICD library is bundled as `libvulkan_virtio.a`, but you can use `libvulkan.a` library in addition to simplify loading of Vulkan entrypoints.
 
 ### OpenGL ES and EGL
@@ -67,6 +67,7 @@ Webrogue SDK bundles some other libraries, including:
 - LibTIFF
 - Vorbis
 - Zlib
+- Shaderc
 
 ## How to download
 

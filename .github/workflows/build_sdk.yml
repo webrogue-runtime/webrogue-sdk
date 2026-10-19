@@ -21,8 +21,13 @@ jobs:
       run: |
         git submodule update --init --single-branch --depth=1
         git -C libraries/glib submodule update --init --single-branch --depth=1 subprojects/gvdb
+        git -C builder/wasi-sdk submodule update --init --single-branch --depth=1 src/llvm-project
   
-    - name: Build
+    - name: Build WASI-SDK
+      run: |
+        sh builder/build_wasi_sdk.sh
+  
+    - name: Build libraries
       run: |
         WEBROGUE_SDK_UNCACHED=1 sh build.sh
 

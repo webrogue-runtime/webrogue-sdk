@@ -96,7 +96,7 @@
 	url = https://github.com/webrogue-runtime/venus-protocol.git
 [submodule "wasi-sdk"]
 	path = builder/wasi-sdk
-	url = https://github.com/WebAssembly/wasi-sdk.git
+	url = https://github.com/webrogue-runtime/wasi-sdk.git
 [submodule "libraries/shaderc"]
 	path = libraries/shaderc
 	url = https://github.com/google/shaderc.git
