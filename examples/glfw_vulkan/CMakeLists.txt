@@ -8,9 +8,9 @@ add_executable(main main.c)
 # list(APPEND PKG_CONFIG_EXECUTABLE "--static")
 # pkg_check_modules(GLFW REQUIRED IMPORTED_TARGET glfw3)
 
-find_library(WEBROGUEGFX_LIBRARY webroguegfx REQUIRED)
+find_library(WR4C_LIBRARY wr4c REQUIRED)
 find_library(EGL_LIBRARY EGL REQUIRED)
-find_library(VULKAN_GFXSTREAM_LIBRARY vulkan_gfxstream REQUIRED)
+find_library(VULKAN_VIRTIO_LIBRARY vulkan_virtio REQUIRED)
 
 target_include_directories(
     main
@@ -22,9 +22,6 @@ target_link_libraries(
     main
     # PkgConfig::GLFW
     glfw3
-    c++
-    c++abi
-    webroguegfx
-    -Wl,--export=vkGetInstanceProcAddr vulkan vulkan_gfxstream
-    -Wl,--export=eglGetProcAddress EGL
+    wr4c
+    -Wl,--export=vkGetInstanceProcAddr vulkan vulkan_virtio
 )

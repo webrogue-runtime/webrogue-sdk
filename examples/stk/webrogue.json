@@ -34,6 +34,10 @@
         "SUPERTUXKART_DATADIR": "/app",
         "HOME": "/persistent"
     },
+    "args": [
+        "supertuxkart",
+        "--render-driver=vulkan"
+    ],
     "graphics_api": {
         "vulkan": "required",
         "cpu_rendering": "disabled"

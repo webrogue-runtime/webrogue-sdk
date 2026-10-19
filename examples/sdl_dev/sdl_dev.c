@@ -56,15 +56,19 @@ int main(int argc, char **argv) {
 
   /* Inint TTF. */
   SDL_Init(SDL_V(SDL_INIT_VIDEO | SDL_INIT_TIMER, SDL_INIT_VIDEO));
-  // SDL_SetHint(SDL_HINT_RENDER_DRIVER, "software");
-  // SDL_WINDOW_OPENGL SDL_WINDOW_VULKAN
+  SDL_SetHint(SDL_HINT_RENDER_DRIVER, SDL_DEV_RENDER_DRIVER);
+
   ret =
       SDL_V(SDL_CreateWindowAndRenderer(WINDOW_WIDTH, WINDOW_WIDTH,
-                                        0, &window, &renderer),
+                                        SDL_DEV_WINDOW_FLAGS, &window, &renderer),
             SDL_CreateWindowAndRenderer("AAA?", WINDOW_WIDTH, WINDOW_WIDTH,
-                                        0, &window, &renderer));
+                                        SDL_DEV_WINDOW_FLAGS, &window, &renderer));
   if (CHECK_RET_ERR) {
     SDL_Log("Couldn't create window or renderer: %s", SDL_GetError());
+    return EXIT_FAILURE;
+  }
+  if (CHECK_RET_ERR) {
+    SDL_Log("Couldn't create second window or renderer: %s", SDL_GetError());
     return EXIT_FAILURE;
   }
   TTF_Init();
@@ -87,6 +91,14 @@ int main(int argc, char **argv) {
     while (SDL_PollEvent(&event) == 1) {
       if (event.type == SDL_V(SDL_QUIT, SDL_EVENT_QUIT)) {
         quit = 1;
+      }
+      if (event.type == SDL_V(SDL_RENDER_DEVICE_RESET,
+                              SDL_EVENT_RENDER_DEVICE_RESET)) {
+        SDL_DestroyTexture(texture1);
+        SDL_DestroyTexture(texture2);
+        get_text_and_rect(renderer, 0, 0, "hello", font, &texture1, &rect1);
+        get_text_and_rect(renderer, 0, rect1.y + rect1.h, "world", font,
+                          &texture2, &rect2);
       }
       if (event.type == SDL_V(SDL_KEYDOWN, SDL_EVENT_KEY_DOWN)) {
         SDL_Log("Key pressed: %d %d\n",

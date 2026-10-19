@@ -2,9 +2,9 @@ prefix=@CMAKE_INSTALL_PREFIX@
 includedir=${prefix}/include
 libdir=${prefix}/lib
 
-Name: webroguegfx
-Description: WebrogueGFX windowing API
+Name: libwr4c
+Description: Webrogue API
 Version: @VERSION@
 
-Libs: -L${libdir} -lwebroguegfx
+Libs: -L${libdir} -lwr4c
 Cflags: -I${includedir}

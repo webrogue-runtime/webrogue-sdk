@@ -12,7 +12,7 @@ set(CUSTOMIZE_BUILD ON)
 set(SUPPORT_MODULE_RAUDIO OFF)
 set(USE_AUDIO OFF)
 set(SUPPORT_QUADS_DRAW_MODE ON)
-set(OPENGL_VERSION "ES 3.0")
+set(OPENGL_VERSION "ES 2.0")
 # -DOPENGL_INCLUDE_DIR=/opt/wasip1/include 
 set(PLATFORM Desktop) # SDL Desktop
 set(USE_EXTERNAL_GLFW ON)
@@ -26,5 +26,5 @@ add_subdirectory(raylib)
 add_executable(${PROJECT_TARGET} main.c)
 
 target_link_libraries(${PROJECT_TARGET} raylib)
-# target_link_libraries(${PROJECT_TARGET} glfw3 SDL2 vulkan_gfxstream)
+# target_link_libraries(${PROJECT_TARGET} glfw3 SDL2 vulkan_virtio)
 # target_link_options(${PROJECT_TARGET} PRIVATE -v)

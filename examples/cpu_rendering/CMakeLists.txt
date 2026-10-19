@@ -4,9 +4,9 @@ project(CPURenderingExample)
 
 add_executable(main main.c)
 
-find_library(WEBROGUEGFX_LIBRARY webroguegfx REQUIRED)
+find_library(WR4C_LIBRARY wr4c REQUIRED)
 
 target_link_libraries(
     main
-    webroguegfx
+    wr4c
 )

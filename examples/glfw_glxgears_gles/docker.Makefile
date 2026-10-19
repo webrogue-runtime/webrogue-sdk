@@ -1,27 +1,24 @@
 gears: main.wasm
 	echo
 
-CC = "/sdk_dir/package/webrogue-sdk/bin/clang"
+CC = "/sdk_dir/package/webrogue-sdk/bin/wasm32-wasip3-clang"
 
-CFLAGS = --target=wasm32-wasip1-threads \
+CFLAGS = --target=wasm32-wasip3 \
 	-pthread \
 	-g \
 	-O0 \
-	-I/sdk_dir/package/webrogue-sdk/share/webrogue-sysroot/wasm32-wasip1-threads/include \
-	-L/sdk_dir/package/webrogue-sdk/share/webrogue-sysroot/wasm32-wasip1-threads/lib
+	-I/sdk_dir/package/webrogue-sdk/share/webrogue-sysroot/wasm32-wasip3/include \
+	-L/sdk_dir/package/webrogue-sdk/share/webrogue-sysroot/wasm32-wasip3/lib
 
 CLFLAGS = -Wl,--no-entry \
-	-Wl,--import-memory \
-	-Wl,--export-memory \
-	-Wl,--max-memory=4294967296 \
 	-lglfw3 \
-	-lwebroguegfx \
+	-lwr4c \
 	-lc++ \
 	-lc++abi \
 	-lEGL \
 	-Wl,--export=eglGetProcAddress \
 	-lvulkan \
-	-lvulkan_gfxstream \
+	-lvulkan_virtio \
 
 main.wasm: gears.c docker.Makefile
 	${CC} $(CFLAGS) $(CLFLAGS) gears.c \

@@ -91,3 +91,12 @@
 [submodule "examples/stk/stk-code"]
 	path = examples/stk/stk-code
 	url = https://github.com/webrogue-runtime/stk-code.git
+[submodule "libraries/venus-protocol"]
+	path = libraries/venus-protocol
+	url = https://github.com/webrogue-runtime/venus-protocol.git
+[submodule "wasi-sdk"]
+	path = builder/wasi-sdk
+	url = https://github.com/WebAssembly/wasi-sdk.git
+[submodule "libraries/shaderc"]
+	path = libraries/shaderc
+	url = https://github.com/google/shaderc.git

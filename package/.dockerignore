@@ -1,3 +1,6 @@
 *
 !/webrogue-sdk
 !/webrogue
+!/wasi-sdk-prebuilt
+/wasi-sdk-prebuilt/*
+!/wasi-sdk-prebuilt/download.sh

@@ -593,9 +593,7 @@ static void gears_idle(void) {
   static int frames = 0;
   static double tRot0 = -1.0, tRate0 = -1.0;
   double dt;
-  // double t = ((double)(timeInMilliseconds() % 1000)) / 1000;
-  static double t = 0;
-  t += 0.01;
+  double t = ((double)(timeInMilliseconds() % 1000)) / 1000;
 
   if (tRot0 < 0.0)
     tRot0 = t;
