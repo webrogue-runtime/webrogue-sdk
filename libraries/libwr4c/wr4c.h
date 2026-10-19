@@ -554,12 +554,13 @@ struct wr4c_event_mouse_button_t {
     uint8_t down;
     uint32_t x;
     uint32_t y;
-    uint8_t is_touch;
+    uint32_t touch_id;
 };
 
 struct wr4c_event_mouse_motion_t {
     uint32_t x;
     uint32_t y;
+    uint32_t touch_id;
 };
 
 struct wr4c_event_key_t {
@@ -576,8 +577,10 @@ enum wr4c_event_tag_t {
     WR4C_EVENT_TAG_MOUSE_MOTION = 2,
     WR4C_EVENT_TAG_KEY = 3,
     WR4C_EVENT_TAG_QUIT = 4,
-    WR4C_EVENT_TAG_WINDOW_RESIZED = 5,
-    WR4C_EVENT_TAG_GL_RESIZED = 6,
+    WR4C_EVENT_TAG_SURFACE_LOST = 7,
+    WR4C_EVENT_TAG_SURFACE_ATTACHED = 8,
+    WR4C_EVENT_TAG_REDRAW_REQUESTED = 9,
+    WR4C_EVENT_TAG_RESIZED = 10,
 };
 
 typedef struct wr4c_event_t {
@@ -596,8 +599,8 @@ typedef struct wr4c_event_t {
 
 void wr4c_make_window(wr4c_window_t *out_window);
 void wr4c_destroy_window(wr4c_window_t window);
-void wr4c_window_size(wr4c_window_t window, int *width, int *height);
-void wr4c_gl_size(wr4c_window_t window, int *width, int *height);
+void wr4c_logical_size(wr4c_window_t window, int *width, int *height);
+void wr4c_physical_size(wr4c_window_t window, int *width, int *height);
 
 wr4c_event_t wr4c_poll();
 wr4c_event_t wr4c_poll_blocking();

@@ -4,8 +4,8 @@
 
 // Imported Functions from `webrogue:gfx/windowing`
 
-__attribute__((__import_module__("webrogue:gfx/windowing"), __import_name__("[constructor]window")))
-extern int32_t __wasm_import_webrogue_gfx_windowing_constructor_window(void);
+__attribute__((__import_module__("webrogue:gfx/windowing"), __import_name__("make-window")))
+extern int32_t __wasm_import_webrogue_gfx_windowing_make_window(void);
 
 __attribute__((__import_module__("webrogue:gfx/windowing"), __import_name__("[method]window.get-logical-size")))
 extern void __wasm_import_webrogue_gfx_windowing_method_window_get_logical_size(int32_t, uint8_t *);
@@ -304,8 +304,8 @@ void gfx_thread_yield(void) {
 
 // Component Adapters
 
-webrogue_gfx_windowing_own_window_t webrogue_gfx_windowing_constructor_window(void) {
-  int32_t ret = __wasm_import_webrogue_gfx_windowing_constructor_window();
+webrogue_gfx_windowing_own_window_t webrogue_gfx_windowing_make_window(void) {
+  int32_t ret = __wasm_import_webrogue_gfx_windowing_make_window();
   return (webrogue_gfx_windowing_own_window_t) { ret };
 }
 

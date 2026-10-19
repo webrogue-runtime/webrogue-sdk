@@ -35,13 +35,24 @@ int main(int argc, char **argv) {
   int width, height;
   uint8_t *buffer = malloc(1);
   char needs_resize = 1;
+  char needs_redraw = 1;
   char should_close = 0;
-  while (1) {
+  while (!should_close) {
     if (needs_resize) {
-      wr4c_gl_size(window, &width, &height);
-      buffer = realloc(buffer, width * height * 4);
+      wr4c_physical_size(window, &width, &height);
+    }
+    size_t buffer_size = (size_t)width * (size_t)height * 4;
+    if (needs_resize && buffer_size > 0) {
+      uint8_t *resized_buffer = realloc(buffer, buffer_size);
+      if (resized_buffer == NULL) {
+        printf("Error allocating pixel buffer\n");
+        abort();
+      }
+      buffer = resized_buffer;
       needs_resize = 0;
-    
+      needs_redraw = 1;
+    }
+    if (needs_redraw && width > 0 && height > 0) {
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++) {
           int offset = 4 * (x + width * y);
@@ -53,29 +64,44 @@ int main(int argc, char **argv) {
           // Blue
           buffer[offset + 0] = (x * y) % 256;
         }
-      wr4c_present_pixels(window, buffer, width * height * 4);
+
+      size_t buffer_size = (size_t)width * (size_t)height * 4;
+      wr4c_present_pixels(window, buffer, (uint32_t)buffer_size);
+      needs_redraw = 0;
     }
+
+    char redraw_or_quit_event_received = 0;
+    wr4c_event_t event;
     while (1) {
-#define SHOULD_STOP_POLLING (should_close || needs_resize)
-      wr4c_event_t event = wr4c_poll_timeout(SHOULD_STOP_POLLING ? 0 : -1);
+      event = wr4c_poll_timeout(redraw_or_quit_event_received ? 0 : -1);
+
+      if (event.tag == WR4C_EVENT_TAG_INVALID) {
+        if (redraw_or_quit_event_received) {
+          break;
+        }
+        continue;
+      }
+
       switch (event.tag) {
-      case WR4C_EVENT_TAG_QUIT: {
+      case WR4C_EVENT_TAG_QUIT:
         should_close = 1;
+        redraw_or_quit_event_received = 1;
         break;
-      }
-      case WR4C_EVENT_TAG_GL_RESIZED: {
+      case WR4C_EVENT_TAG_RESIZED:
+      case WR4C_EVENT_TAG_SURFACE_ATTACHED:
         needs_resize = 1;
+        redraw_or_quit_event_received = 1;
         break;
-      }
+      case WR4C_EVENT_TAG_REDRAW_REQUESTED:
+        needs_redraw = 1;
+        redraw_or_quit_event_received = 1;
+        break;
       default:
         break;
       }
-      if (SHOULD_STOP_POLLING && event.tag == WR4C_EVENT_TAG_INVALID)
-        break;
-#undef SHOULD_STOP_POLLING
     }
-    if (should_close)
-      break;
   }
+  wr4c_destroy_window(window);
+  free(buffer);
   return 0;
 }

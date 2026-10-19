@@ -614,13 +614,14 @@ typedef struct {
   bool f1;
   uint32_t f2;
   uint32_t f3;
-  bool f4;
-} webrogue_gfx_windowing_tuple5_mouse_button_bool_u32_u32_bool_t;
+  uint32_t f4;
+} webrogue_gfx_windowing_tuple5_mouse_button_bool_u32_u32_u32_t;
 
 typedef struct {
   uint32_t f0;
   uint32_t f1;
-} gfx_tuple2_u32_u32_t;
+  uint32_t f2;
+} gfx_tuple3_u32_u32_u32_t;
 
 typedef struct {
   uint8_t *ptr;
@@ -637,21 +638,23 @@ typedef struct {
 typedef struct webrogue_gfx_windowing_window_event_t {
   uint8_t tag;
   union {
-    webrogue_gfx_windowing_tuple5_mouse_button_bool_u32_u32_bool_t     mouse_button;
-    gfx_tuple2_u32_u32_t     mouse_motion;
+    webrogue_gfx_windowing_tuple5_mouse_button_bool_u32_u32_u32_t     mouse_button;
+    gfx_tuple3_u32_u32_u32_t     mouse_motion;
     webrogue_gfx_windowing_tuple4_bool_named_key_physical_key_list_u8_t     key;
   } val;
 } webrogue_gfx_windowing_window_event_t;
 
-// button, down, x, y, is-touch
+// button, down, x, y, touch-id
 #define WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_MOUSE_BUTTON 0
-// x, y
+// x, y, touch-id
 #define WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_MOUSE_MOTION 1
 // down, named-key, physical-key, text
 #define WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_KEY 2
 #define WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_QUIT 3
-#define WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_WINDOW_RESIZED 4
-#define WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_GL_RESIZED 5
+#define WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_SURFACE_LOST 4
+#define WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_SURFACE_ATTACHED 5
+#define WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_REDRAW_REQUESTED 6
+#define WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_RESIZED 7
 
 typedef struct webrogue_gfx_windowing_own_window_t {
   int32_t __handle;
@@ -660,6 +663,11 @@ typedef struct webrogue_gfx_windowing_own_window_t {
 typedef struct webrogue_gfx_windowing_borrow_window_t {
   int32_t __handle;
 } webrogue_gfx_windowing_borrow_window_t;
+
+typedef struct {
+  uint32_t f0;
+  uint32_t f1;
+} gfx_tuple2_u32_u32_t;
 
 typedef uint32_t webrogue_gfx_windowing_stream_window_event_t;
 
@@ -679,7 +687,8 @@ typedef struct {
 typedef webrogue_gfx_windowing_borrow_window_t webrogue_gfx_cpu_rendering_borrow_window_t;
 
 // Imported Functions from `webrogue:gfx/windowing`
-extern webrogue_gfx_windowing_own_window_t webrogue_gfx_windowing_constructor_window(void);
+// END GENERATED CODE
+extern webrogue_gfx_windowing_own_window_t webrogue_gfx_windowing_make_window(void);
 extern void webrogue_gfx_windowing_method_window_get_logical_size(webrogue_gfx_windowing_borrow_window_t self, gfx_tuple2_u32_u32_t *ret);
 extern void webrogue_gfx_windowing_method_window_get_physical_size(webrogue_gfx_windowing_borrow_window_t self, gfx_tuple2_u32_u32_t *ret);
 extern uint32_t webrogue_gfx_windowing_method_window_get_vulkan_id(webrogue_gfx_windowing_borrow_window_t self);

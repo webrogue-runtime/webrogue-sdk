@@ -17,9 +17,11 @@ void wr4c_make_window(wr4c_window_t *out_window) {
     } else {
         s_all_windows = realloc(s_all_windows, s_all_windows_count * sizeof(wr4c_window_t));
     }
-    window->handle = webrogue_gfx_windowing_constructor_window();
+    size_t internal_id = s_all_windows_count - 1;
+    s_all_windows[internal_id] = NULL;
+    window->handle = webrogue_gfx_windowing_make_window();
     // TODO find NULL holes in s_all_windows and reuse them
-    window->internal_id = s_all_windows_count - 1;
+    window->internal_id = internal_id;
     s_all_windows[window->internal_id] = window;
 
     webrogue_gfx_windowing_borrow_window_t borrow = webrogue_gfx_windowing_borrow_window(window->handle);
@@ -40,7 +42,7 @@ void wr4c_destroy_window(wr4c_window_t window) {
 }
 
 
-void wr4c_window_size(wr4c_window_t window, int *width, int *height) {
+void wr4c_logical_size(wr4c_window_t window, int *width, int *height) {
     gfx_tuple2_u32_u32_t ret;
     webrogue_gfx_windowing_borrow_window_t borrow = webrogue_gfx_windowing_borrow_window(window->handle);
     webrogue_gfx_windowing_method_window_get_logical_size(borrow, &ret);
@@ -49,7 +51,7 @@ void wr4c_window_size(wr4c_window_t window, int *width, int *height) {
     *height = ret.f1;
 }
 
-void wr4c_gl_size(wr4c_window_t window, int *width, int *height) {
+void wr4c_physical_size(wr4c_window_t window, int *width, int *height) {
     gfx_tuple2_u32_u32_t ret;
     webrogue_gfx_windowing_borrow_window_t borrow = webrogue_gfx_windowing_borrow_window(window->handle);
     webrogue_gfx_windowing_method_window_get_physical_size(borrow, &ret);
@@ -728,13 +730,14 @@ static wr4c_event_t convert_webrogue_event(webrogue_gfx_windowing_window_event_t
             result.inner.mouse_button.down = event.val.mouse_button.f1;
             result.inner.mouse_button.x = event.val.mouse_button.f2;
             result.inner.mouse_button.y = event.val.mouse_button.f3;
-            result.inner.mouse_button.is_touch = event.val.mouse_button.f4;
+            result.inner.mouse_button.touch_id = event.val.mouse_button.f4;
             return result;
         }
         case WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_MOUSE_MOTION: {
             result.tag = WR4C_EVENT_TAG_MOUSE_MOTION;
             result.inner.mouse_motion.x = event.val.mouse_motion.f0;
             result.inner.mouse_motion.y = event.val.mouse_motion.f1;
+            result.inner.mouse_motion.touch_id = event.val.mouse_motion.f2;
             return result;
         }
         case WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_KEY: {
@@ -750,12 +753,20 @@ static wr4c_event_t convert_webrogue_event(webrogue_gfx_windowing_window_event_t
             result.tag = WR4C_EVENT_TAG_QUIT;
             return result;
         }
-        case WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_WINDOW_RESIZED: {
-            result.tag = WR4C_EVENT_TAG_WINDOW_RESIZED;
+        case WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_SURFACE_LOST: {
+            result.tag = WR4C_EVENT_TAG_SURFACE_LOST;
             return result;
         }
-        case WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_GL_RESIZED: {
-            result.tag = WR4C_EVENT_TAG_GL_RESIZED;
+        case WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_SURFACE_ATTACHED: {
+            result.tag = WR4C_EVENT_TAG_SURFACE_ATTACHED;
+            return result;
+        }
+        case WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_REDRAW_REQUESTED: {
+            result.tag = WR4C_EVENT_TAG_REDRAW_REQUESTED;
+            return result;
+        }
+        case WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_RESIZED: {
+            result.tag = WR4C_EVENT_TAG_RESIZED;
             return result;
         }
         default: {

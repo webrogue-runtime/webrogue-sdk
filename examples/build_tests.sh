@@ -1,6 +1,6 @@
 #!/bin/sh
-# Build the guest with the release SDK package (WEBROGUE_SDK_DEBUG=0).
 set -eu
+
 DOCKER_USER_FLAGS=${DOCKER_USER_FLAGS:-}
 
 EXAMPLES_DIR=$(cd "$(dirname "$0")" && pwd)
@@ -11,6 +11,9 @@ if [ -z "$REPO_ROOT" ] || [ ! -f "$REPO_ROOT/Cargo.toml" ]; then
     echo "Run this script from the Webrogue repository, or set WEBROGUE_REPO_ROOT." >&2
     exit 1
 fi
+
+WEBROGUE_SDK_DEBUG=0 sh "$SDK_DIR/build.sh"
+sh "$EXAMPLES_DIR/make_image.sh"
 
 export WEBROGUE_REPO_ROOT="$REPO_ROOT"
 cd "$SDK_DIR/builder"
