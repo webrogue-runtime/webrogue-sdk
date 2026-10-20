@@ -6,7 +6,13 @@ cd "$(dirname "$0")"
 SDK_VERSION=34.0
 SDK_MAJOR_VERSION=34
 
-for SDK in x86_64-linux arm64-linux x86_64-windows x86_64-macos arm64-macos
+# Usage: ./download.sh [SDK...]
+# With no arguments all supported SDKs are downloaded.
+if [ $# -eq 0 ]; then
+    set -- x86_64-linux arm64-linux x86_64-windows x86_64-macos arm64-macos
+fi
+
+for SDK in "$@"
 do
     if [ ! -d "wasi-sdk-$SDK_VERSION-$SDK" ] || [ ! -d "wasi-sdk-$SDK" ]; then
         curl -L https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-$SDK_MAJOR_VERSION/wasi-sdk-$SDK_VERSION-$SDK.tar.gz | tar -xz

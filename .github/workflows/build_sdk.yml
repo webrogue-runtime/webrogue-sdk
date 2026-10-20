@@ -24,9 +24,13 @@ jobs:
         git submodule update --init --single-branch --depth=1
         git -C libraries/glib submodule update --init --single-branch --depth=1 subprojects/gvdb
   
-    - name: Build WASI-SDK
+    - name: Download prebuilt WASI-SDK
       run: |
-        sh builder/build_wasi_sdk.sh
+        sh package/wasi-sdk-prebuilt/download.sh
+
+    - name: Build WASI sysroot
+      run: |
+        WEBROGUE_SDK_PREBUILT_WASI_SDK=1 sh builder/build_wasi_sdk.sh
   
     - name: Build libraries
       run: |
