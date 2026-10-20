@@ -20,7 +20,7 @@ jobs:
     - name: Submodules
       run: |
         git submodule update --init --single-branch builder/wasi-sdk
-        git -C builder/wasi-sdk submodule update --init --single-branch --depth=1 src/llvm-project
+        git -C builder/wasi-sdk submodule update --init --single-branch --depth=1 src/llvm-project src/wasi-libc src/config
         git submodule update --init --single-branch --depth=1
         git -C libraries/glib submodule update --init --single-branch --depth=1 subprojects/gvdb
   
