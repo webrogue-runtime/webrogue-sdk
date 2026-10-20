@@ -15,6 +15,7 @@ else
     DEST_DIR_APPEND=/cached
 fi
 
+export CMAKE_GENERATOR=Ninja
 make -C libraries TOOLCHAIN=wasip3 CONFIG=$CONFIG CONFIG_LOWERCASED=$CONFIG_LOWERCASED DEST_DIR_APPEND=$DEST_DIR_APPEND
 
 for SDK in x86_64-linux arm64-linux x86_64-windows x86_64-macos arm64-macos
