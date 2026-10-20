@@ -1,6 +1,16 @@
 set -ex
 cd "$(dirname "$0")"
 
+# The webrogue fork of wasi-sdk has no tags, but version.py needs a wasi-sdk-*
+# tag for `git describe`, so pull them from upstream if they are missing.
+if ! git -C wasi-sdk describe --match='wasi-sdk-*' >/dev/null 2>&1; then
+    git -C wasi-sdk fetch --tags https://github.com/WebAssembly/wasi-sdk.git
+fi
+if ! git -C wasi-sdk describe --match='wasi-sdk-*' >/dev/null 2>&1; then
+    echo "wasi-sdk has no wasi-sdk-* tag, but version.py requires one" >&2
+    exit 1
+fi
+
 # Building the toolchain from source takes hours. The prebuilt toolchain in
 # package/wasi-sdk-prebuilt is built from the same sources (see its VERSION
 # file), so it can be reused: set WEBROGUE_SDK_PREBUILT_WASI_SDK=1 to skip the
