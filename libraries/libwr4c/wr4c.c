@@ -43,7 +43,7 @@ void wr4c_destroy_window(wr4c_window_t window) {
 
 
 void wr4c_logical_size(wr4c_window_t window, int *width, int *height) {
-    gfx_tuple2_u32_u32_t ret;
+    webrogue_gfx_tuple2_u32_u32_t ret;
     webrogue_gfx_windowing_borrow_window_t borrow = webrogue_gfx_windowing_borrow_window(window->handle);
     webrogue_gfx_windowing_method_window_get_logical_size(borrow, &ret);
     //   webrogue_gfx_windowing_window_drop_borrow(borrow);
@@ -52,7 +52,7 @@ void wr4c_logical_size(wr4c_window_t window, int *width, int *height) {
 }
 
 void wr4c_physical_size(wr4c_window_t window, int *width, int *height) {
-    gfx_tuple2_u32_u32_t ret;
+    webrogue_gfx_tuple2_u32_u32_t ret;
     webrogue_gfx_windowing_borrow_window_t borrow = webrogue_gfx_windowing_borrow_window(window->handle);
     webrogue_gfx_windowing_method_window_get_physical_size(borrow, &ret);
     //   webrogue_gfx_windowing_window_drop_borrow(borrow);
@@ -82,10 +82,10 @@ static wr4c_event_t wr4c_poll_impl(double timeout_seconds) {
         if(!window || window->read_in_flight) {
             continue;
         }
-        gfx_waitable_status_t status = webrogue_gfx_windowing_stream_window_event_read(window->window_event_stream, &window->polled_event, 1);
-        if(GFX_WAITABLE_STATE(status) == GFX_WAITABLE_COMPLETED && GFX_WAITABLE_COUNT(status) == 1) {
+        webrogue_gfx_waitable_status_t status = webrogue_gfx_windowing_stream_window_event_read(window->window_event_stream, &window->polled_event, 1);
+        if(WEBROGUE_GFX_WAITABLE_STATE(status) == WEBROGUE_GFX_WAITABLE_COMPLETED && WEBROGUE_GFX_WAITABLE_COUNT(status) == 1) {
             wr4c_take_window_event(window, &result);
-        } else if(status == GFX_WAITABLE_STATUS_BLOCKED) {
+        } else if(status == WEBROGUE_GFX_WAITABLE_STATUS_BLOCKED) {
             window->read_in_flight = true;
         }
     }
@@ -94,14 +94,14 @@ static wr4c_event_t wr4c_poll_impl(double timeout_seconds) {
         return result;
     }
 
-    gfx_waitable_set_t wait_set = gfx_waitable_set_new();
+    webrogue_gfx_waitable_set_t wait_set = webrogue_gfx_waitable_set_new();
     size_t reads_in_flight = 0;
     for(size_t i = 0; i < s_all_windows_count; i++) {
         wr4c_window_t window = s_all_windows[i];
         if(!window || !window->read_in_flight) {
             continue;
         }
-        gfx_waitable_join(window->window_event_stream, wait_set);
+        webrogue_gfx_waitable_join(window->window_event_stream, wait_set);
         reads_in_flight++;
     }
 
@@ -113,40 +113,40 @@ static wr4c_event_t wr4c_poll_impl(double timeout_seconds) {
         wasip3_subtask_status_t status = monotonic_clock_wait_for(duration);
         if(WASIP3_SUBTASK_STATE(status) != WASIP3_SUBTASK_RETURNED) {
             timeout_subtask = WASIP3_SUBTASK_HANDLE(status);
-            gfx_waitable_join(timeout_subtask, wait_set);
+            webrogue_gfx_waitable_join(timeout_subtask, wait_set);
         }
     }
 
-    gfx_event_t poll_result;
-    poll_result.event = GFX_EVENT_NONE;
+    webrogue_gfx_event_t poll_result;
+    poll_result.event = WEBROGUE_GFX_EVENT_NONE;
     poll_result.waitable = 0;
     poll_result.code = 0;
     if(timeout_subtask != 0 || (timeout_seconds < 0 && reads_in_flight > 0)) {
-        gfx_waitable_set_wait(wait_set, &poll_result);
+        webrogue_gfx_waitable_set_wait(wait_set, &poll_result);
     } else if(reads_in_flight > 0) {
-        gfx_waitable_set_poll(wait_set, &poll_result);
-        if(poll_result.event == GFX_EVENT_NONE) {
-            gfx_thread_yield();
-            gfx_waitable_set_poll(wait_set, &poll_result);
+        webrogue_gfx_waitable_set_poll(wait_set, &poll_result);
+        if(poll_result.event == WEBROGUE_GFX_EVENT_NONE) {
+            webrogue_gfx_thread_yield();
+            webrogue_gfx_waitable_set_poll(wait_set, &poll_result);
         }
     }
 
-    if(poll_result.event == GFX_EVENT_STREAM_READ) {
+    if(poll_result.event == WEBROGUE_GFX_EVENT_STREAM_READ) {
         for(size_t i = 0; i < s_all_windows_count; i++) {
             wr4c_window_t window = s_all_windows[i];
             if(!window || !window->read_in_flight || window->window_event_stream != poll_result.waitable) {
                 continue;
             }
-            gfx_waitable_join(window->window_event_stream, 0);
+            webrogue_gfx_waitable_join(window->window_event_stream, 0);
             window->read_in_flight = false;
-            gfx_waitable_status_t status = poll_result.code;
-            if(GFX_WAITABLE_STATE(status) == GFX_WAITABLE_COMPLETED && GFX_WAITABLE_COUNT(status) == 1) {
+            webrogue_gfx_waitable_status_t status = poll_result.code;
+            if(WEBROGUE_GFX_WAITABLE_STATE(status) == WEBROGUE_GFX_WAITABLE_COMPLETED && WEBROGUE_GFX_WAITABLE_COUNT(status) == 1) {
                 wr4c_take_window_event(window, &result);
             }
             break;
         }
-    } else if(poll_result.event == GFX_EVENT_SUBTASK && timeout_subtask != 0 && poll_result.waitable == timeout_subtask) {
-        gfx_waitable_join(timeout_subtask, 0);
+    } else if(poll_result.event == WEBROGUE_GFX_EVENT_SUBTASK && timeout_subtask != 0 && poll_result.waitable == timeout_subtask) {
+        webrogue_gfx_waitable_join(timeout_subtask, 0);
         wasip3_subtask_drop(timeout_subtask);
         timeout_subtask = 0;
     }
@@ -156,14 +156,14 @@ static wr4c_event_t wr4c_poll_impl(double timeout_seconds) {
         if(!window || !window->read_in_flight) {
             continue;
         }
-        gfx_waitable_join(window->window_event_stream, 0);
+        webrogue_gfx_waitable_join(window->window_event_stream, 0);
     }
     if(timeout_subtask != 0) {
-        gfx_waitable_join(timeout_subtask, 0);
+        webrogue_gfx_waitable_join(timeout_subtask, 0);
         wasip3_subtask_cancel(timeout_subtask);
         wasip3_subtask_drop(timeout_subtask);
     }
-    gfx_waitable_set_drop(wait_set);
+    webrogue_gfx_waitable_set_drop(wait_set);
 
     return result;
 }

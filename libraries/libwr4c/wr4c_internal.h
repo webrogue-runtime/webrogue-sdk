@@ -1,4 +1,4 @@
-#include "gfx.h"
+#include "webrogue_gfx.h"
 #include <stdbool.h>
 
 struct wr4c_window_s {

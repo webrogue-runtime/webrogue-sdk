@@ -9,9 +9,9 @@ add_library(
     wr4c.c
     wr4c_vulkan.c
     wr4c_cpu_rendering.c
-    gfx.h
-    gfx.c
-    gfx_component_type.o
+    webrogue_gfx.h
+    webrogue_gfx.c
+    webrogue_gfx_component_type.o
 )
 
 set_target_properties(
