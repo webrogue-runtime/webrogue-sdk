@@ -19,7 +19,7 @@
         }
     },
     "graphics_api": {
-        "vulkan": "required",
+        "vulkan": "optional",
         "cpu_rendering": "disabled"
     }
 }

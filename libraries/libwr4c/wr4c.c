@@ -745,8 +745,13 @@ static wr4c_event_t convert_webrogue_event(webrogue_gfx_windowing_window_event_t
             result.inner.key.down = event.val.key.f0;
             result.inner.key.named_key = convert_wr4c_named_key(event.val.key.f1);
             result.inner.key.physical_key = convert_wr4c_physical_key(event.val.key.f2);
-            memcpy(&result.inner.key.text, event.val.key.f3.ptr, 32);
-            result.inner.key.text_len = event.val.key.f3.len;
+            size_t text_copy_len = event.val.key.f3.len;
+            if (text_copy_len > sizeof(result.inner.key.text) - 1) { text_copy_len = sizeof(result.inner.key.text) - 1; }
+            memset(result.inner.key.text, 0, sizeof(result.inner.key.text));
+            if (text_copy_len != 0) {
+                memcpy(result.inner.key.text, event.val.key.f3.ptr, text_copy_len);
+            }
+            result.inner.key.text_len = text_copy_len;
             return result;
         }
         case WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_QUIT: {
