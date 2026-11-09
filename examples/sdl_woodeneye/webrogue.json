@@ -1,0 +1,10 @@
+{
+    "name": "SDL3 FPS Demo",
+    "id": "webrogue.examples.SDLWoodeneye",
+    "version": "0.1.0",
+    "main": "build/woodeneye",
+    "graphics_api": {
+        "vulkan": "disabled",
+        "cpu_rendering": "required"
+    }
+}

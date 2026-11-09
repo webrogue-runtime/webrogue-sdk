@@ -3,6 +3,7 @@
 #define WR4C_h_
 #include <stddef.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -571,6 +572,11 @@ struct wr4c_event_key_t {
     uint8_t text[32];
 };
 
+struct wr4c_event_raw_mouse_motion_t {
+    float dx;
+    float dy;
+};
+
 enum wr4c_event_tag_t {
     WR4C_EVENT_TAG_INVALID = 0,
     WR4C_EVENT_TAG_MOUSE_BUTTON = 1,
@@ -581,6 +587,7 @@ enum wr4c_event_tag_t {
     WR4C_EVENT_TAG_SURFACE_ATTACHED = 8,
     WR4C_EVENT_TAG_REDRAW_REQUESTED = 9,
     WR4C_EVENT_TAG_RESIZED = 10,
+    WR4C_EVENT_TAG_RAW_MOUSE_MOTION = 11,
 };
 
 typedef struct wr4c_event_t {
@@ -589,6 +596,7 @@ typedef struct wr4c_event_t {
         struct wr4c_event_mouse_button_t mouse_button;
         struct wr4c_event_mouse_motion_t mouse_motion;
         struct wr4c_event_key_t key;
+        struct wr4c_event_raw_mouse_motion_t raw_mouse_motion;
     } inner;
     wr4c_window_t window;
 } wr4c_event_t;
@@ -601,6 +609,7 @@ void wr4c_make_window(wr4c_window_t *out_window);
 void wr4c_destroy_window(wr4c_window_t window);
 void wr4c_logical_size(wr4c_window_t window, int *width, int *height);
 void wr4c_physical_size(wr4c_window_t window, int *width, int *height);
+bool wr4c_set_mouse_grab(wr4c_window_t window, bool enabled);
 
 wr4c_event_t wr4c_poll();
 wr4c_event_t wr4c_poll_blocking();

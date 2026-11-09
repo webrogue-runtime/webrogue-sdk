@@ -3,10 +3,12 @@
 
 #if USE_SDL_VERSION == 2
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_ttf.h>
 #define SDL_V(v2, v3) v2
 #elif USE_SDL_VERSION == 3
 #include <SDL3/SDL.h>
+#include <SDL3/SDL_mouse.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #define SDL_V(v2, v3) v3
 #else
@@ -63,6 +65,10 @@ int main(int argc, char **argv) {
                                         SDL_DEV_WINDOW_FLAGS, &window, &renderer),
             SDL_CreateWindowAndRenderer("AAA?", WINDOW_WIDTH, WINDOW_WIDTH,
                                         SDL_DEV_WINDOW_FLAGS, &window, &renderer));
+  SDL_V(
+    SDL_SetRelativeMouseMode(SDL_TRUE),
+    SDL_SetWindowRelativeMouseMode(window, true)
+  );
   if (CHECK_RET_ERR) {
     SDL_Log("Couldn't create window or renderer: %s", SDL_GetError());
     return EXIT_FAILURE;
@@ -104,6 +110,9 @@ int main(int argc, char **argv) {
         SDL_Log("Key pressed: %d %d\n",
                 SDL_V(event.key.keysym.scancode, event.key.scancode),
                 SDL_V(event.key.keysym.sym, event.key.key));
+      }
+      if (event.type == SDL_V(SDL_MOUSEMOTION, SDL_EVENT_MOUSE_MOTION)) {
+        SDL_Log("Mouse motion\n");
       }
     }
 

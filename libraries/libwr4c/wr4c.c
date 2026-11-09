@@ -60,6 +60,12 @@ void wr4c_physical_size(wr4c_window_t window, int *width, int *height) {
     *height = ret.f1;
 }
 
+bool wr4c_set_mouse_grab(wr4c_window_t window, bool enabled) {
+    webrogue_gfx_windowing_borrow_window_t borrow = webrogue_gfx_windowing_borrow_window(window->handle);
+    return webrogue_gfx_windowing_method_window_set_mouse_grab(borrow, enabled);
+    //   webrogue_gfx_windowing_window_drop_borrow(borrow);
+}
+
 enum wr4c_os_family_t wr4c_get_os_family() {
     uint8_t os_family = webrogue_gfx_device_info_get_os_family();
     return (enum wr4c_os_family_t)os_family;
@@ -772,6 +778,12 @@ static wr4c_event_t convert_webrogue_event(webrogue_gfx_windowing_window_event_t
         }
         case WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_RESIZED: {
             result.tag = WR4C_EVENT_TAG_RESIZED;
+            return result;
+        }
+        case WEBROGUE_GFX_WINDOWING_WINDOW_EVENT_RAW_MOUSE_MOTION: {
+            result.tag = WR4C_EVENT_TAG_RAW_MOUSE_MOTION;
+            result.inner.raw_mouse_motion.dx = event.val.raw_mouse_motion.f0;
+            result.inner.raw_mouse_motion.dy = event.val.raw_mouse_motion.f1;
             return result;
         }
         default: {

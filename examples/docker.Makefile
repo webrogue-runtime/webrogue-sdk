@@ -1,4 +1,4 @@
-all: build_glfw_vulkan build_cpu_rendering build_glfw_glxgears_gles build_raylib build_stk build_empty build_sdl_dev build_gtk
+all: build_glfw_vulkan build_cpu_rendering build_glfw_glxgears_gles build_raylib build_stk build_empty build_sdl_dev build_gtk build_sdl_woodeneye
 
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
@@ -26,6 +26,9 @@ build_sdl_dev:
 
 build_gtk:
 	$(MAKE) -C gtk -f docker.Makefile
+
+build_sdl_woodeneye:
+	$(MAKE) -C sdl_woodeneye -f docker.Makefile
 
 clean:
 	$(MAKE) -C glfw_glxgears_gles clean -f docker.Makefile
