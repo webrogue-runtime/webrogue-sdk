@@ -21,3 +21,10 @@ cd "$SDK_DIR/builder"
 cd "$EXAMPLES_DIR"
 
 run_in_examples_builder_docker "export PKG_CONFIG_PATH=/sdk_dir/package/webrogue-sdk/share/webrogue-sysroot/wasm32-wasip3/lib/pkgconfig; export PKG_CONFIG_LIBDIR=/sdk_dir/package/webrogue-sdk/share/webrogue-sysroot/wasm32-wasip3/lib; make -B -C /sdk_dir/tests/fixtures/stdio && make -B -C /sdk_dir/tests/fixtures/persistence && make -B -C /sdk_dir/tests/fixtures/cpu_rendering && make -B -C /sdk_dir/tests/fixtures/resources"
+
+cd $WEBROGUE_REPO_ROOT
+
+for FIXTURE in tests/fixtures/cpu_rendering/main.wasm tests/fixtures/persistence/main.wasm tests/fixtures/resources/main.wasm tests/fixtures/stdio/main.wasm 
+do
+    cargo run --no-default-features --features=wasm-opt wasm-opt-component $FIXTURE
+done

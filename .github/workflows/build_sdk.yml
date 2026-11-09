@@ -5,7 +5,7 @@ on:
     branches:
       - main
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
   workflow_dispatch:
 
 jobs:
@@ -15,54 +15,68 @@ jobs:
       contents: write
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Submodules
-      run: |
-        git submodule update --init --single-branch builder/wasi-sdk
-        git -C builder/wasi-sdk fetch --tags https://github.com/WebAssembly/wasi-sdk.git
-        git -C builder/wasi-sdk submodule update --init --single-branch --depth=1 src/llvm-project src/wasi-libc src/config
-        git submodule update --init --single-branch --depth=1
-        git -C libraries/glib submodule update --init --single-branch --depth=1 subprojects/gvdb
-  
-    - name: Download prebuilt WASI-SDK
-      run: |
-        sh package/wasi-sdk-prebuilt/download.sh
+      - name: Submodules
+        run: |
+          git submodule update --init --single-branch builder/wasi-sdk
+          git -C builder/wasi-sdk fetch --tags https://github.com/WebAssembly/wasi-sdk.git
+          git -C builder/wasi-sdk submodule update --init --single-branch --depth=1 src/llvm-project src/wasi-libc src/config
+          git submodule update --init --single-branch --depth=1
+          git -C libraries/glib submodule update --init --single-branch --depth=1 subprojects/gvdb
 
-    - name: Build WASI sysroot
-      run: |
-        WEBROGUE_SDK_PREBUILT_WASI_SDK=1 sh builder/build_wasi_sdk.sh
-  
-    - name: Build libraries
-      run: |
-        WEBROGUE_SDK_UNCACHED=1 sh build.sh
+      - name: Clone sibling repos
+        run: |
+          cd .. \
+            && git clone https://github.com/webrogue-runtime/webrogue.git \
+            && cd wasmtime \
+            && git submodule update --init --single-branch --depth=1 external/wasmtime external/virglrenderer external/zstd-rs \
+            && git -C external/zstd-rs/ submodule update --init zstd-safe/zstd-sys/zstd
 
-    - name: Build examples
-      run: |
-        sh examples/make_image.sh
-        sh examples/build.sh
+      - name: Download prebuilt WASI-SDK
+        run: |
+          sh package/wasi-sdk-prebuilt/download.sh
 
-    - name: Archive SDK
-      run: |
-        tar czf webrogue-sdk-x86_64-linux.tar.gz -C package/ webrogue-sdk-x86_64-linux/
-        tar czf webrogue-sdk-arm64-linux.tar.gz -C package/ webrogue-sdk-arm64-linux/
+      - name: Build WASI sysroot
+        run: |
+          WEBROGUE_SDK_PREBUILT_WASI_SDK=1 sh builder/build_wasi_sdk.sh
 
-        cd package/ && zip -r ../webrogue-sdk-x86_64-windows.zip webrogue-sdk-x86_64-windows && cd ..
+      - name: Build libraries
+        run: |
+          WEBROGUE_SDK_UNCACHED=1 sh build.sh
 
-        tar czf webrogue-sdk-x86_64-macos.tar.gz -C package/ webrogue-sdk-x86_64-macos/
-        tar czf webrogue-sdk-arm64-macos.tar.gz -C package/ webrogue-sdk-arm64-macos/
+      - name: Build and publish examples
+        run: |
+          sh examples/make_image.sh
+          sh examples/build.sh
 
-    - name: Create Release
-      if: startsWith(github.ref, 'refs/tags/')
-      uses: softprops/action-gh-release@v1
-      with:
-        files: |
-          webrogue-sdk-x86_64-linux.tar.gz
-          webrogue-sdk-arm64-linux.tar.gz
-          webrogue-sdk-x86_64-windows.zip
-          webrogue-sdk-x86_64-macos.tar.gz
-          webrogue-sdk-arm64-macos.tar.gz
-        name: Release ${{ github.ref_name }}
-        generate_release_notes: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Archive SDK
+        env:
+          WRH_API_KEY: ${{ secrets.WRH_API_KEY }}
+        run: |
+          tar czf webrogue-sdk-x86_64-linux.tar.gz -C package/ webrogue-sdk-x86_64-linux/
+          tar czf webrogue-sdk-arm64-linux.tar.gz -C package/ webrogue-sdk-arm64-linux/
+
+          cd package/ && zip -r ../webrogue-sdk-x86_64-windows.zip webrogue-sdk-x86_64-windows && cd ..
+
+          tar czf webrogue-sdk-x86_64-macos.tar.gz -C package/ webrogue-sdk-x86_64-macos/
+          tar czf webrogue-sdk-arm64-macos.tar.gz -C package/ webrogue-sdk-arm64-macos/
+
+          cd ../webrogue \
+            && cargo run --no-default-features --features hub -- hub wrapp upload ../webrogue-sdk/examples/cpu_rendering/webrogue.json --id ace0255d-ccf3-4bbd-a1c5-3492b049d1c8 \
+            && cargo run --no-default-features --features hub -- hub wrapp upload ../webrogue-sdk/examples/sdl_woodeneye/webrogue.json --id d036fba6-3d42-4312-b1d0-d8c08e7092fe \
+
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            webrogue-sdk-x86_64-linux.tar.gz
+            webrogue-sdk-arm64-linux.tar.gz
+            webrogue-sdk-x86_64-windows.zip
+            webrogue-sdk-x86_64-macos.tar.gz
+            webrogue-sdk-arm64-macos.tar.gz
+          name: Release ${{ github.ref_name }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
