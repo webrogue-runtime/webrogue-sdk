@@ -1,4 +1,4 @@
-all: build_volk_in_loaders_cloth copy_pkgconfig copy_gl copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_libwr4c build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls build_libffi build_cairo build_pango build_gtk build_glib build_fontconfig build_expat build_libxml2 build_gdk-pixbuf build_shaderc # build_curl
+all: build_libvpx build_volk_in_loaders_cloth copy_pkgconfig copy_gl copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_libwr4c build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls build_libffi build_cairo build_pango build_gtk build_glib build_fontconfig build_expat build_libxml2 build_gdk-pixbuf build_shaderc # build_curl
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 SDK_DIR:=$(shell dirname $(CURRENT_DIR))
 FINAL_DEST_DIR=$(SDK_DIR)/opt/$(TOOLCHAIN)
@@ -141,7 +141,7 @@ build_ogg:
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
 
 build_freetype: build_zlib build_png
-	cd freetype && cmake -S . -B $(BUILD_DIR)/freetype $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DEST_DIR) -DBUILD_SHARED_LIBS=OFF -DFT_REQUIRE_PNG=ON -DFT_REQUIRE_ZLIB=ON -DPNG_LIBRARY=$(FINAL_DEST_DIR)/lib/libpng.a -DPNG_PNG_INCLUDE_DIR=$(FINAL_DEST_DIR)/include/libpng16 -DZLIB_LIBRARY=$(FINAL_DEST_DIR)/lib/libzlib.a -DZLIB_INCLUDE_DIR=$(FINAL_DEST_DIR)/include -DDISABLE_FORCE_DEBUG_POSTFIX=ON
+	cd freetype && cmake -S . -B $(BUILD_DIR)/freetype $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(DEST_DIR) -DBUILD_SHARED_LIBS=OFF -DFT_REQUIRE_PNG=ON -DFT_REQUIRE_ZLIB=ON -DPNG_LIBRARY=$(FINAL_DEST_DIR)/lib/libpng.a -DPNG_PNG_INCLUDE_DIR=$(FINAL_DEST_DIR)/include/libpng16 -DZLIB_LIBRARY=$(FINAL_DEST_DIR)/lib/libzlib.a -DZLIB_INCLUDE_DIR=$(FINAL_DEST_DIR)/include -DDISABLE_FORCE_DEBUG_POSTFIX=ON -DFT_DYNAMIC_HARFBUZZ=OFF
 	cmake --build $(BUILD_DIR)/freetype --target=install
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
 
@@ -354,6 +354,36 @@ build_shaderc:
 	cmake --build $(BUILD_DIR)/shaderc --target shaderc SPIRV-Tools-reduce SPIRV-Tools-link SPIRV-Tools-lint SPIRV-Tools-diff spirv-tools-pkg-config glslang MachineIndependent GenericCodeGen glslang-default-resource-limits shaderc_combined shaderc-pkg-config shaderc_static-pkg-config shaderc_combined-pkg-config
 	cmake --install $(BUILD_DIR)/shaderc --prefix $(DEST_DIR)
 	rm $(DEST_DIR)/lib/pkgconfig/shaderc.pc
+	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
+
+
+build_libvpx:
+	mkdir -p $(BUILD_DIR)/libvpx
+	[ -f $(BUILD_DIR)/libvpx/wasi-build/Makefile ] || ( \
+		mkdir -p $(BUILD_DIR)/libvpx/wasi-build && \
+		cd $(BUILD_DIR)/libvpx/wasi-build && \
+		CC=/wasi-sdk/bin/wasm32-wasip3-clang \
+		CXX=/wasi-sdk/bin/wasm32-wasip3-clang++ \
+		AR=/wasi-sdk/bin/llvm-ar \
+		AS=/wasi-sdk/bin/wasm32-wasip3-clang \
+		RANLIB=/wasi-sdk/bin/llvm-ranlib \
+		bash $(CURRENT_DIR)/libvpx/configure \
+			--target=generic-gnu \
+			--enable-libs \
+			--disable-examples \
+			--disable-tools \
+			--disable-docs \
+			--disable-unit-tests \
+			--prefix=$(DEST_DIR) \
+			--disable-shared \
+			--enable-static \
+			--extra-cflags="-pthread -mllvm -wasm-enable-sjlj -mllvm -wasm-use-legacy-eh=false" \
+			--extra-cxxflags="-pthread -mllvm -wasm-enable-sjlj -mllvm -wasm-use-legacy-eh=false" && \
+		if [ ! -f $(BUILD_DIR)/libvpx/wasi-build/libs-wasip3.mk ] && [ -f $(BUILD_DIR)/libvpx/wasi-build/libs-generic-gnu.mk ]; then \
+			cp $(BUILD_DIR)/libvpx/wasi-build/libs-generic-gnu.mk $(BUILD_DIR)/libvpx/wasi-build/libs-wasip3.mk; \
+		fi \
+	)
+	$(MAKE) -C $(BUILD_DIR)/libvpx/wasi-build install
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
 
 clean_mbedtls:

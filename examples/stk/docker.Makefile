@@ -2,7 +2,7 @@ BUILD_TYPE=Release
 
 stk: stk-assets.timestamp
 	cmake -S stk-code -B stk-code/build --toolchain=/sdk_dir/package/webrogue-sdk/share/cmake/wasi-sdk-p3.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) -DUSE_GLES2=ON -DUSE_MOJOAL=ON -DUSE_WIIUSE=OFF -DUSE_CRYPTO_OPENSSL=OFF -DJPEG_INCLUDE_DIR=$SYSROOT_DIR/include/jpeg
-	cmake --build stk-code/build --target=supertuxkart --parallel=32
+	cmake --build stk-code/build --target=supertuxkart
 
 stk-assets.timestamp:
 	bash -c "(cd stk-assets && svn cleanup) || true"

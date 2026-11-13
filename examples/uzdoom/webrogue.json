@@ -1,0 +1,45 @@
+{
+    "name": "UZDoom",
+    "id": "io.github.webrogue-runtime.UZDoomExample",
+    "version": "0.1.2",
+    "main": "build/uzdoom",
+    "graphics_api": {
+        "vulkan": "required",
+        "cpu_rendering": "required"
+    },
+    "filesystem": {
+        "resources": [
+            {
+                "real_path": "build_native/uzdoom.pk3",
+                "mapped_path": "/bin/uzdoom.pk3"
+            },
+            {
+                "real_path": "build_native/game_support.pk3",
+                "mapped_path": "/bin/game_support.pk3"
+            },
+            {
+                "real_path": "freedoom-0.13.0/freedoom1.wad",
+                "mapped_path": "/bin/freedoom1.wad"
+            },
+            {
+                "real_path": "freedoom-0.13.0/freedoom2.wad",
+                "mapped_path": "/bin/freedoom2.wad"
+            }
+        ],
+        "persistent": [
+            {
+                "mapped_path": "/home/webrogue",
+                "name": "home"
+            }
+        ]
+    },
+    "env": {
+        "HOME": "/home/webrogue",
+        "DOOMWADDIR": "/home/webrogue"
+    },
+    "args": [
+        "/bin/uzdoom",
+        "+vid_preferbackend",
+        "1"
+    ]
+}

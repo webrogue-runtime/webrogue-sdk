@@ -8,5 +8,6 @@ cd ../examples
 run_in_examples_builder_docker "\
 	PKG_CONFIG_PATH=/sdk_dir/package/webrogue-sdk/share/webrogue-sysroot/wasm32-wasip3/lib/pkgconfig \
 	PKG_CONFIG_LIBDIR=/sdk_dir/package/webrogue-sdk/share/webrogue-sysroot/wasm32-wasip3/lib \
+	CMAKE_GENERATOR=Ninja \
     make -C /sdk_dir/examples -f docker.Makefile $@
 "

@@ -706,7 +706,6 @@ extern void webrogue_gfx_windowing_method_window_get_physical_size(webrogue_gfx_
 extern uint32_t webrogue_gfx_windowing_method_window_get_vulkan_id(webrogue_gfx_windowing_borrow_window_t self);
 extern webrogue_gfx_windowing_stream_window_event_t webrogue_gfx_windowing_method_window_event_stream(webrogue_gfx_windowing_borrow_window_t self);
 extern bool webrogue_gfx_windowing_method_window_set_mouse_grab(webrogue_gfx_windowing_borrow_window_t self, bool enabled);
-extern void webrogue_gfx_windowing_close_window(webrogue_gfx_windowing_own_window_t window);
 
 // Imported Functions from `webrogue:gfx/vulkan`
 extern bool webrogue_gfx_vulkan_check_presence(void);

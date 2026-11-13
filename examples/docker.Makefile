@@ -1,4 +1,4 @@
-all: build_glfw_vulkan build_cpu_rendering build_glfw_glxgears_gles build_raylib build_stk build_empty build_sdl_dev build_gtk build_sdl_woodeneye
+all: build_glfw_vulkan build_cpu_rendering build_glfw_glxgears_gles build_raylib build_stk build_empty build_sdl_dev build_gtk build_sdl_woodeneye build_uzdoom
 
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
@@ -30,10 +30,17 @@ build_gtk:
 build_sdl_woodeneye:
 	$(MAKE) -C sdl_woodeneye -f docker.Makefile
 
+build_uzdoom:
+	$(MAKE) -C uzdoom -f docker.Makefile
+
 clean:
+	$(MAKE) -C cpu_rendering clean -f docker.Makefile
 	$(MAKE) -C glfw_glxgears_gles clean -f docker.Makefile
 	$(MAKE) -C glfw_vulkan clean -f docker.Makefile
-	$(MAKE) -C build_cpu_rendering clean -f docker.Makefile
-	$(MAKE) -C raylib clean -f docker.Makefile
 	$(MAKE) -C gtk clean -f docker.Makefile
+	$(MAKE) -C uzdoom clean -f docker.Makefile
+	$(MAKE) -C raylib clean -f docker.Makefile
+	$(MAKE) -C sdl_dev clean -f docker.Makefile
+	$(MAKE) -C sdl_woodeneye clean -f docker.Makefile
+	$(MAKE) -C stk clean -f docker.Makefile
 	rm -f **/*.wrapp

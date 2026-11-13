@@ -22,9 +22,6 @@ extern int32_t __wasm_import_webrogue_gfx_windowing_method_window_event_stream(i
 __attribute__((__import_module__("webrogue:gfx/windowing"), __import_name__("[method]window.set-mouse-grab")))
 extern int32_t __wasm_import_webrogue_gfx_windowing_method_window_set_mouse_grab(int32_t, int32_t);
 
-__attribute__((__import_module__("webrogue:gfx/windowing"), __import_name__("close-window")))
-extern void __wasm_import_webrogue_gfx_windowing_close_window(int32_t);
-
 // Imported Functions from `webrogue:gfx/vulkan`
 
 __attribute__((__import_module__("webrogue:gfx/vulkan"), __import_name__("check-presence")))
@@ -370,10 +367,6 @@ bool webrogue_gfx_windowing_method_window_set_mouse_grab(webrogue_gfx_windowing_
   } else {
     return 0;
   }
-}
-
-void webrogue_gfx_windowing_close_window(webrogue_gfx_windowing_own_window_t window) {
-  __wasm_import_webrogue_gfx_windowing_close_window((window).__handle);
 }
 
 bool webrogue_gfx_vulkan_check_presence(void) {

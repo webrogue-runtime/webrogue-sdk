@@ -36,7 +36,7 @@ void wr4c_destroy_window(wr4c_window_t window) {
         webrogue_gfx_windowing_stream_window_event_cancel_read(window->window_event_stream);
     }
     webrogue_gfx_windowing_stream_window_event_drop_readable(window->window_event_stream);
-    webrogue_gfx_windowing_close_window(window->handle);
+    webrogue_gfx_windowing_window_drop_own(window->handle);
     s_all_windows[window->internal_id] = NULL;
     free(window);
 }
