@@ -1,6 +1,6 @@
 {
-    "name": "SDL3 FPS Demo",
-    "id": "webrogue.examples.SDLWoodeneye",
+    "name": "WoodenEye 008",
+    "id": "webrogue.examples.SDLWoodeneye008",
     "version": "0.1.0",
     "main": "build/woodeneye",
     "graphics_api": {
