@@ -106,3 +106,6 @@
 [submodule "examples/gzdoom/UZDoom"]
 	path = examples/uzdoom/UZDoom
 	url = https://github.com/webrogue-runtime/UZDoom.git
+[submodule "libraries/wasi-webgpu-headers"]
+	path = libraries/wasi-webgpu-headers
+	url = https://github.com/wasi-gfx/wasi-webgpu-headers.git
