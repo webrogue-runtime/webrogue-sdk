@@ -9,7 +9,7 @@
 static wr4c_window_t* s_all_windows = NULL;
 static size_t s_all_windows_count = 0;
 
-void wr4c_make_window(wr4c_window_t *out_window) {
+void wr4c_make_window(wr4c_window_t *out_window, wr4c_surface_kind_t surface_kind) {
     wr4c_window_t window = malloc(sizeof(wr4c_window_s));
     s_all_windows_count++;
     if(s_all_windows_count == 1) {
@@ -19,7 +19,19 @@ void wr4c_make_window(wr4c_window_t *out_window) {
     }
     size_t internal_id = s_all_windows_count - 1;
     s_all_windows[internal_id] = NULL;
-    window->handle = webrogue_gfx_windowing_make_window();
+    webrogue_gfx_windowing_surface_kind_t wit_surface_kind;
+    switch (surface_kind) {
+        case WR4C_SURFACE_KIND_SOFTWARE:
+            wit_surface_kind = WEBROGUE_GFX_WINDOWING_SURFACE_KIND_SOFTWARE;
+            break;
+        case WR4C_SURFACE_KIND_VULKAN:
+            wit_surface_kind = WEBROGUE_GFX_WINDOWING_SURFACE_KIND_VULKAN;
+            break;
+        default:
+            abort();
+    }
+
+    window->handle = webrogue_gfx_windowing_make_window(wit_surface_kind);
     // TODO find NULL holes in s_all_windows and reuse them
     window->internal_id = internal_id;
     s_all_windows[window->internal_id] = window;

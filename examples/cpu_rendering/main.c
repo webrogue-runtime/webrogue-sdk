@@ -28,7 +28,7 @@ void *print_message_function(void *ptr) {\
 
 int main(int argc, char **argv) {
   wr4c_window_t window;
-  wr4c_make_window(&window);
+  wr4c_make_window(&window, WR4C_SURFACE_KIND_SOFTWARE);
 
   pthread_t thread1;
   pthread_create(&thread1, NULL, print_message_function, "Thread 1");

@@ -605,7 +605,13 @@ typedef struct wr4c_event_t {
 
 // General
 
-void wr4c_make_window(wr4c_window_t *out_window);
+
+typedef enum wr4c_surface_kind_t {
+    WR4C_SURFACE_KIND_SOFTWARE = 0,
+    WR4C_SURFACE_KIND_VULKAN = 1,
+} wr4c_surface_kind_t;
+
+void wr4c_make_window(wr4c_window_t *out_window, wr4c_surface_kind_t surface_kind);
 void wr4c_destroy_window(wr4c_window_t window);
 void wr4c_logical_size(wr4c_window_t window, int *width, int *height);
 void wr4c_physical_size(wr4c_window_t window, int *width, int *height);
