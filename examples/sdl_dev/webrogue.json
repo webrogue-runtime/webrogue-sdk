@@ -20,6 +20,6 @@
     },
     "graphics_api": {
         "vulkan": "optional",
-        "cpu_rendering": "disabled"
+        "software": "disabled"
     }
 }

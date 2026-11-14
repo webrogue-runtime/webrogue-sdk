@@ -5,6 +5,6 @@
     "main": ".build/debug/main.wasm",
     "graphics_api": {
         "vulkan": "required",
-        "cpu_rendering": "disabled"
+        "software": "disabled"
     }
 }

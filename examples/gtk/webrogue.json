@@ -17,7 +17,7 @@
     },
     "graphics_api": {
         "vulkan": "disabled",
-        "cpu_rendering": "required"
+        "software": "required"
     },
     "env": {
         "FONTCONFIG_FILE": "/usr/share/fonts/fonts.conf"

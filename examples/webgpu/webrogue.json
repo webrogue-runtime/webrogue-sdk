@@ -5,6 +5,6 @@
     "main": "build/main",
     "graphics_api": {
         "vulkan": "disabled",
-        "cpu_rendering": "disabled"
+        "software": "disabled"
     }
 }

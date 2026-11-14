@@ -5,7 +5,7 @@
     "main": "build/uzdoom",
     "graphics_api": {
         "vulkan": "required",
-        "cpu_rendering": "required"
+        "software": "required"
     },
     "filesystem": {
         "resources": [
