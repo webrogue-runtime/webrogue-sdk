@@ -9,6 +9,11 @@ extern "C" {
 #include <stdbool.h>
 #include <stddef.h>
 
+typedef struct webrogue_gfx_string_t {
+  uint8_t*ptr;
+  size_t len;
+} webrogue_gfx_string_t;
+
 // Async Helper Functions
 
 typedef uint32_t webrogue_gfx_subtask_status_t;
@@ -669,6 +674,7 @@ typedef uint8_t webrogue_gfx_windowing_surface_kind_t;
 
 #define WEBROGUE_GFX_WINDOWING_SURFACE_KIND_SOFTWARE 0
 #define WEBROGUE_GFX_WINDOWING_SURFACE_KIND_VULKAN 1
+#define WEBROGUE_GFX_WINDOWING_SURFACE_KIND_WEBGPU 2
 
 typedef struct webrogue_gfx_windowing_own_window_t {
   int32_t __handle;
@@ -704,6 +710,1935 @@ typedef struct {
 
 typedef webrogue_gfx_windowing_borrow_window_t webrogue_gfx_cpu_rendering_borrow_window_t;
 
+typedef struct wasi_webgpu_webgpu_create_query_set_error_kind_t {
+  uint8_t tag;
+} wasi_webgpu_webgpu_create_query_set_error_kind_t;
+
+#define WASI_WEBGPU_WEBGPU_CREATE_QUERY_SET_ERROR_KIND_TYPE_ERROR 0
+
+typedef struct wasi_webgpu_webgpu_create_query_set_error_t {
+  wasi_webgpu_webgpu_create_query_set_error_kind_t   kind;
+  webrogue_gfx_string_t   message;
+} wasi_webgpu_webgpu_create_query_set_error_t;
+
+typedef struct wasi_webgpu_webgpu_get_mapped_range_error_kind_t {
+  uint8_t tag;
+} wasi_webgpu_webgpu_get_mapped_range_error_kind_t;
+
+#define WASI_WEBGPU_WEBGPU_GET_MAPPED_RANGE_ERROR_KIND_OPERATION_ERROR 0
+#define WASI_WEBGPU_WEBGPU_GET_MAPPED_RANGE_ERROR_KIND_RANGE_ERROR 1
+#define WASI_WEBGPU_WEBGPU_GET_MAPPED_RANGE_ERROR_KIND_TYPE_ERROR 2
+
+typedef struct wasi_webgpu_webgpu_get_mapped_range_error_t {
+  wasi_webgpu_webgpu_get_mapped_range_error_kind_t   kind;
+  webrogue_gfx_string_t   message;
+} wasi_webgpu_webgpu_get_mapped_range_error_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_adapter_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_adapter_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_adapter_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_adapter_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_adapter_info_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_adapter_info_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_adapter_info_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_adapter_info_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_address_mode_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_ADDRESS_MODE_CLAMP_TO_EDGE 0
+#define WASI_WEBGPU_WEBGPU_GPU_ADDRESS_MODE_REPEAT 1
+#define WASI_WEBGPU_WEBGPU_GPU_ADDRESS_MODE_MIRROR_REPEAT 2
+
+typedef struct wasi_webgpu_webgpu_own_gpu_bind_group_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_bind_group_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_bind_group_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_bind_group_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_bind_group_layout_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_bind_group_layout_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_bind_group_layout_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_bind_group_layout_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_blend_factor_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_ZERO 0
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_ONE 1
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_SRC 2
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_ONE_MINUS_SRC 3
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_SRC_ALPHA 4
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA 5
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_DST 6
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_ONE_MINUS_DST 7
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_DST_ALPHA 8
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_ONE_MINUS_DST_ALPHA 9
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_SRC_ALPHA_SATURATED 10
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_CONSTANT 11
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_ONE_MINUS_CONSTANT 12
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_SRC1 13
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_ONE_MINUS_SRC1 14
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_SRC1_ALPHA 15
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA 16
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_blend_operation_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_OPERATION_ADD 0
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_OPERATION_SUBTRACT 1
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_OPERATION_REVERSE_SUBTRACT 2
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_OPERATION_MIN 3
+#define WASI_WEBGPU_WEBGPU_GPU_BLEND_OPERATION_MAX 4
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_blend_operation_t val;
+} wasi_webgpu_webgpu_option_gpu_blend_operation_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_blend_factor_t val;
+} wasi_webgpu_webgpu_option_gpu_blend_factor_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_blend_component_t {
+  wasi_webgpu_webgpu_option_gpu_blend_operation_t   operation;
+  wasi_webgpu_webgpu_option_gpu_blend_factor_t   src_factor;
+  wasi_webgpu_webgpu_option_gpu_blend_factor_t   dst_factor;
+} wasi_webgpu_webgpu_gpu_blend_component_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_blend_state_t {
+  wasi_webgpu_webgpu_gpu_blend_component_t   color;
+  wasi_webgpu_webgpu_gpu_blend_component_t   alpha;
+} wasi_webgpu_webgpu_gpu_blend_state_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_buffer_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_buffer_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_buffer_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_buffer_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_buffer_binding_type_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_BINDING_TYPE_UNIFORM 0
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_BINDING_TYPE_STORAGE 1
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_BINDING_TYPE_READ_ONLY_STORAGE 2
+
+typedef uint32_t wasi_webgpu_webgpu_gpu_buffer_dynamic_offset_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_buffer_map_state_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_MAP_STATE_UNMAPPED 0
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_MAP_STATE_PENDING 1
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_MAP_STATE_MAPPED 2
+
+typedef uint16_t wasi_webgpu_webgpu_gpu_buffer_usage_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_USAGE_MAP_READ (1 << 0)
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_USAGE_MAP_WRITE (1 << 1)
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_USAGE_COPY_SRC (1 << 2)
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_USAGE_COPY_DST (1 << 3)
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_USAGE_INDEX (1 << 4)
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_USAGE_VERTEX (1 << 5)
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_USAGE_UNIFORM (1 << 6)
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_USAGE_STORAGE (1 << 7)
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_USAGE_INDIRECT (1 << 8)
+#define WASI_WEBGPU_WEBGPU_GPU_BUFFER_USAGE_QUERY_RESOLVE (1 << 9)
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_canvas_alpha_mode_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_CANVAS_ALPHA_MODE_OPAQUE 0
+#define WASI_WEBGPU_WEBGPU_GPU_CANVAS_ALPHA_MODE_PREMULTIPLIED 1
+
+typedef struct wasi_webgpu_webgpu_own_gpu_canvas_context_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_canvas_context_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_canvas_context_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_canvas_context_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_canvas_tone_mapping_mode_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_CANVAS_TONE_MAPPING_MODE_STANDARD 0
+#define WASI_WEBGPU_WEBGPU_GPU_CANVAS_TONE_MAPPING_MODE_EXTENDED 1
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_canvas_tone_mapping_mode_t val;
+} wasi_webgpu_webgpu_option_gpu_canvas_tone_mapping_mode_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_canvas_tone_mapping_t {
+  wasi_webgpu_webgpu_option_gpu_canvas_tone_mapping_mode_t   mode;
+} wasi_webgpu_webgpu_gpu_canvas_tone_mapping_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_color_t {
+  double   r;
+  double   g;
+  double   b;
+  double   a;
+} wasi_webgpu_webgpu_gpu_color_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_color_write_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_COLOR_WRITE_RED (1 << 0)
+#define WASI_WEBGPU_WEBGPU_GPU_COLOR_WRITE_GREEN (1 << 1)
+#define WASI_WEBGPU_WEBGPU_GPU_COLOR_WRITE_BLUE (1 << 2)
+#define WASI_WEBGPU_WEBGPU_GPU_COLOR_WRITE_ALPHA (1 << 3)
+#define WASI_WEBGPU_WEBGPU_GPU_COLOR_WRITE_ALL (1 << 4)
+
+typedef struct wasi_webgpu_webgpu_own_gpu_command_buffer_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_command_buffer_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_command_buffer_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_command_buffer_t;
+
+typedef struct {
+  bool is_some;
+  webrogue_gfx_string_t val;
+} webrogue_gfx_option_string_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_command_buffer_descriptor_t {
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_command_buffer_descriptor_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_command_encoder_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_command_encoder_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_command_encoder_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_command_encoder_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_command_encoder_descriptor_t {
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_command_encoder_descriptor_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_compare_function_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_COMPARE_FUNCTION_NEVER 0
+#define WASI_WEBGPU_WEBGPU_GPU_COMPARE_FUNCTION_LESS 1
+#define WASI_WEBGPU_WEBGPU_GPU_COMPARE_FUNCTION_EQUAL 2
+#define WASI_WEBGPU_WEBGPU_GPU_COMPARE_FUNCTION_LESS_EQUAL 3
+#define WASI_WEBGPU_WEBGPU_GPU_COMPARE_FUNCTION_GREATER 4
+#define WASI_WEBGPU_WEBGPU_GPU_COMPARE_FUNCTION_NOT_EQUAL 5
+#define WASI_WEBGPU_WEBGPU_GPU_COMPARE_FUNCTION_GREATER_EQUAL 6
+#define WASI_WEBGPU_WEBGPU_GPU_COMPARE_FUNCTION_ALWAYS 7
+
+typedef struct wasi_webgpu_webgpu_own_gpu_compilation_info_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_compilation_info_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_compilation_info_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_compilation_info_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_compilation_message_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_compilation_message_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_compilation_message_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_compilation_message_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_compilation_message_type_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_COMPILATION_MESSAGE_TYPE_ERROR 0
+#define WASI_WEBGPU_WEBGPU_GPU_COMPILATION_MESSAGE_TYPE_WARNING 1
+#define WASI_WEBGPU_WEBGPU_GPU_COMPILATION_MESSAGE_TYPE_INFO 2
+
+typedef struct wasi_webgpu_webgpu_own_gpu_compute_pass_encoder_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_compute_pass_encoder_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_compute_pipeline_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_compute_pipeline_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_compute_pipeline_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_compute_pipeline_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_cull_mode_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_CULL_MODE_NONE 0
+#define WASI_WEBGPU_WEBGPU_GPU_CULL_MODE_FRONT 1
+#define WASI_WEBGPU_WEBGPU_GPU_CULL_MODE_BACK 2
+
+typedef int32_t wasi_webgpu_webgpu_gpu_depth_bias_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_device_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_device_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_device_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_device_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_device_lost_info_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_device_lost_info_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_device_lost_info_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_device_lost_info_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_device_lost_reason_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_DEVICE_LOST_REASON_UNKNOWN 0
+#define WASI_WEBGPU_WEBGPU_GPU_DEVICE_LOST_REASON_DESTROYED 1
+
+typedef struct wasi_webgpu_webgpu_own_gpu_error_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_error_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_error_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_error_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_error_filter_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_ERROR_FILTER_VALIDATION 0
+#define WASI_WEBGPU_WEBGPU_GPU_ERROR_FILTER_OUT_OF_MEMORY 1
+#define WASI_WEBGPU_WEBGPU_GPU_ERROR_FILTER_INTERNAL 2
+
+typedef struct wasi_webgpu_webgpu_gpu_error_kind_t {
+  uint8_t tag;
+} wasi_webgpu_webgpu_gpu_error_kind_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_ERROR_KIND_VALIDATION_ERROR 0
+#define WASI_WEBGPU_WEBGPU_GPU_ERROR_KIND_OUT_OF_MEMORY_ERROR 1
+#define WASI_WEBGPU_WEBGPU_GPU_ERROR_KIND_INTERNAL_ERROR 2
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_feature_name_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_CORE_FEATURES_AND_LIMITS 0
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_DEPTH_CLIP_CONTROL 1
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_DEPTH32FLOAT_STENCIL8 2
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_TEXTURE_COMPRESSION_BC 3
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_TEXTURE_COMPRESSION_BC_SLICED3D 4
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_TEXTURE_COMPRESSION_ETC2 5
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_TEXTURE_COMPRESSION_ASTC 6
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_TEXTURE_COMPRESSION_ASTC_SLICED3D 7
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_TIMESTAMP_QUERY 8
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_INDIRECT_FIRST_INSTANCE 9
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_SHADER_F16 10
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_RG11B10UFLOAT_RENDERABLE 11
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_BGRA8UNORM_STORAGE 12
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_FLOAT32_FILTERABLE 13
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_FLOAT32_BLENDABLE 14
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_CLIP_DISTANCES 15
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_DUAL_SOURCE_BLENDING 16
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_SUBGROUPS 17
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_TEXTURE_FORMATS_TIER1 18
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_TEXTURE_FORMATS_TIER2 19
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_PRIMITIVE_INDEX 20
+#define WASI_WEBGPU_WEBGPU_GPU_FEATURE_NAME_TEXTURE_COMPONENT_SWIZZLE 21
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_filter_mode_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_FILTER_MODE_NEAREST 0
+#define WASI_WEBGPU_WEBGPU_GPU_FILTER_MODE_LINEAR 1
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_front_face_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_FRONT_FACE_CCW 0
+#define WASI_WEBGPU_WEBGPU_GPU_FRONT_FACE_CW 1
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_index_format_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_INDEX_FORMAT_UINT16 0
+#define WASI_WEBGPU_WEBGPU_GPU_INDEX_FORMAT_UINT32 1
+
+typedef uint32_t wasi_webgpu_webgpu_gpu_index32_t;
+
+typedef uint32_t wasi_webgpu_webgpu_gpu_integer_coordinate_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_integer_coordinate_t val;
+} wasi_webgpu_webgpu_option_gpu_integer_coordinate_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_extent3_d_t {
+  wasi_webgpu_webgpu_gpu_integer_coordinate_t   width;
+  wasi_webgpu_webgpu_option_gpu_integer_coordinate_t   height;
+  wasi_webgpu_webgpu_option_gpu_integer_coordinate_t   depth_or_array_layers;
+} wasi_webgpu_webgpu_gpu_extent3_d_t;
+
+typedef uint32_t wasi_webgpu_webgpu_gpu_integer_coordinate_out_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_load_op_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_LOAD_OP_LOAD 0
+#define WASI_WEBGPU_WEBGPU_GPU_LOAD_OP_CLEAR 1
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_map_mode_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_MAP_MODE_READ (1 << 0)
+#define WASI_WEBGPU_WEBGPU_GPU_MAP_MODE_WRITE (1 << 1)
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_mipmap_filter_mode_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_MIPMAP_FILTER_MODE_NEAREST 0
+#define WASI_WEBGPU_WEBGPU_GPU_MIPMAP_FILTER_MODE_LINEAR 1
+
+typedef struct wasi_webgpu_webgpu_gpu_origin3_d_t {
+  wasi_webgpu_webgpu_option_gpu_integer_coordinate_t   x;
+  wasi_webgpu_webgpu_option_gpu_integer_coordinate_t   y;
+  wasi_webgpu_webgpu_option_gpu_integer_coordinate_t   z;
+} wasi_webgpu_webgpu_gpu_origin3_d_t;
+
+typedef double wasi_webgpu_webgpu_gpu_pipeline_constant_value_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_pipeline_error_reason_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_PIPELINE_ERROR_REASON_VALIDATION 0
+#define WASI_WEBGPU_WEBGPU_GPU_PIPELINE_ERROR_REASON_INTERNAL 1
+
+typedef struct wasi_webgpu_webgpu_create_pipeline_error_kind_t {
+  uint8_t tag;
+  union {
+    wasi_webgpu_webgpu_gpu_pipeline_error_reason_t     gpu_pipeline_error;
+  } val;
+} wasi_webgpu_webgpu_create_pipeline_error_kind_t;
+
+#define WASI_WEBGPU_WEBGPU_CREATE_PIPELINE_ERROR_KIND_GPU_PIPELINE_ERROR 0
+
+typedef struct wasi_webgpu_webgpu_create_pipeline_error_t {
+  wasi_webgpu_webgpu_create_pipeline_error_kind_t   kind;
+  webrogue_gfx_string_t   message;
+} wasi_webgpu_webgpu_create_pipeline_error_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_pipeline_layout_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_pipeline_layout_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_pipeline_layout_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_pipeline_layout_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_layout_mode_t {
+  uint8_t tag;
+  union {
+    wasi_webgpu_webgpu_borrow_gpu_pipeline_layout_t     specific;
+  } val;
+} wasi_webgpu_webgpu_gpu_layout_mode_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_LAYOUT_MODE_SPECIFIC 0
+#define WASI_WEBGPU_WEBGPU_GPU_LAYOUT_MODE_AUTO 1
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_power_preference_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_POWER_PREFERENCE_LOW_POWER 0
+#define WASI_WEBGPU_WEBGPU_GPU_POWER_PREFERENCE_HIGH_PERFORMANCE 1
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_primitive_topology_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_PRIMITIVE_TOPOLOGY_POINT_LIST 0
+#define WASI_WEBGPU_WEBGPU_GPU_PRIMITIVE_TOPOLOGY_LINE_LIST 1
+#define WASI_WEBGPU_WEBGPU_GPU_PRIMITIVE_TOPOLOGY_LINE_STRIP 2
+#define WASI_WEBGPU_WEBGPU_GPU_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST 3
+#define WASI_WEBGPU_WEBGPU_GPU_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP 4
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_primitive_topology_t val;
+} wasi_webgpu_webgpu_option_gpu_primitive_topology_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_index_format_t val;
+} wasi_webgpu_webgpu_option_gpu_index_format_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_front_face_t val;
+} wasi_webgpu_webgpu_option_gpu_front_face_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_cull_mode_t val;
+} wasi_webgpu_webgpu_option_gpu_cull_mode_t;
+
+typedef struct {
+  bool is_some;
+  bool val;
+} webrogue_gfx_option_bool_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_primitive_state_t {
+  wasi_webgpu_webgpu_option_gpu_primitive_topology_t   topology;
+  wasi_webgpu_webgpu_option_gpu_index_format_t   strip_index_format;
+  wasi_webgpu_webgpu_option_gpu_front_face_t   front_face;
+  wasi_webgpu_webgpu_option_gpu_cull_mode_t   cull_mode;
+  webrogue_gfx_option_bool_t   unclipped_depth;
+} wasi_webgpu_webgpu_gpu_primitive_state_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_query_set_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_query_set_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_query_set_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_query_set_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_query_type_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_QUERY_TYPE_OCCLUSION 0
+#define WASI_WEBGPU_WEBGPU_GPU_QUERY_TYPE_TIMESTAMP 1
+
+typedef struct wasi_webgpu_webgpu_own_gpu_queue_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_queue_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_queue_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_queue_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_queue_descriptor_t {
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_queue_descriptor_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_render_bundle_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_render_bundle_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_render_bundle_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_render_bundle_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_render_bundle_descriptor_t {
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_render_bundle_descriptor_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_render_bundle_encoder_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_render_bundle_encoder_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_render_pass_encoder_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_render_pass_encoder_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_render_pipeline_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_render_pipeline_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_render_pipeline_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_render_pipeline_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_power_preference_t val;
+} wasi_webgpu_webgpu_option_gpu_power_preference_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_request_adapter_options_t {
+  webrogue_gfx_option_string_t   feature_level;
+  wasi_webgpu_webgpu_option_gpu_power_preference_t   power_preference;
+  webrogue_gfx_option_bool_t   force_fallback_adapter;
+  webrogue_gfx_option_bool_t   xr_compatible;
+} wasi_webgpu_webgpu_gpu_request_adapter_options_t;
+
+typedef uint32_t wasi_webgpu_webgpu_gpu_sample_mask_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_sampler_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_sampler_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_sampler_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_sampler_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_sampler_binding_type_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_SAMPLER_BINDING_TYPE_FILTERING 0
+#define WASI_WEBGPU_WEBGPU_GPU_SAMPLER_BINDING_TYPE_NON_FILTERING 1
+#define WASI_WEBGPU_WEBGPU_GPU_SAMPLER_BINDING_TYPE_COMPARISON 2
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_sampler_binding_type_t val;
+} wasi_webgpu_webgpu_option_gpu_sampler_binding_type_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_sampler_binding_layout_t {
+  wasi_webgpu_webgpu_option_gpu_sampler_binding_type_t   type;
+} wasi_webgpu_webgpu_gpu_sampler_binding_layout_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_address_mode_t val;
+} wasi_webgpu_webgpu_option_gpu_address_mode_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_filter_mode_t val;
+} wasi_webgpu_webgpu_option_gpu_filter_mode_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_mipmap_filter_mode_t val;
+} wasi_webgpu_webgpu_option_gpu_mipmap_filter_mode_t;
+
+typedef struct {
+  bool is_some;
+  float val;
+} webrogue_gfx_option_f32_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_compare_function_t val;
+} wasi_webgpu_webgpu_option_gpu_compare_function_t;
+
+typedef struct {
+  bool is_some;
+  uint16_t val;
+} webrogue_gfx_option_u16_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_sampler_descriptor_t {
+  wasi_webgpu_webgpu_option_gpu_address_mode_t   address_mode_u;
+  wasi_webgpu_webgpu_option_gpu_address_mode_t   address_mode_v;
+  wasi_webgpu_webgpu_option_gpu_address_mode_t   address_mode_w;
+  wasi_webgpu_webgpu_option_gpu_filter_mode_t   mag_filter;
+  wasi_webgpu_webgpu_option_gpu_filter_mode_t   min_filter;
+  wasi_webgpu_webgpu_option_gpu_mipmap_filter_mode_t   mipmap_filter;
+  webrogue_gfx_option_f32_t   lod_min_clamp;
+  webrogue_gfx_option_f32_t   lod_max_clamp;
+  wasi_webgpu_webgpu_option_gpu_compare_function_t   compare;
+  webrogue_gfx_option_u16_t   max_anisotropy;
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_sampler_descriptor_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_shader_module_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_shader_module_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_shader_module_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_shader_module_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_layout_mode_t val;
+} wasi_webgpu_webgpu_option_gpu_layout_mode_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_shader_module_compilation_hint_t {
+  webrogue_gfx_string_t   entry_point;
+  wasi_webgpu_webgpu_option_gpu_layout_mode_t   layout;
+} wasi_webgpu_webgpu_gpu_shader_module_compilation_hint_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_gpu_shader_module_compilation_hint_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_gpu_shader_module_compilation_hint_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_list_gpu_shader_module_compilation_hint_t val;
+} wasi_webgpu_webgpu_option_list_gpu_shader_module_compilation_hint_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_shader_module_descriptor_t {
+  webrogue_gfx_string_t   code;
+  wasi_webgpu_webgpu_option_list_gpu_shader_module_compilation_hint_t   compilation_hints;
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_shader_module_descriptor_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_shader_stage_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_SHADER_STAGE_VERTEX (1 << 0)
+#define WASI_WEBGPU_WEBGPU_GPU_SHADER_STAGE_FRAGMENT (1 << 1)
+#define WASI_WEBGPU_WEBGPU_GPU_SHADER_STAGE_COMPUTE (1 << 2)
+
+typedef int32_t wasi_webgpu_webgpu_gpu_signed_offset32_t;
+
+typedef uint32_t wasi_webgpu_webgpu_gpu_size32_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_size32_t val;
+} wasi_webgpu_webgpu_option_gpu_size32_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_compute_pass_timestamp_writes_t {
+  wasi_webgpu_webgpu_borrow_gpu_query_set_t   query_set;
+  wasi_webgpu_webgpu_option_gpu_size32_t   beginning_of_pass_write_index;
+  wasi_webgpu_webgpu_option_gpu_size32_t   end_of_pass_write_index;
+} wasi_webgpu_webgpu_gpu_compute_pass_timestamp_writes_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_compute_pass_timestamp_writes_t val;
+} wasi_webgpu_webgpu_option_gpu_compute_pass_timestamp_writes_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_compute_pass_descriptor_t {
+  wasi_webgpu_webgpu_option_gpu_compute_pass_timestamp_writes_t   timestamp_writes;
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_compute_pass_descriptor_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_sample_mask_t val;
+} wasi_webgpu_webgpu_option_gpu_sample_mask_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_multisample_state_t {
+  wasi_webgpu_webgpu_option_gpu_size32_t   count;
+  wasi_webgpu_webgpu_option_gpu_sample_mask_t   mask;
+  webrogue_gfx_option_bool_t   alpha_to_coverage_enabled;
+} wasi_webgpu_webgpu_gpu_multisample_state_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_borrow_gpu_bind_group_layout_t val;
+} wasi_webgpu_webgpu_option_borrow_gpu_bind_group_layout_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_option_borrow_gpu_bind_group_layout_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_option_borrow_gpu_bind_group_layout_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_pipeline_layout_descriptor_t {
+  wasi_webgpu_webgpu_list_option_borrow_gpu_bind_group_layout_t   bind_group_layouts;
+  wasi_webgpu_webgpu_option_gpu_size32_t   immediate_size;
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_pipeline_layout_descriptor_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_query_set_descriptor_t {
+  wasi_webgpu_webgpu_gpu_query_type_t   type;
+  wasi_webgpu_webgpu_gpu_size32_t   count;
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_query_set_descriptor_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_render_pass_timestamp_writes_t {
+  wasi_webgpu_webgpu_borrow_gpu_query_set_t   query_set;
+  wasi_webgpu_webgpu_option_gpu_size32_t   beginning_of_pass_write_index;
+  wasi_webgpu_webgpu_option_gpu_size32_t   end_of_pass_write_index;
+} wasi_webgpu_webgpu_gpu_render_pass_timestamp_writes_t;
+
+typedef uint32_t wasi_webgpu_webgpu_gpu_size32_out_t;
+
+typedef uint64_t wasi_webgpu_webgpu_gpu_size64_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_size64_t val;
+} wasi_webgpu_webgpu_option_gpu_size64_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_buffer_binding_t {
+  wasi_webgpu_webgpu_borrow_gpu_buffer_t   buffer;
+  wasi_webgpu_webgpu_option_gpu_size64_t   offset;
+  wasi_webgpu_webgpu_option_gpu_size64_t   size;
+} wasi_webgpu_webgpu_gpu_buffer_binding_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_buffer_binding_type_t val;
+} wasi_webgpu_webgpu_option_gpu_buffer_binding_type_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_buffer_binding_layout_t {
+  wasi_webgpu_webgpu_option_gpu_buffer_binding_type_t   type;
+  webrogue_gfx_option_bool_t   has_dynamic_offset;
+  wasi_webgpu_webgpu_option_gpu_size64_t   min_binding_size;
+} wasi_webgpu_webgpu_gpu_buffer_binding_layout_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_buffer_descriptor_t {
+  wasi_webgpu_webgpu_gpu_size64_t   size;
+  wasi_webgpu_webgpu_gpu_buffer_usage_t   usage;
+  webrogue_gfx_option_bool_t   mapped_at_creation;
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_buffer_descriptor_t;
+
+typedef uint64_t wasi_webgpu_webgpu_gpu_size64_out_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_stencil_operation_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_STENCIL_OPERATION_KEEP 0
+#define WASI_WEBGPU_WEBGPU_GPU_STENCIL_OPERATION_ZERO 1
+#define WASI_WEBGPU_WEBGPU_GPU_STENCIL_OPERATION_REPLACE 2
+#define WASI_WEBGPU_WEBGPU_GPU_STENCIL_OPERATION_INVERT 3
+#define WASI_WEBGPU_WEBGPU_GPU_STENCIL_OPERATION_INCREMENT_CLAMP 4
+#define WASI_WEBGPU_WEBGPU_GPU_STENCIL_OPERATION_DECREMENT_CLAMP 5
+#define WASI_WEBGPU_WEBGPU_GPU_STENCIL_OPERATION_INCREMENT_WRAP 6
+#define WASI_WEBGPU_WEBGPU_GPU_STENCIL_OPERATION_DECREMENT_WRAP 7
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_stencil_operation_t val;
+} wasi_webgpu_webgpu_option_gpu_stencil_operation_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_stencil_face_state_t {
+  wasi_webgpu_webgpu_option_gpu_compare_function_t   compare;
+  wasi_webgpu_webgpu_option_gpu_stencil_operation_t   fail_op;
+  wasi_webgpu_webgpu_option_gpu_stencil_operation_t   depth_fail_op;
+  wasi_webgpu_webgpu_option_gpu_stencil_operation_t   pass_op;
+} wasi_webgpu_webgpu_gpu_stencil_face_state_t;
+
+typedef uint32_t wasi_webgpu_webgpu_gpu_stencil_value_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_storage_texture_access_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_STORAGE_TEXTURE_ACCESS_WRITE_ONLY 0
+#define WASI_WEBGPU_WEBGPU_GPU_STORAGE_TEXTURE_ACCESS_READ_ONLY 1
+#define WASI_WEBGPU_WEBGPU_GPU_STORAGE_TEXTURE_ACCESS_READ_WRITE 2
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_store_op_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_STORE_OP_STORE 0
+#define WASI_WEBGPU_WEBGPU_GPU_STORE_OP_DISCARD 1
+
+typedef struct wasi_webgpu_webgpu_own_gpu_supported_features_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_supported_features_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_supported_features_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_supported_features_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_supported_limits_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_supported_limits_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_supported_limits_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_supported_limits_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_texel_copy_buffer_info_t {
+  wasi_webgpu_webgpu_borrow_gpu_buffer_t   buffer;
+  wasi_webgpu_webgpu_option_gpu_size64_t   offset;
+  wasi_webgpu_webgpu_option_gpu_size32_t   bytes_per_row;
+  wasi_webgpu_webgpu_option_gpu_size32_t   rows_per_image;
+} wasi_webgpu_webgpu_gpu_texel_copy_buffer_info_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_texel_copy_buffer_layout_t {
+  wasi_webgpu_webgpu_option_gpu_size64_t   offset;
+  wasi_webgpu_webgpu_option_gpu_size32_t   bytes_per_row;
+  wasi_webgpu_webgpu_option_gpu_size32_t   rows_per_image;
+} wasi_webgpu_webgpu_gpu_texel_copy_buffer_layout_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_texture_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_texture_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_texture_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_texture_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_texture_aspect_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_ASPECT_ALL 0
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_ASPECT_STENCIL_ONLY 1
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_ASPECT_DEPTH_ONLY 2
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_origin3_d_t val;
+} wasi_webgpu_webgpu_option_gpu_origin3_d_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_texture_aspect_t val;
+} wasi_webgpu_webgpu_option_gpu_texture_aspect_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_texel_copy_texture_info_t {
+  wasi_webgpu_webgpu_borrow_gpu_texture_t   texture;
+  wasi_webgpu_webgpu_option_gpu_integer_coordinate_t   mip_level;
+  wasi_webgpu_webgpu_option_gpu_origin3_d_t   origin;
+  wasi_webgpu_webgpu_option_gpu_texture_aspect_t   aspect;
+} wasi_webgpu_webgpu_gpu_texel_copy_texture_info_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_texture_dimension_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_DIMENSION_D1 0
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_DIMENSION_D2 1
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_DIMENSION_D3 2
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_texture_format_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_R8UNORM 0
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_R8SNORM 1
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_R8UINT 2
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_R8SINT 3
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_R16UNORM 4
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_R16SNORM 5
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_R16UINT 6
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_R16SINT 7
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_R16FLOAT 8
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RG8UNORM 9
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RG8SNORM 10
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RG8UINT 11
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RG8SINT 12
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_R32UINT 13
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_R32SINT 14
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_R32FLOAT 15
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RG16UNORM 16
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RG16SNORM 17
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RG16UINT 18
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RG16SINT 19
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RG16FLOAT 20
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGBA8UNORM 21
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGBA8UNORM_SRGB 22
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGBA8SNORM 23
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGBA8UINT 24
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGBA8SINT 25
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BGRA8UNORM 26
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BGRA8UNORM_SRGB 27
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGB9E5UFLOAT 28
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGB10A2UINT 29
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGB10A2UNORM 30
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RG11B10UFLOAT 31
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RG32UINT 32
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RG32SINT 33
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RG32FLOAT 34
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGBA16UNORM 35
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGBA16SNORM 36
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGBA16UINT 37
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGBA16SINT 38
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGBA16FLOAT 39
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGBA32UINT 40
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGBA32SINT 41
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_RGBA32FLOAT 42
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_STENCIL8 43
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_DEPTH16UNORM 44
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_DEPTH24PLUS 45
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_DEPTH24PLUS_STENCIL8 46
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_DEPTH32FLOAT 47
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_DEPTH32FLOAT_STENCIL8 48
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BC1_RGBA_UNORM 49
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BC1_RGBA_UNORM_SRGB 50
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BC2_RGBA_UNORM 51
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BC2_RGBA_UNORM_SRGB 52
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BC3_RGBA_UNORM 53
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BC3_RGBA_UNORM_SRGB 54
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BC4_R_UNORM 55
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BC4_R_SNORM 56
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BC5_RG_UNORM 57
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BC5_RG_SNORM 58
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BC6H_RGB_UFLOAT 59
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BC6H_RGB_FLOAT 60
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BC7_RGBA_UNORM 61
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_BC7_RGBA_UNORM_SRGB 62
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ETC2_RGB8UNORM 63
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ETC2_RGB8UNORM_SRGB 64
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ETC2_RGB8A1UNORM 65
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ETC2_RGB8A1UNORM_SRGB 66
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ETC2_RGBA8UNORM 67
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ETC2_RGBA8UNORM_SRGB 68
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_EAC_R11UNORM 69
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_EAC_R11SNORM 70
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_EAC_RG11UNORM 71
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_EAC_RG11SNORM 72
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC4X4_UNORM 73
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC4X4_UNORM_SRGB 74
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC5X4_UNORM 75
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC5X4_UNORM_SRGB 76
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC5X5_UNORM 77
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC5X5_UNORM_SRGB 78
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC6X5_UNORM 79
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC6X5_UNORM_SRGB 80
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC6X6_UNORM 81
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC6X6_UNORM_SRGB 82
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC8X5_UNORM 83
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC8X5_UNORM_SRGB 84
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC8X6_UNORM 85
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC8X6_UNORM_SRGB 86
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC8X8_UNORM 87
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC8X8_UNORM_SRGB 88
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC10X5_UNORM 89
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC10X5_UNORM_SRGB 90
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC10X6_UNORM 91
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC10X6_UNORM_SRGB 92
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC10X8_UNORM 93
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC10X8_UNORM_SRGB 94
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC10X10_UNORM 95
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC10X10_UNORM_SRGB 96
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC12X10_UNORM 97
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC12X10_UNORM_SRGB 98
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC12X12_UNORM 99
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_FORMAT_ASTC12X12_UNORM_SRGB 100
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_blend_state_t val;
+} wasi_webgpu_webgpu_option_gpu_blend_state_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_color_write_t val;
+} wasi_webgpu_webgpu_option_gpu_color_write_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_color_target_state_t {
+  wasi_webgpu_webgpu_gpu_texture_format_t   format;
+  wasi_webgpu_webgpu_option_gpu_blend_state_t   blend;
+  wasi_webgpu_webgpu_option_gpu_color_write_t   write_mask;
+} wasi_webgpu_webgpu_gpu_color_target_state_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_stencil_face_state_t val;
+} wasi_webgpu_webgpu_option_gpu_stencil_face_state_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_stencil_value_t val;
+} wasi_webgpu_webgpu_option_gpu_stencil_value_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_depth_bias_t val;
+} wasi_webgpu_webgpu_option_gpu_depth_bias_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_depth_stencil_state_t {
+  wasi_webgpu_webgpu_gpu_texture_format_t   format;
+  webrogue_gfx_option_bool_t   depth_write_enabled;
+  wasi_webgpu_webgpu_option_gpu_compare_function_t   depth_compare;
+  wasi_webgpu_webgpu_option_gpu_stencil_face_state_t   stencil_front;
+  wasi_webgpu_webgpu_option_gpu_stencil_face_state_t   stencil_back;
+  wasi_webgpu_webgpu_option_gpu_stencil_value_t   stencil_read_mask;
+  wasi_webgpu_webgpu_option_gpu_stencil_value_t   stencil_write_mask;
+  wasi_webgpu_webgpu_option_gpu_depth_bias_t   depth_bias;
+  webrogue_gfx_option_f32_t   depth_bias_slope_scale;
+  webrogue_gfx_option_f32_t   depth_bias_clamp;
+} wasi_webgpu_webgpu_gpu_depth_stencil_state_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_texture_format_t val;
+} wasi_webgpu_webgpu_option_gpu_texture_format_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_option_gpu_texture_format_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_option_gpu_texture_format_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_render_bundle_encoder_descriptor_t {
+  webrogue_gfx_option_bool_t   depth_read_only;
+  webrogue_gfx_option_bool_t   stencil_read_only;
+  wasi_webgpu_webgpu_list_option_gpu_texture_format_t   color_formats;
+  wasi_webgpu_webgpu_option_gpu_texture_format_t   depth_stencil_format;
+  wasi_webgpu_webgpu_option_gpu_size32_t   sample_count;
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_render_bundle_encoder_descriptor_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_texture_sample_type_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_SAMPLE_TYPE_FLOAT 0
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_SAMPLE_TYPE_UNFILTERABLE_FLOAT 1
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_SAMPLE_TYPE_DEPTH 2
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_SAMPLE_TYPE_SINT 3
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_SAMPLE_TYPE_UINT 4
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_texture_usage_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_USAGE_COPY_SRC (1 << 0)
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_USAGE_COPY_DST (1 << 1)
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_USAGE_TEXTURE_BINDING (1 << 2)
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_USAGE_STORAGE_BINDING (1 << 3)
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_USAGE_RENDER_ATTACHMENT (1 << 4)
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_USAGE_TRANSIENT_ATTACHMENT (1 << 5)
+
+typedef struct wasi_webgpu_webgpu_own_gpu_texture_view_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_texture_view_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_texture_view_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_texture_view_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_binding_resource_t {
+  uint8_t tag;
+  union {
+    wasi_webgpu_webgpu_borrow_gpu_buffer_t     gpu_buffer;
+    wasi_webgpu_webgpu_gpu_buffer_binding_t     gpu_buffer_binding;
+    wasi_webgpu_webgpu_borrow_gpu_sampler_t     gpu_sampler;
+    wasi_webgpu_webgpu_borrow_gpu_texture_t     gpu_texture;
+    wasi_webgpu_webgpu_borrow_gpu_texture_view_t     gpu_texture_view;
+  } val;
+} wasi_webgpu_webgpu_gpu_binding_resource_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_BINDING_RESOURCE_GPU_BUFFER 0
+#define WASI_WEBGPU_WEBGPU_GPU_BINDING_RESOURCE_GPU_BUFFER_BINDING 1
+#define WASI_WEBGPU_WEBGPU_GPU_BINDING_RESOURCE_GPU_SAMPLER 2
+#define WASI_WEBGPU_WEBGPU_GPU_BINDING_RESOURCE_GPU_TEXTURE 3
+#define WASI_WEBGPU_WEBGPU_GPU_BINDING_RESOURCE_GPU_TEXTURE_VIEW 4
+
+typedef struct wasi_webgpu_webgpu_gpu_bind_group_entry_t {
+  wasi_webgpu_webgpu_gpu_index32_t   binding;
+  wasi_webgpu_webgpu_gpu_binding_resource_t   resource;
+} wasi_webgpu_webgpu_gpu_bind_group_entry_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_gpu_bind_group_entry_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_gpu_bind_group_entry_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_bind_group_descriptor_t {
+  wasi_webgpu_webgpu_borrow_gpu_bind_group_layout_t   layout;
+  wasi_webgpu_webgpu_list_gpu_bind_group_entry_t   entries;
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_bind_group_descriptor_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_borrow_gpu_texture_view_t val;
+} wasi_webgpu_webgpu_option_borrow_gpu_texture_view_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_color_t val;
+} wasi_webgpu_webgpu_option_gpu_color_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_render_pass_color_attachment_t {
+  wasi_webgpu_webgpu_borrow_gpu_texture_view_t   view;
+  wasi_webgpu_webgpu_option_gpu_integer_coordinate_t   depth_slice;
+  wasi_webgpu_webgpu_option_borrow_gpu_texture_view_t   resolve_target;
+  wasi_webgpu_webgpu_option_gpu_color_t   clear_value;
+  wasi_webgpu_webgpu_gpu_load_op_t   load_op;
+  wasi_webgpu_webgpu_gpu_store_op_t   store_op;
+} wasi_webgpu_webgpu_gpu_render_pass_color_attachment_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_load_op_t val;
+} wasi_webgpu_webgpu_option_gpu_load_op_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_store_op_t val;
+} wasi_webgpu_webgpu_option_gpu_store_op_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_render_pass_depth_stencil_attachment_t {
+  wasi_webgpu_webgpu_borrow_gpu_texture_view_t   view;
+  webrogue_gfx_option_f32_t   depth_clear_value;
+  wasi_webgpu_webgpu_option_gpu_load_op_t   depth_load_op;
+  wasi_webgpu_webgpu_option_gpu_store_op_t   depth_store_op;
+  webrogue_gfx_option_bool_t   depth_read_only;
+  wasi_webgpu_webgpu_option_gpu_stencil_value_t   stencil_clear_value;
+  wasi_webgpu_webgpu_option_gpu_load_op_t   stencil_load_op;
+  wasi_webgpu_webgpu_option_gpu_store_op_t   stencil_store_op;
+  webrogue_gfx_option_bool_t   stencil_read_only;
+} wasi_webgpu_webgpu_gpu_render_pass_depth_stencil_attachment_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_render_pass_color_attachment_t val;
+} wasi_webgpu_webgpu_option_gpu_render_pass_color_attachment_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_option_gpu_render_pass_color_attachment_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_option_gpu_render_pass_color_attachment_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_render_pass_depth_stencil_attachment_t val;
+} wasi_webgpu_webgpu_option_gpu_render_pass_depth_stencil_attachment_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_borrow_gpu_query_set_t val;
+} wasi_webgpu_webgpu_option_borrow_gpu_query_set_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_render_pass_timestamp_writes_t val;
+} wasi_webgpu_webgpu_option_gpu_render_pass_timestamp_writes_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_render_pass_descriptor_t {
+  wasi_webgpu_webgpu_list_option_gpu_render_pass_color_attachment_t   color_attachments;
+  wasi_webgpu_webgpu_option_gpu_render_pass_depth_stencil_attachment_t   depth_stencil_attachment;
+  wasi_webgpu_webgpu_option_borrow_gpu_query_set_t   occlusion_query_set;
+  wasi_webgpu_webgpu_option_gpu_render_pass_timestamp_writes_t   timestamp_writes;
+  wasi_webgpu_webgpu_option_gpu_size64_t   max_draw_count;
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_render_pass_descriptor_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_texture_view_dimension_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_VIEW_DIMENSION_D1 0
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_VIEW_DIMENSION_D2 1
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_VIEW_DIMENSION_D2_ARRAY 2
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_VIEW_DIMENSION_CUBE 3
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_VIEW_DIMENSION_CUBE_ARRAY 4
+#define WASI_WEBGPU_WEBGPU_GPU_TEXTURE_VIEW_DIMENSION_D3 5
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_storage_texture_access_t val;
+} wasi_webgpu_webgpu_option_gpu_storage_texture_access_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_texture_view_dimension_t val;
+} wasi_webgpu_webgpu_option_gpu_texture_view_dimension_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_storage_texture_binding_layout_t {
+  wasi_webgpu_webgpu_option_gpu_storage_texture_access_t   access;
+  wasi_webgpu_webgpu_gpu_texture_format_t   format;
+  wasi_webgpu_webgpu_option_gpu_texture_view_dimension_t   view_dimension;
+} wasi_webgpu_webgpu_gpu_storage_texture_binding_layout_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_texture_sample_type_t val;
+} wasi_webgpu_webgpu_option_gpu_texture_sample_type_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_texture_binding_layout_t {
+  wasi_webgpu_webgpu_option_gpu_texture_sample_type_t   sample_type;
+  wasi_webgpu_webgpu_option_gpu_texture_view_dimension_t   view_dimension;
+  webrogue_gfx_option_bool_t   multisampled;
+} wasi_webgpu_webgpu_gpu_texture_binding_layout_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_buffer_binding_layout_t val;
+} wasi_webgpu_webgpu_option_gpu_buffer_binding_layout_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_sampler_binding_layout_t val;
+} wasi_webgpu_webgpu_option_gpu_sampler_binding_layout_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_texture_binding_layout_t val;
+} wasi_webgpu_webgpu_option_gpu_texture_binding_layout_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_storage_texture_binding_layout_t val;
+} wasi_webgpu_webgpu_option_gpu_storage_texture_binding_layout_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_bind_group_layout_entry_t {
+  wasi_webgpu_webgpu_gpu_index32_t   binding;
+  wasi_webgpu_webgpu_gpu_shader_stage_t   visibility;
+  wasi_webgpu_webgpu_option_gpu_buffer_binding_layout_t   buffer;
+  wasi_webgpu_webgpu_option_gpu_sampler_binding_layout_t   sampler;
+  wasi_webgpu_webgpu_option_gpu_texture_binding_layout_t   texture;
+  wasi_webgpu_webgpu_option_gpu_storage_texture_binding_layout_t   storage_texture;
+} wasi_webgpu_webgpu_gpu_bind_group_layout_entry_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_gpu_bind_group_layout_entry_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_gpu_bind_group_layout_entry_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_bind_group_layout_descriptor_t {
+  wasi_webgpu_webgpu_list_gpu_bind_group_layout_entry_t   entries;
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_bind_group_layout_descriptor_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_texture_dimension_t val;
+} wasi_webgpu_webgpu_option_gpu_texture_dimension_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_gpu_texture_format_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_gpu_texture_format_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_list_gpu_texture_format_t val;
+} wasi_webgpu_webgpu_option_list_gpu_texture_format_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_texture_descriptor_t {
+  wasi_webgpu_webgpu_gpu_extent3_d_t   size;
+  wasi_webgpu_webgpu_option_gpu_integer_coordinate_t   mip_level_count;
+  wasi_webgpu_webgpu_option_gpu_size32_t   sample_count;
+  wasi_webgpu_webgpu_option_gpu_texture_dimension_t   dimension;
+  wasi_webgpu_webgpu_gpu_texture_format_t   format;
+  wasi_webgpu_webgpu_gpu_texture_usage_t   usage;
+  wasi_webgpu_webgpu_option_list_gpu_texture_format_t   view_formats;
+  wasi_webgpu_webgpu_option_gpu_texture_view_dimension_t   texture_binding_view_dimension;
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_texture_descriptor_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_texture_usage_t val;
+} wasi_webgpu_webgpu_option_gpu_texture_usage_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_texture_view_descriptor_t {
+  wasi_webgpu_webgpu_option_gpu_texture_format_t   format;
+  wasi_webgpu_webgpu_option_gpu_texture_view_dimension_t   dimension;
+  wasi_webgpu_webgpu_option_gpu_texture_usage_t   usage;
+  wasi_webgpu_webgpu_option_gpu_texture_aspect_t   aspect;
+  wasi_webgpu_webgpu_option_gpu_integer_coordinate_t   base_mip_level;
+  wasi_webgpu_webgpu_option_gpu_integer_coordinate_t   mip_level_count;
+  wasi_webgpu_webgpu_option_gpu_integer_coordinate_t   base_array_layer;
+  wasi_webgpu_webgpu_option_gpu_integer_coordinate_t   array_layer_count;
+  webrogue_gfx_option_string_t   swizzle;
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_texture_view_descriptor_t;
+
+typedef struct wasi_webgpu_webgpu_own_gpu_uncaptured_error_event_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_gpu_uncaptured_error_event_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_gpu_uncaptured_error_event_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_gpu_uncaptured_error_event_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_vertex_format_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UINT8 0
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UINT8X2 1
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UINT8X4 2
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SINT8 3
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SINT8X2 4
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SINT8X4 5
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UNORM8 6
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UNORM8X2 7
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UNORM8X4 8
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SNORM8 9
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SNORM8X2 10
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SNORM8X4 11
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UINT16 12
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UINT16X2 13
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UINT16X4 14
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SINT16 15
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SINT16X2 16
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SINT16X4 17
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UNORM16 18
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UNORM16X2 19
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UNORM16X4 20
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SNORM16 21
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SNORM16X2 22
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SNORM16X4 23
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_FLOAT16 24
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_FLOAT16X2 25
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_FLOAT16X4 26
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_FLOAT32 27
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_FLOAT32X2 28
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_FLOAT32X3 29
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_FLOAT32X4 30
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UINT32 31
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UINT32X2 32
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UINT32X3 33
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UINT32X4 34
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SINT32 35
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SINT32X2 36
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SINT32X3 37
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_SINT32X4 38
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UNORM1010102 39
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_FORMAT_UNORM8X4_BGRA 40
+
+typedef struct wasi_webgpu_webgpu_gpu_vertex_attribute_t {
+  wasi_webgpu_webgpu_gpu_vertex_format_t   format;
+  wasi_webgpu_webgpu_gpu_size64_t   offset;
+  wasi_webgpu_webgpu_gpu_index32_t   shader_location;
+} wasi_webgpu_webgpu_gpu_vertex_attribute_t;
+
+typedef uint8_t wasi_webgpu_webgpu_gpu_vertex_step_mode_t;
+
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_STEP_MODE_VERTEX 0
+#define WASI_WEBGPU_WEBGPU_GPU_VERTEX_STEP_MODE_INSTANCE 1
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_vertex_step_mode_t val;
+} wasi_webgpu_webgpu_option_gpu_vertex_step_mode_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_gpu_vertex_attribute_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_gpu_vertex_attribute_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_vertex_buffer_layout_t {
+  wasi_webgpu_webgpu_gpu_size64_t   array_stride;
+  wasi_webgpu_webgpu_option_gpu_vertex_step_mode_t   step_mode;
+  wasi_webgpu_webgpu_list_gpu_vertex_attribute_t   attributes;
+} wasi_webgpu_webgpu_gpu_vertex_buffer_layout_t;
+
+typedef struct wasi_webgpu_webgpu_map_async_error_kind_t {
+  uint8_t tag;
+} wasi_webgpu_webgpu_map_async_error_kind_t;
+
+#define WASI_WEBGPU_WEBGPU_MAP_ASYNC_ERROR_KIND_OPERATION_ERROR 0
+#define WASI_WEBGPU_WEBGPU_MAP_ASYNC_ERROR_KIND_RANGE_ERROR 1
+#define WASI_WEBGPU_WEBGPU_MAP_ASYNC_ERROR_KIND_ABORT_ERROR 2
+
+typedef struct wasi_webgpu_webgpu_map_async_error_t {
+  wasi_webgpu_webgpu_map_async_error_kind_t   kind;
+  webrogue_gfx_string_t   message;
+} wasi_webgpu_webgpu_map_async_error_t;
+
+typedef struct wasi_webgpu_webgpu_pop_error_scope_error_kind_t {
+  uint8_t tag;
+} wasi_webgpu_webgpu_pop_error_scope_error_kind_t;
+
+#define WASI_WEBGPU_WEBGPU_POP_ERROR_SCOPE_ERROR_KIND_OPERATION_ERROR 0
+
+typedef struct wasi_webgpu_webgpu_pop_error_scope_error_t {
+  wasi_webgpu_webgpu_pop_error_scope_error_kind_t   kind;
+  webrogue_gfx_string_t   message;
+} wasi_webgpu_webgpu_pop_error_scope_error_t;
+
+typedef uint8_t wasi_webgpu_webgpu_predefined_color_space_t;
+
+#define WASI_WEBGPU_WEBGPU_PREDEFINED_COLOR_SPACE_SRGB 0
+#define WASI_WEBGPU_WEBGPU_PREDEFINED_COLOR_SPACE_DISPLAY_P3 1
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_predefined_color_space_t val;
+} wasi_webgpu_webgpu_option_predefined_color_space_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_canvas_tone_mapping_t val;
+} wasi_webgpu_webgpu_option_gpu_canvas_tone_mapping_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_canvas_alpha_mode_t val;
+} wasi_webgpu_webgpu_option_gpu_canvas_alpha_mode_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_canvas_configuration_t {
+  wasi_webgpu_webgpu_borrow_gpu_device_t   device;
+  wasi_webgpu_webgpu_gpu_texture_format_t   format;
+  wasi_webgpu_webgpu_option_gpu_texture_usage_t   usage;
+  wasi_webgpu_webgpu_option_list_gpu_texture_format_t   view_formats;
+  wasi_webgpu_webgpu_option_predefined_color_space_t   color_space;
+  wasi_webgpu_webgpu_option_gpu_canvas_tone_mapping_t   tone_mapping;
+  wasi_webgpu_webgpu_option_gpu_canvas_alpha_mode_t   alpha_mode;
+} wasi_webgpu_webgpu_gpu_canvas_configuration_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_canvas_configuration_owned_t {
+  wasi_webgpu_webgpu_own_gpu_device_t   device;
+  wasi_webgpu_webgpu_gpu_texture_format_t   format;
+  wasi_webgpu_webgpu_option_gpu_texture_usage_t   usage;
+  wasi_webgpu_webgpu_option_list_gpu_texture_format_t   view_formats;
+  wasi_webgpu_webgpu_option_predefined_color_space_t   color_space;
+  wasi_webgpu_webgpu_option_gpu_canvas_tone_mapping_t   tone_mapping;
+  wasi_webgpu_webgpu_option_gpu_canvas_alpha_mode_t   alpha_mode;
+} wasi_webgpu_webgpu_gpu_canvas_configuration_owned_t;
+
+typedef struct wasi_webgpu_webgpu_own_record_gpu_pipeline_constant_value_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_record_gpu_pipeline_constant_value_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_record_gpu_pipeline_constant_value_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_record_gpu_pipeline_constant_value_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_color_target_state_t val;
+} wasi_webgpu_webgpu_option_gpu_color_target_state_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_option_gpu_color_target_state_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_option_gpu_color_target_state_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_own_record_gpu_pipeline_constant_value_t val;
+} wasi_webgpu_webgpu_option_own_record_gpu_pipeline_constant_value_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_fragment_state_t {
+  wasi_webgpu_webgpu_list_option_gpu_color_target_state_t   targets;
+  wasi_webgpu_webgpu_borrow_gpu_shader_module_t   module;
+  webrogue_gfx_option_string_t   entry_point;
+  wasi_webgpu_webgpu_option_own_record_gpu_pipeline_constant_value_t   constants;
+} wasi_webgpu_webgpu_gpu_fragment_state_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_programmable_stage_t {
+  wasi_webgpu_webgpu_borrow_gpu_shader_module_t   module;
+  webrogue_gfx_option_string_t   entry_point;
+  wasi_webgpu_webgpu_option_own_record_gpu_pipeline_constant_value_t   constants;
+} wasi_webgpu_webgpu_gpu_programmable_stage_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_compute_pipeline_descriptor_t {
+  wasi_webgpu_webgpu_gpu_programmable_stage_t   compute;
+  wasi_webgpu_webgpu_gpu_layout_mode_t   layout;
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_compute_pipeline_descriptor_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_vertex_buffer_layout_t val;
+} wasi_webgpu_webgpu_option_gpu_vertex_buffer_layout_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_option_gpu_vertex_buffer_layout_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_option_gpu_vertex_buffer_layout_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_list_option_gpu_vertex_buffer_layout_t val;
+} wasi_webgpu_webgpu_option_list_option_gpu_vertex_buffer_layout_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_vertex_state_t {
+  wasi_webgpu_webgpu_option_list_option_gpu_vertex_buffer_layout_t   buffers;
+  wasi_webgpu_webgpu_borrow_gpu_shader_module_t   module;
+  webrogue_gfx_option_string_t   entry_point;
+  wasi_webgpu_webgpu_option_own_record_gpu_pipeline_constant_value_t   constants;
+} wasi_webgpu_webgpu_gpu_vertex_state_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_primitive_state_t val;
+} wasi_webgpu_webgpu_option_gpu_primitive_state_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_depth_stencil_state_t val;
+} wasi_webgpu_webgpu_option_gpu_depth_stencil_state_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_multisample_state_t val;
+} wasi_webgpu_webgpu_option_gpu_multisample_state_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_fragment_state_t val;
+} wasi_webgpu_webgpu_option_gpu_fragment_state_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_render_pipeline_descriptor_t {
+  wasi_webgpu_webgpu_gpu_vertex_state_t   vertex;
+  wasi_webgpu_webgpu_option_gpu_primitive_state_t   primitive;
+  wasi_webgpu_webgpu_option_gpu_depth_stencil_state_t   depth_stencil;
+  wasi_webgpu_webgpu_option_gpu_multisample_state_t   multisample;
+  wasi_webgpu_webgpu_option_gpu_fragment_state_t   fragment;
+  wasi_webgpu_webgpu_gpu_layout_mode_t   layout;
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_render_pipeline_descriptor_t;
+
+typedef struct wasi_webgpu_webgpu_own_record_option_gpu_size64_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_record_option_gpu_size64_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_record_option_gpu_size64_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_record_option_gpu_size64_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_gpu_feature_name_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_gpu_feature_name_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_list_gpu_feature_name_t val;
+} wasi_webgpu_webgpu_option_list_gpu_feature_name_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_own_record_option_gpu_size64_t val;
+} wasi_webgpu_webgpu_option_own_record_option_gpu_size64_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_queue_descriptor_t val;
+} wasi_webgpu_webgpu_option_gpu_queue_descriptor_t;
+
+typedef struct wasi_webgpu_webgpu_gpu_device_descriptor_t {
+  wasi_webgpu_webgpu_option_list_gpu_feature_name_t   required_features;
+  wasi_webgpu_webgpu_option_own_record_option_gpu_size64_t   required_limits;
+  wasi_webgpu_webgpu_option_gpu_queue_descriptor_t   default_queue;
+  webrogue_gfx_option_string_t   label;
+} wasi_webgpu_webgpu_gpu_device_descriptor_t;
+
+typedef struct wasi_webgpu_webgpu_request_device_error_kind_t {
+  uint8_t tag;
+} wasi_webgpu_webgpu_request_device_error_kind_t;
+
+#define WASI_WEBGPU_WEBGPU_REQUEST_DEVICE_ERROR_KIND_TYPE_ERROR 0
+#define WASI_WEBGPU_WEBGPU_REQUEST_DEVICE_ERROR_KIND_OPERATION_ERROR 1
+
+typedef struct wasi_webgpu_webgpu_request_device_error_t {
+  wasi_webgpu_webgpu_request_device_error_kind_t   kind;
+  webrogue_gfx_string_t   message;
+} wasi_webgpu_webgpu_request_device_error_t;
+
+typedef struct wasi_webgpu_webgpu_set_bind_group_error_kind_t {
+  uint8_t tag;
+} wasi_webgpu_webgpu_set_bind_group_error_kind_t;
+
+#define WASI_WEBGPU_WEBGPU_SET_BIND_GROUP_ERROR_KIND_RANGE_ERROR 0
+
+typedef struct wasi_webgpu_webgpu_set_bind_group_error_t {
+  wasi_webgpu_webgpu_set_bind_group_error_kind_t   kind;
+  webrogue_gfx_string_t   message;
+} wasi_webgpu_webgpu_set_bind_group_error_t;
+
+typedef struct wasi_webgpu_webgpu_unmap_error_kind_t {
+  uint8_t tag;
+} wasi_webgpu_webgpu_unmap_error_kind_t;
+
+#define WASI_WEBGPU_WEBGPU_UNMAP_ERROR_KIND_ABORT_ERROR 0
+
+typedef struct wasi_webgpu_webgpu_unmap_error_t {
+  wasi_webgpu_webgpu_unmap_error_kind_t   kind;
+  webrogue_gfx_string_t   message;
+} wasi_webgpu_webgpu_unmap_error_t;
+
+typedef struct wasi_webgpu_webgpu_own_wgsl_language_features_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_own_wgsl_language_features_t;
+
+typedef struct wasi_webgpu_webgpu_borrow_wgsl_language_features_t {
+  int32_t __handle;
+} wasi_webgpu_webgpu_borrow_wgsl_language_features_t;
+
+typedef struct wasi_webgpu_webgpu_write_buffer_error_kind_t {
+  uint8_t tag;
+} wasi_webgpu_webgpu_write_buffer_error_kind_t;
+
+#define WASI_WEBGPU_WEBGPU_WRITE_BUFFER_ERROR_KIND_OPERATION_ERROR 0
+
+typedef struct wasi_webgpu_webgpu_write_buffer_error_t {
+  wasi_webgpu_webgpu_write_buffer_error_kind_t   kind;
+  webrogue_gfx_string_t   message;
+} wasi_webgpu_webgpu_write_buffer_error_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_request_adapter_options_t val;
+} wasi_webgpu_webgpu_option_gpu_request_adapter_options_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_own_gpu_adapter_t val;
+} wasi_webgpu_webgpu_option_own_gpu_adapter_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_device_descriptor_t val;
+} wasi_webgpu_webgpu_option_gpu_device_descriptor_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_webgpu_webgpu_own_gpu_device_t ok;
+    wasi_webgpu_webgpu_request_device_error_t err;
+  } val;
+} wasi_webgpu_webgpu_result_own_gpu_device_request_device_error_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_webgpu_webgpu_map_async_error_t err;
+  } val;
+} wasi_webgpu_webgpu_result_void_map_async_error_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    webrogue_gfx_list_u8_t ok;
+    wasi_webgpu_webgpu_get_mapped_range_error_t err;
+  } val;
+} wasi_webgpu_webgpu_result_list_u8_get_mapped_range_error_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_webgpu_webgpu_unmap_error_t err;
+  } val;
+} wasi_webgpu_webgpu_result_void_unmap_error_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_webgpu_webgpu_get_mapped_range_error_t err;
+  } val;
+} wasi_webgpu_webgpu_result_void_get_mapped_range_error_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_canvas_configuration_owned_t val;
+} wasi_webgpu_webgpu_option_gpu_canvas_configuration_owned_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_compute_pass_descriptor_t val;
+} wasi_webgpu_webgpu_option_gpu_compute_pass_descriptor_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_command_buffer_descriptor_t val;
+} wasi_webgpu_webgpu_option_gpu_command_buffer_descriptor_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_own_gpu_compilation_message_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_own_gpu_compilation_message_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_borrow_gpu_bind_group_t val;
+} wasi_webgpu_webgpu_option_borrow_gpu_bind_group_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_gpu_buffer_dynamic_offset_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_gpu_buffer_dynamic_offset_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_list_gpu_buffer_dynamic_offset_t val;
+} wasi_webgpu_webgpu_option_list_gpu_buffer_dynamic_offset_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_webgpu_webgpu_set_bind_group_error_t err;
+  } val;
+} wasi_webgpu_webgpu_result_void_set_bind_group_error_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_sampler_descriptor_t val;
+} wasi_webgpu_webgpu_option_gpu_sampler_descriptor_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_webgpu_webgpu_own_gpu_compute_pipeline_t ok;
+    wasi_webgpu_webgpu_create_pipeline_error_t err;
+  } val;
+} wasi_webgpu_webgpu_result_own_gpu_compute_pipeline_create_pipeline_error_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_webgpu_webgpu_own_gpu_render_pipeline_t ok;
+    wasi_webgpu_webgpu_create_pipeline_error_t err;
+  } val;
+} wasi_webgpu_webgpu_result_own_gpu_render_pipeline_create_pipeline_error_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_command_encoder_descriptor_t val;
+} wasi_webgpu_webgpu_option_gpu_command_encoder_descriptor_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_webgpu_webgpu_own_gpu_query_set_t ok;
+    wasi_webgpu_webgpu_create_query_set_error_t err;
+  } val;
+} wasi_webgpu_webgpu_result_own_gpu_query_set_create_query_set_error_t;
+
+typedef uint32_t wasi_webgpu_webgpu_future_own_gpu_device_lost_info_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_own_gpu_error_t val;
+} wasi_webgpu_webgpu_option_own_gpu_error_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_webgpu_webgpu_option_own_gpu_error_t ok;
+    wasi_webgpu_webgpu_pop_error_scope_error_t err;
+  } val;
+} wasi_webgpu_webgpu_result_option_own_gpu_error_pop_error_scope_error_t;
+
+typedef uint32_t wasi_webgpu_webgpu_stream_own_gpu_error_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_borrow_gpu_command_buffer_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_borrow_gpu_command_buffer_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_webgpu_webgpu_write_buffer_error_t err;
+  } val;
+} wasi_webgpu_webgpu_result_void_write_buffer_error_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_render_bundle_descriptor_t val;
+} wasi_webgpu_webgpu_option_gpu_render_bundle_descriptor_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_borrow_gpu_buffer_t val;
+} wasi_webgpu_webgpu_option_borrow_gpu_buffer_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_signed_offset32_t val;
+} wasi_webgpu_webgpu_option_gpu_signed_offset32_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_borrow_gpu_render_bundle_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_borrow_gpu_render_bundle_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_texture_view_descriptor_t val;
+} wasi_webgpu_webgpu_option_gpu_texture_view_descriptor_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_gpu_pipeline_constant_value_t val;
+} wasi_webgpu_webgpu_option_gpu_pipeline_constant_value_t;
+
+typedef struct {
+  webrogue_gfx_string_t *ptr;
+  size_t len;
+} webrogue_gfx_list_string_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_gpu_pipeline_constant_value_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_gpu_pipeline_constant_value_t;
+
+typedef struct {
+  webrogue_gfx_string_t f0;
+  wasi_webgpu_webgpu_gpu_pipeline_constant_value_t f1;
+} wasi_webgpu_webgpu_tuple2_string_gpu_pipeline_constant_value_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_tuple2_string_gpu_pipeline_constant_value_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_tuple2_string_gpu_pipeline_constant_value_t;
+
+typedef struct {
+  bool is_some;
+  wasi_webgpu_webgpu_option_gpu_size64_t val;
+} wasi_webgpu_webgpu_option_option_gpu_size64_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_option_gpu_size64_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_option_gpu_size64_t;
+
+typedef struct {
+  webrogue_gfx_string_t f0;
+  wasi_webgpu_webgpu_option_gpu_size64_t f1;
+} wasi_webgpu_webgpu_tuple2_string_option_gpu_size64_t;
+
+typedef struct {
+  wasi_webgpu_webgpu_tuple2_string_option_gpu_size64_t *ptr;
+  size_t len;
+} wasi_webgpu_webgpu_list_tuple2_string_option_gpu_size64_t;
+typedef struct wasi_webgpu_webgpu_method_gpu_request_adapter_args {
+  wasi_webgpu_webgpu_borrow_gpu_t self;
+  wasi_webgpu_webgpu_option_gpu_request_adapter_options_t options;
+} wasi_webgpu_webgpu_method_gpu_request_adapter_args_t;
+typedef struct wasi_webgpu_webgpu_method_gpu_adapter_request_device_args {
+  wasi_webgpu_webgpu_borrow_gpu_adapter_t self;
+  wasi_webgpu_webgpu_option_gpu_device_descriptor_t descriptor;
+} wasi_webgpu_webgpu_method_gpu_adapter_request_device_args_t;
+typedef struct wasi_webgpu_webgpu_method_gpu_buffer_map_async_args {
+  wasi_webgpu_webgpu_borrow_gpu_buffer_t self;
+  wasi_webgpu_webgpu_gpu_map_mode_t mode;
+  wasi_webgpu_webgpu_option_gpu_size64_t offset;
+  wasi_webgpu_webgpu_option_gpu_size64_t size;
+} wasi_webgpu_webgpu_method_gpu_buffer_map_async_args_t;
+typedef struct wasi_webgpu_webgpu_method_gpu_device_create_compute_pipeline_async_args {
+  wasi_webgpu_webgpu_borrow_gpu_device_t self;
+  wasi_webgpu_webgpu_gpu_compute_pipeline_descriptor_t descriptor;
+} wasi_webgpu_webgpu_method_gpu_device_create_compute_pipeline_async_args_t;
+typedef struct wasi_webgpu_webgpu_method_gpu_device_create_render_pipeline_async_args {
+  wasi_webgpu_webgpu_borrow_gpu_device_t self;
+  wasi_webgpu_webgpu_gpu_render_pipeline_descriptor_t descriptor;
+} wasi_webgpu_webgpu_method_gpu_device_create_render_pipeline_async_args_t;
+
+typedef wasi_webgpu_webgpu_gpu_texture_format_t webrogue_gfx_windowing_webgpu_gpu_texture_format_t;
+
+typedef wasi_webgpu_webgpu_gpu_texture_usage_t webrogue_gfx_windowing_webgpu_gpu_texture_usage_t;
+
+typedef wasi_webgpu_webgpu_predefined_color_space_t webrogue_gfx_windowing_webgpu_predefined_color_space_t;
+
+typedef wasi_webgpu_webgpu_gpu_canvas_tone_mapping_t webrogue_gfx_windowing_webgpu_gpu_canvas_tone_mapping_t;
+
+typedef wasi_webgpu_webgpu_gpu_canvas_alpha_mode_t webrogue_gfx_windowing_webgpu_gpu_canvas_alpha_mode_t;
+
+typedef wasi_webgpu_webgpu_borrow_gpu_device_t webrogue_gfx_windowing_webgpu_borrow_gpu_device_t;
+
+typedef struct {
+  bool is_some;
+  webrogue_gfx_windowing_webgpu_gpu_texture_usage_t val;
+} webrogue_gfx_windowing_webgpu_option_gpu_texture_usage_t;
+
+typedef struct {
+  webrogue_gfx_windowing_webgpu_gpu_texture_format_t *ptr;
+  size_t len;
+} webrogue_gfx_windowing_webgpu_list_gpu_texture_format_t;
+
+typedef struct {
+  bool is_some;
+  webrogue_gfx_windowing_webgpu_list_gpu_texture_format_t val;
+} webrogue_gfx_windowing_webgpu_option_list_gpu_texture_format_t;
+
+typedef struct {
+  bool is_some;
+  webrogue_gfx_windowing_webgpu_predefined_color_space_t val;
+} webrogue_gfx_windowing_webgpu_option_predefined_color_space_t;
+
+typedef struct {
+  bool is_some;
+  webrogue_gfx_windowing_webgpu_gpu_canvas_tone_mapping_t val;
+} webrogue_gfx_windowing_webgpu_option_gpu_canvas_tone_mapping_t;
+
+typedef struct {
+  bool is_some;
+  webrogue_gfx_windowing_webgpu_gpu_canvas_alpha_mode_t val;
+} webrogue_gfx_windowing_webgpu_option_gpu_canvas_alpha_mode_t;
+
+typedef struct webrogue_gfx_windowing_webgpu_context_configuration_t {
+  webrogue_gfx_windowing_webgpu_borrow_gpu_device_t   device;
+  webrogue_gfx_windowing_webgpu_gpu_texture_format_t   format;
+  webrogue_gfx_windowing_webgpu_option_gpu_texture_usage_t   usage;
+  webrogue_gfx_windowing_webgpu_option_list_gpu_texture_format_t   view_formats;
+  webrogue_gfx_windowing_webgpu_option_predefined_color_space_t   color_space;
+  webrogue_gfx_windowing_webgpu_option_gpu_canvas_tone_mapping_t   tone_mapping;
+  webrogue_gfx_windowing_webgpu_option_gpu_canvas_alpha_mode_t   alpha_mode;
+} webrogue_gfx_windowing_webgpu_context_configuration_t;
+
+typedef struct webrogue_gfx_windowing_webgpu_own_context_t {
+  int32_t __handle;
+} webrogue_gfx_windowing_webgpu_own_context_t;
+
+typedef struct webrogue_gfx_windowing_webgpu_borrow_context_t {
+  int32_t __handle;
+} webrogue_gfx_windowing_webgpu_borrow_context_t;
+
+typedef webrogue_gfx_windowing_borrow_window_t webrogue_gfx_windowing_webgpu_borrow_window_t;
+
+typedef wasi_webgpu_webgpu_own_gpu_texture_t webrogue_gfx_windowing_webgpu_own_gpu_texture_t;
+
 // Imported Functions from `webrogue:gfx/windowing`
 extern webrogue_gfx_windowing_own_window_t webrogue_gfx_windowing_make_window(webrogue_gfx_windowing_surface_kind_t surface_kind);
 extern void webrogue_gfx_windowing_method_window_get_logical_size(webrogue_gfx_windowing_borrow_window_t self, webrogue_gfx_tuple2_u32_u32_t *ret);
@@ -732,6 +2667,245 @@ extern void webrogue_gfx_vulkan_method_renderer_context_init(webrogue_gfx_vulkan
 // Imported Functions from `webrogue:gfx/cpu-rendering`
 // TODO return an error if, for example, size changed
 extern void webrogue_gfx_cpu_rendering_present_pixels(webrogue_gfx_cpu_rendering_borrow_window_t window, webrogue_gfx_list_u32_t *buf);
+
+// Imported Functions from `wasi:webgpu/webgpu@0.3.0-rc.2`
+extern webrogue_gfx_subtask_status_t wasi_webgpu_webgpu_method_gpu_request_adapter(wasi_webgpu_webgpu_method_gpu_request_adapter_args_t *args, wasi_webgpu_webgpu_option_own_gpu_adapter_t *result);
+extern wasi_webgpu_webgpu_gpu_texture_format_t wasi_webgpu_webgpu_method_gpu_get_preferred_canvas_format(wasi_webgpu_webgpu_borrow_gpu_t self);
+extern wasi_webgpu_webgpu_own_wgsl_language_features_t wasi_webgpu_webgpu_method_gpu_wgsl_language_features(wasi_webgpu_webgpu_borrow_gpu_t self);
+extern wasi_webgpu_webgpu_own_gpu_supported_features_t wasi_webgpu_webgpu_method_gpu_adapter_features(wasi_webgpu_webgpu_borrow_gpu_adapter_t self);
+extern wasi_webgpu_webgpu_own_gpu_supported_limits_t wasi_webgpu_webgpu_method_gpu_adapter_limits(wasi_webgpu_webgpu_borrow_gpu_adapter_t self);
+extern wasi_webgpu_webgpu_own_gpu_adapter_info_t wasi_webgpu_webgpu_method_gpu_adapter_info(wasi_webgpu_webgpu_borrow_gpu_adapter_t self);
+extern webrogue_gfx_subtask_status_t wasi_webgpu_webgpu_method_gpu_adapter_request_device(wasi_webgpu_webgpu_method_gpu_adapter_request_device_args_t *args, wasi_webgpu_webgpu_result_own_gpu_device_request_device_error_t *result);
+extern void wasi_webgpu_webgpu_method_gpu_adapter_info_vendor(wasi_webgpu_webgpu_borrow_gpu_adapter_info_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_adapter_info_architecture(wasi_webgpu_webgpu_borrow_gpu_adapter_info_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_adapter_info_device(wasi_webgpu_webgpu_borrow_gpu_adapter_info_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_adapter_info_description(wasi_webgpu_webgpu_borrow_gpu_adapter_info_t self, webrogue_gfx_string_t *ret);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_adapter_info_subgroup_min_size(wasi_webgpu_webgpu_borrow_gpu_adapter_info_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_adapter_info_subgroup_max_size(wasi_webgpu_webgpu_borrow_gpu_adapter_info_t self);
+extern bool wasi_webgpu_webgpu_method_gpu_adapter_info_is_fallback_adapter(wasi_webgpu_webgpu_borrow_gpu_adapter_info_t self);
+extern void wasi_webgpu_webgpu_method_gpu_bind_group_label(wasi_webgpu_webgpu_borrow_gpu_bind_group_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_bind_group_set_label(wasi_webgpu_webgpu_borrow_gpu_bind_group_t self, webrogue_gfx_string_t *label);
+extern void wasi_webgpu_webgpu_method_gpu_bind_group_layout_label(wasi_webgpu_webgpu_borrow_gpu_bind_group_layout_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_bind_group_layout_set_label(wasi_webgpu_webgpu_borrow_gpu_bind_group_layout_t self, webrogue_gfx_string_t *label);
+extern wasi_webgpu_webgpu_gpu_size64_out_t wasi_webgpu_webgpu_method_gpu_buffer_size(wasi_webgpu_webgpu_borrow_gpu_buffer_t self);
+extern wasi_webgpu_webgpu_gpu_buffer_usage_t wasi_webgpu_webgpu_method_gpu_buffer_usage(wasi_webgpu_webgpu_borrow_gpu_buffer_t self);
+extern wasi_webgpu_webgpu_gpu_buffer_map_state_t wasi_webgpu_webgpu_method_gpu_buffer_map_state(wasi_webgpu_webgpu_borrow_gpu_buffer_t self);
+extern webrogue_gfx_subtask_status_t wasi_webgpu_webgpu_method_gpu_buffer_map_async(wasi_webgpu_webgpu_method_gpu_buffer_map_async_args_t *args, wasi_webgpu_webgpu_result_void_map_async_error_t *result);
+extern bool wasi_webgpu_webgpu_method_gpu_buffer_get_mapped_range_get_with_copy(wasi_webgpu_webgpu_borrow_gpu_buffer_t self, wasi_webgpu_webgpu_gpu_size64_t *maybe_offset, wasi_webgpu_webgpu_gpu_size64_t *maybe_size, webrogue_gfx_list_u8_t *ret, wasi_webgpu_webgpu_get_mapped_range_error_t *err);
+extern bool wasi_webgpu_webgpu_method_gpu_buffer_unmap(wasi_webgpu_webgpu_borrow_gpu_buffer_t self, wasi_webgpu_webgpu_unmap_error_t *err);
+extern void wasi_webgpu_webgpu_method_gpu_buffer_destroy(wasi_webgpu_webgpu_borrow_gpu_buffer_t self);
+extern void wasi_webgpu_webgpu_method_gpu_buffer_label(wasi_webgpu_webgpu_borrow_gpu_buffer_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_buffer_set_label(wasi_webgpu_webgpu_borrow_gpu_buffer_t self, webrogue_gfx_string_t *label);
+extern bool wasi_webgpu_webgpu_method_gpu_buffer_get_mapped_range_set_with_copy(wasi_webgpu_webgpu_borrow_gpu_buffer_t self, webrogue_gfx_list_u8_t *data, wasi_webgpu_webgpu_gpu_size64_t *maybe_offset, wasi_webgpu_webgpu_gpu_size64_t *maybe_size, wasi_webgpu_webgpu_get_mapped_range_error_t *err);
+extern void wasi_webgpu_webgpu_method_gpu_canvas_context_configure(wasi_webgpu_webgpu_borrow_gpu_canvas_context_t self, wasi_webgpu_webgpu_gpu_canvas_configuration_t *configuration);
+extern void wasi_webgpu_webgpu_method_gpu_canvas_context_unconfigure(wasi_webgpu_webgpu_borrow_gpu_canvas_context_t self);
+extern bool wasi_webgpu_webgpu_method_gpu_canvas_context_get_configuration(wasi_webgpu_webgpu_borrow_gpu_canvas_context_t self, wasi_webgpu_webgpu_gpu_canvas_configuration_owned_t *ret);
+extern wasi_webgpu_webgpu_own_gpu_texture_t wasi_webgpu_webgpu_method_gpu_canvas_context_get_current_texture(wasi_webgpu_webgpu_borrow_gpu_canvas_context_t self);
+extern void wasi_webgpu_webgpu_method_gpu_command_buffer_label(wasi_webgpu_webgpu_borrow_gpu_command_buffer_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_command_buffer_set_label(wasi_webgpu_webgpu_borrow_gpu_command_buffer_t self, webrogue_gfx_string_t *label);
+extern wasi_webgpu_webgpu_own_gpu_render_pass_encoder_t wasi_webgpu_webgpu_method_gpu_command_encoder_begin_render_pass(wasi_webgpu_webgpu_borrow_gpu_command_encoder_t self, wasi_webgpu_webgpu_gpu_render_pass_descriptor_t *descriptor);
+extern wasi_webgpu_webgpu_own_gpu_compute_pass_encoder_t wasi_webgpu_webgpu_method_gpu_command_encoder_begin_compute_pass(wasi_webgpu_webgpu_borrow_gpu_command_encoder_t self, wasi_webgpu_webgpu_gpu_compute_pass_descriptor_t *maybe_descriptor);
+extern void wasi_webgpu_webgpu_method_gpu_command_encoder_copy_buffer_to_buffer(wasi_webgpu_webgpu_borrow_gpu_command_encoder_t self, wasi_webgpu_webgpu_borrow_gpu_buffer_t source, wasi_webgpu_webgpu_gpu_size64_t *maybe_source_offset, wasi_webgpu_webgpu_borrow_gpu_buffer_t destination, wasi_webgpu_webgpu_gpu_size64_t *maybe_destination_offset, wasi_webgpu_webgpu_gpu_size64_t *maybe_size);
+extern void wasi_webgpu_webgpu_method_gpu_command_encoder_copy_buffer_to_texture(wasi_webgpu_webgpu_borrow_gpu_command_encoder_t self, wasi_webgpu_webgpu_gpu_texel_copy_buffer_info_t *source, wasi_webgpu_webgpu_gpu_texel_copy_texture_info_t *destination, wasi_webgpu_webgpu_gpu_extent3_d_t *copy_size);
+extern void wasi_webgpu_webgpu_method_gpu_command_encoder_copy_texture_to_buffer(wasi_webgpu_webgpu_borrow_gpu_command_encoder_t self, wasi_webgpu_webgpu_gpu_texel_copy_texture_info_t *source, wasi_webgpu_webgpu_gpu_texel_copy_buffer_info_t *destination, wasi_webgpu_webgpu_gpu_extent3_d_t *copy_size);
+extern void wasi_webgpu_webgpu_method_gpu_command_encoder_copy_texture_to_texture(wasi_webgpu_webgpu_borrow_gpu_command_encoder_t self, wasi_webgpu_webgpu_gpu_texel_copy_texture_info_t *source, wasi_webgpu_webgpu_gpu_texel_copy_texture_info_t *destination, wasi_webgpu_webgpu_gpu_extent3_d_t *copy_size);
+extern void wasi_webgpu_webgpu_method_gpu_command_encoder_clear_buffer(wasi_webgpu_webgpu_borrow_gpu_command_encoder_t self, wasi_webgpu_webgpu_borrow_gpu_buffer_t buffer, wasi_webgpu_webgpu_gpu_size64_t *maybe_offset, wasi_webgpu_webgpu_gpu_size64_t *maybe_size);
+extern void wasi_webgpu_webgpu_method_gpu_command_encoder_resolve_query_set(wasi_webgpu_webgpu_borrow_gpu_command_encoder_t self, wasi_webgpu_webgpu_borrow_gpu_query_set_t query_set, wasi_webgpu_webgpu_gpu_size32_t first_query, wasi_webgpu_webgpu_gpu_size32_t query_count, wasi_webgpu_webgpu_borrow_gpu_buffer_t destination, wasi_webgpu_webgpu_gpu_size64_t destination_offset);
+extern wasi_webgpu_webgpu_own_gpu_command_buffer_t wasi_webgpu_webgpu_method_gpu_command_encoder_finish(wasi_webgpu_webgpu_borrow_gpu_command_encoder_t self, wasi_webgpu_webgpu_gpu_command_buffer_descriptor_t *maybe_descriptor);
+extern void wasi_webgpu_webgpu_method_gpu_command_encoder_label(wasi_webgpu_webgpu_borrow_gpu_command_encoder_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_command_encoder_set_label(wasi_webgpu_webgpu_borrow_gpu_command_encoder_t self, webrogue_gfx_string_t *label);
+extern void wasi_webgpu_webgpu_method_gpu_command_encoder_push_debug_group(wasi_webgpu_webgpu_borrow_gpu_command_encoder_t self, webrogue_gfx_string_t *group_label);
+extern void wasi_webgpu_webgpu_method_gpu_command_encoder_pop_debug_group(wasi_webgpu_webgpu_borrow_gpu_command_encoder_t self);
+extern void wasi_webgpu_webgpu_method_gpu_command_encoder_insert_debug_marker(wasi_webgpu_webgpu_borrow_gpu_command_encoder_t self, webrogue_gfx_string_t *marker_label);
+extern void wasi_webgpu_webgpu_method_gpu_compilation_info_messages(wasi_webgpu_webgpu_borrow_gpu_compilation_info_t self, wasi_webgpu_webgpu_list_own_gpu_compilation_message_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_compilation_message_message(wasi_webgpu_webgpu_borrow_gpu_compilation_message_t self, webrogue_gfx_string_t *ret);
+extern wasi_webgpu_webgpu_gpu_compilation_message_type_t wasi_webgpu_webgpu_method_gpu_compilation_message_type(wasi_webgpu_webgpu_borrow_gpu_compilation_message_t self);
+extern uint64_t wasi_webgpu_webgpu_method_gpu_compilation_message_line_num(wasi_webgpu_webgpu_borrow_gpu_compilation_message_t self);
+extern uint64_t wasi_webgpu_webgpu_method_gpu_compilation_message_line_pos(wasi_webgpu_webgpu_borrow_gpu_compilation_message_t self);
+extern uint64_t wasi_webgpu_webgpu_method_gpu_compilation_message_offset(wasi_webgpu_webgpu_borrow_gpu_compilation_message_t self);
+extern uint64_t wasi_webgpu_webgpu_method_gpu_compilation_message_length(wasi_webgpu_webgpu_borrow_gpu_compilation_message_t self);
+extern void wasi_webgpu_webgpu_method_gpu_compute_pass_encoder_set_pipeline(wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder_t self, wasi_webgpu_webgpu_borrow_gpu_compute_pipeline_t pipeline);
+extern void wasi_webgpu_webgpu_method_gpu_compute_pass_encoder_dispatch_workgroups(wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder_t self, wasi_webgpu_webgpu_gpu_size32_t workgroup_count_x, wasi_webgpu_webgpu_gpu_size32_t *maybe_workgroup_count_y, wasi_webgpu_webgpu_gpu_size32_t *maybe_workgroup_count_z);
+extern void wasi_webgpu_webgpu_method_gpu_compute_pass_encoder_dispatch_workgroups_indirect(wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder_t self, wasi_webgpu_webgpu_borrow_gpu_buffer_t indirect_buffer, wasi_webgpu_webgpu_gpu_size64_t indirect_offset);
+extern void wasi_webgpu_webgpu_method_gpu_compute_pass_encoder_end(wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder_t self);
+extern void wasi_webgpu_webgpu_method_gpu_compute_pass_encoder_label(wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_compute_pass_encoder_set_label(wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder_t self, webrogue_gfx_string_t *label);
+extern void wasi_webgpu_webgpu_method_gpu_compute_pass_encoder_push_debug_group(wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder_t self, webrogue_gfx_string_t *group_label);
+extern void wasi_webgpu_webgpu_method_gpu_compute_pass_encoder_pop_debug_group(wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder_t self);
+extern void wasi_webgpu_webgpu_method_gpu_compute_pass_encoder_insert_debug_marker(wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder_t self, webrogue_gfx_string_t *marker_label);
+extern bool wasi_webgpu_webgpu_method_gpu_compute_pass_encoder_set_bind_group(wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder_t self, wasi_webgpu_webgpu_gpu_index32_t index, wasi_webgpu_webgpu_borrow_gpu_bind_group_t *maybe_bind_group, wasi_webgpu_webgpu_list_gpu_buffer_dynamic_offset_t *maybe_dynamic_offsets_data, wasi_webgpu_webgpu_gpu_size64_t *maybe_dynamic_offsets_data_start, wasi_webgpu_webgpu_gpu_size32_t *maybe_dynamic_offsets_data_length, wasi_webgpu_webgpu_set_bind_group_error_t *err);
+extern void wasi_webgpu_webgpu_method_gpu_compute_pass_encoder_set_immediates(wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder_t self, wasi_webgpu_webgpu_gpu_size32_t range_offset, webrogue_gfx_list_u8_t *data, wasi_webgpu_webgpu_gpu_size64_t *maybe_data_offset, wasi_webgpu_webgpu_gpu_size64_t *maybe_data_size);
+extern void wasi_webgpu_webgpu_method_gpu_compute_pipeline_label(wasi_webgpu_webgpu_borrow_gpu_compute_pipeline_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_compute_pipeline_set_label(wasi_webgpu_webgpu_borrow_gpu_compute_pipeline_t self, webrogue_gfx_string_t *label);
+extern wasi_webgpu_webgpu_own_gpu_bind_group_layout_t wasi_webgpu_webgpu_method_gpu_compute_pipeline_get_bind_group_layout(wasi_webgpu_webgpu_borrow_gpu_compute_pipeline_t self, uint32_t index);
+extern wasi_webgpu_webgpu_own_gpu_supported_features_t wasi_webgpu_webgpu_method_gpu_device_features(wasi_webgpu_webgpu_borrow_gpu_device_t self);
+extern wasi_webgpu_webgpu_own_gpu_supported_limits_t wasi_webgpu_webgpu_method_gpu_device_limits(wasi_webgpu_webgpu_borrow_gpu_device_t self);
+extern wasi_webgpu_webgpu_own_gpu_adapter_info_t wasi_webgpu_webgpu_method_gpu_device_adapter_info(wasi_webgpu_webgpu_borrow_gpu_device_t self);
+extern wasi_webgpu_webgpu_own_gpu_queue_t wasi_webgpu_webgpu_method_gpu_device_queue(wasi_webgpu_webgpu_borrow_gpu_device_t self);
+extern void wasi_webgpu_webgpu_method_gpu_device_destroy(wasi_webgpu_webgpu_borrow_gpu_device_t self);
+extern wasi_webgpu_webgpu_own_gpu_buffer_t wasi_webgpu_webgpu_method_gpu_device_create_buffer(wasi_webgpu_webgpu_borrow_gpu_device_t self, wasi_webgpu_webgpu_gpu_buffer_descriptor_t *descriptor);
+extern wasi_webgpu_webgpu_own_gpu_texture_t wasi_webgpu_webgpu_method_gpu_device_create_texture(wasi_webgpu_webgpu_borrow_gpu_device_t self, wasi_webgpu_webgpu_gpu_texture_descriptor_t *descriptor);
+extern wasi_webgpu_webgpu_own_gpu_sampler_t wasi_webgpu_webgpu_method_gpu_device_create_sampler(wasi_webgpu_webgpu_borrow_gpu_device_t self, wasi_webgpu_webgpu_gpu_sampler_descriptor_t *maybe_descriptor);
+extern wasi_webgpu_webgpu_own_gpu_bind_group_layout_t wasi_webgpu_webgpu_method_gpu_device_create_bind_group_layout(wasi_webgpu_webgpu_borrow_gpu_device_t self, wasi_webgpu_webgpu_gpu_bind_group_layout_descriptor_t *descriptor);
+extern wasi_webgpu_webgpu_own_gpu_pipeline_layout_t wasi_webgpu_webgpu_method_gpu_device_create_pipeline_layout(wasi_webgpu_webgpu_borrow_gpu_device_t self, wasi_webgpu_webgpu_gpu_pipeline_layout_descriptor_t *descriptor);
+extern wasi_webgpu_webgpu_own_gpu_bind_group_t wasi_webgpu_webgpu_method_gpu_device_create_bind_group(wasi_webgpu_webgpu_borrow_gpu_device_t self, wasi_webgpu_webgpu_gpu_bind_group_descriptor_t *descriptor);
+extern wasi_webgpu_webgpu_own_gpu_shader_module_t wasi_webgpu_webgpu_method_gpu_device_create_shader_module(wasi_webgpu_webgpu_borrow_gpu_device_t self, wasi_webgpu_webgpu_gpu_shader_module_descriptor_t *descriptor);
+extern wasi_webgpu_webgpu_own_gpu_compute_pipeline_t wasi_webgpu_webgpu_method_gpu_device_create_compute_pipeline(wasi_webgpu_webgpu_borrow_gpu_device_t self, wasi_webgpu_webgpu_gpu_compute_pipeline_descriptor_t *descriptor);
+extern wasi_webgpu_webgpu_own_gpu_render_pipeline_t wasi_webgpu_webgpu_method_gpu_device_create_render_pipeline(wasi_webgpu_webgpu_borrow_gpu_device_t self, wasi_webgpu_webgpu_gpu_render_pipeline_descriptor_t *descriptor);
+extern webrogue_gfx_subtask_status_t wasi_webgpu_webgpu_method_gpu_device_create_compute_pipeline_async(wasi_webgpu_webgpu_method_gpu_device_create_compute_pipeline_async_args_t *args, wasi_webgpu_webgpu_result_own_gpu_compute_pipeline_create_pipeline_error_t *result);
+extern webrogue_gfx_subtask_status_t wasi_webgpu_webgpu_method_gpu_device_create_render_pipeline_async(wasi_webgpu_webgpu_method_gpu_device_create_render_pipeline_async_args_t *args, wasi_webgpu_webgpu_result_own_gpu_render_pipeline_create_pipeline_error_t *result);
+extern wasi_webgpu_webgpu_own_gpu_command_encoder_t wasi_webgpu_webgpu_method_gpu_device_create_command_encoder(wasi_webgpu_webgpu_borrow_gpu_device_t self, wasi_webgpu_webgpu_gpu_command_encoder_descriptor_t *maybe_descriptor);
+extern wasi_webgpu_webgpu_own_gpu_render_bundle_encoder_t wasi_webgpu_webgpu_method_gpu_device_create_render_bundle_encoder(wasi_webgpu_webgpu_borrow_gpu_device_t self, wasi_webgpu_webgpu_gpu_render_bundle_encoder_descriptor_t *descriptor);
+extern bool wasi_webgpu_webgpu_method_gpu_device_create_query_set(wasi_webgpu_webgpu_borrow_gpu_device_t self, wasi_webgpu_webgpu_gpu_query_set_descriptor_t *descriptor, wasi_webgpu_webgpu_own_gpu_query_set_t *ret, wasi_webgpu_webgpu_create_query_set_error_t *err);
+extern void wasi_webgpu_webgpu_method_gpu_device_label(wasi_webgpu_webgpu_borrow_gpu_device_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_device_set_label(wasi_webgpu_webgpu_borrow_gpu_device_t self, webrogue_gfx_string_t *label);
+extern wasi_webgpu_webgpu_future_own_gpu_device_lost_info_t wasi_webgpu_webgpu_method_gpu_device_lost(wasi_webgpu_webgpu_borrow_gpu_device_t self);
+extern void wasi_webgpu_webgpu_method_gpu_device_push_error_scope(wasi_webgpu_webgpu_borrow_gpu_device_t self, wasi_webgpu_webgpu_gpu_error_filter_t filter);
+extern webrogue_gfx_subtask_status_t wasi_webgpu_webgpu_method_gpu_device_pop_error_scope(wasi_webgpu_webgpu_borrow_gpu_device_t self, wasi_webgpu_webgpu_result_option_own_gpu_error_pop_error_scope_error_t *result);
+extern wasi_webgpu_webgpu_stream_own_gpu_error_t wasi_webgpu_webgpu_method_gpu_device_on_uncaptured_error(wasi_webgpu_webgpu_borrow_gpu_device_t self);
+extern wasi_webgpu_webgpu_gpu_device_lost_reason_t wasi_webgpu_webgpu_method_gpu_device_lost_info_reason(wasi_webgpu_webgpu_borrow_gpu_device_lost_info_t self);
+extern void wasi_webgpu_webgpu_method_gpu_device_lost_info_message(wasi_webgpu_webgpu_borrow_gpu_device_lost_info_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_error_message(wasi_webgpu_webgpu_borrow_gpu_error_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_error_kind(wasi_webgpu_webgpu_borrow_gpu_error_t self, wasi_webgpu_webgpu_gpu_error_kind_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_pipeline_layout_label(wasi_webgpu_webgpu_borrow_gpu_pipeline_layout_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_pipeline_layout_set_label(wasi_webgpu_webgpu_borrow_gpu_pipeline_layout_t self, webrogue_gfx_string_t *label);
+extern void wasi_webgpu_webgpu_method_gpu_query_set_destroy(wasi_webgpu_webgpu_borrow_gpu_query_set_t self);
+extern wasi_webgpu_webgpu_gpu_query_type_t wasi_webgpu_webgpu_method_gpu_query_set_type(wasi_webgpu_webgpu_borrow_gpu_query_set_t self);
+extern wasi_webgpu_webgpu_gpu_size32_out_t wasi_webgpu_webgpu_method_gpu_query_set_count(wasi_webgpu_webgpu_borrow_gpu_query_set_t self);
+extern void wasi_webgpu_webgpu_method_gpu_query_set_label(wasi_webgpu_webgpu_borrow_gpu_query_set_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_query_set_set_label(wasi_webgpu_webgpu_borrow_gpu_query_set_t self, webrogue_gfx_string_t *label);
+extern void wasi_webgpu_webgpu_method_gpu_queue_submit(wasi_webgpu_webgpu_borrow_gpu_queue_t self, wasi_webgpu_webgpu_list_borrow_gpu_command_buffer_t *command_buffers);
+extern webrogue_gfx_subtask_status_t wasi_webgpu_webgpu_method_gpu_queue_on_submitted_work_done(wasi_webgpu_webgpu_borrow_gpu_queue_t self);
+extern bool wasi_webgpu_webgpu_method_gpu_queue_write_buffer_with_copy(wasi_webgpu_webgpu_borrow_gpu_queue_t self, wasi_webgpu_webgpu_borrow_gpu_buffer_t buffer, wasi_webgpu_webgpu_gpu_size64_t buffer_offset, webrogue_gfx_list_u8_t *data, wasi_webgpu_webgpu_gpu_size64_t *maybe_data_offset, wasi_webgpu_webgpu_gpu_size64_t *maybe_size, wasi_webgpu_webgpu_write_buffer_error_t *err);
+extern void wasi_webgpu_webgpu_method_gpu_queue_write_texture_with_copy(wasi_webgpu_webgpu_borrow_gpu_queue_t self, wasi_webgpu_webgpu_gpu_texel_copy_texture_info_t *destination, webrogue_gfx_list_u8_t *data, wasi_webgpu_webgpu_gpu_texel_copy_buffer_layout_t *data_layout, wasi_webgpu_webgpu_gpu_extent3_d_t *size);
+extern void wasi_webgpu_webgpu_method_gpu_queue_label(wasi_webgpu_webgpu_borrow_gpu_queue_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_queue_set_label(wasi_webgpu_webgpu_borrow_gpu_queue_t self, webrogue_gfx_string_t *label);
+extern void wasi_webgpu_webgpu_method_gpu_render_bundle_label(wasi_webgpu_webgpu_borrow_gpu_render_bundle_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_render_bundle_set_label(wasi_webgpu_webgpu_borrow_gpu_render_bundle_t self, webrogue_gfx_string_t *label);
+extern wasi_webgpu_webgpu_own_gpu_render_bundle_t wasi_webgpu_webgpu_method_gpu_render_bundle_encoder_finish(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t self, wasi_webgpu_webgpu_gpu_render_bundle_descriptor_t *maybe_descriptor);
+extern void wasi_webgpu_webgpu_method_gpu_render_bundle_encoder_label(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_render_bundle_encoder_set_label(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t self, webrogue_gfx_string_t *label);
+extern void wasi_webgpu_webgpu_method_gpu_render_bundle_encoder_push_debug_group(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t self, webrogue_gfx_string_t *group_label);
+extern void wasi_webgpu_webgpu_method_gpu_render_bundle_encoder_pop_debug_group(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t self);
+extern void wasi_webgpu_webgpu_method_gpu_render_bundle_encoder_insert_debug_marker(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t self, webrogue_gfx_string_t *marker_label);
+extern bool wasi_webgpu_webgpu_method_gpu_render_bundle_encoder_set_bind_group(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t self, wasi_webgpu_webgpu_gpu_index32_t index, wasi_webgpu_webgpu_borrow_gpu_bind_group_t *maybe_bind_group, wasi_webgpu_webgpu_list_gpu_buffer_dynamic_offset_t *maybe_dynamic_offsets_data, wasi_webgpu_webgpu_gpu_size64_t *maybe_dynamic_offsets_data_start, wasi_webgpu_webgpu_gpu_size32_t *maybe_dynamic_offsets_data_length, wasi_webgpu_webgpu_set_bind_group_error_t *err);
+extern void wasi_webgpu_webgpu_method_gpu_render_bundle_encoder_set_immediates(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t self, wasi_webgpu_webgpu_gpu_size32_t range_offset, webrogue_gfx_list_u8_t *data, wasi_webgpu_webgpu_gpu_size64_t *maybe_data_offset, wasi_webgpu_webgpu_gpu_size64_t *maybe_data_size);
+extern void wasi_webgpu_webgpu_method_gpu_render_bundle_encoder_set_pipeline(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t self, wasi_webgpu_webgpu_borrow_gpu_render_pipeline_t pipeline);
+extern void wasi_webgpu_webgpu_method_gpu_render_bundle_encoder_set_index_buffer(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t self, wasi_webgpu_webgpu_borrow_gpu_buffer_t buffer, wasi_webgpu_webgpu_gpu_index_format_t index_format, wasi_webgpu_webgpu_gpu_size64_t *maybe_offset, wasi_webgpu_webgpu_gpu_size64_t *maybe_size);
+extern void wasi_webgpu_webgpu_method_gpu_render_bundle_encoder_set_vertex_buffer(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t self, wasi_webgpu_webgpu_gpu_index32_t slot, wasi_webgpu_webgpu_borrow_gpu_buffer_t *maybe_buffer, wasi_webgpu_webgpu_gpu_size64_t *maybe_offset, wasi_webgpu_webgpu_gpu_size64_t *maybe_size);
+extern void wasi_webgpu_webgpu_method_gpu_render_bundle_encoder_draw(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t self, wasi_webgpu_webgpu_gpu_size32_t vertex_count, wasi_webgpu_webgpu_gpu_size32_t *maybe_instance_count, wasi_webgpu_webgpu_gpu_size32_t *maybe_first_vertex, wasi_webgpu_webgpu_gpu_size32_t *maybe_first_instance);
+extern void wasi_webgpu_webgpu_method_gpu_render_bundle_encoder_draw_indexed(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t self, wasi_webgpu_webgpu_gpu_size32_t index_count, wasi_webgpu_webgpu_gpu_size32_t *maybe_instance_count, wasi_webgpu_webgpu_gpu_size32_t *maybe_first_index, wasi_webgpu_webgpu_gpu_signed_offset32_t *maybe_base_vertex, wasi_webgpu_webgpu_gpu_size32_t *maybe_first_instance);
+extern void wasi_webgpu_webgpu_method_gpu_render_bundle_encoder_draw_indirect(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t self, wasi_webgpu_webgpu_borrow_gpu_buffer_t indirect_buffer, wasi_webgpu_webgpu_gpu_size64_t indirect_offset);
+extern void wasi_webgpu_webgpu_method_gpu_render_bundle_encoder_draw_indexed_indirect(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t self, wasi_webgpu_webgpu_borrow_gpu_buffer_t indirect_buffer, wasi_webgpu_webgpu_gpu_size64_t indirect_offset);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_set_viewport(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, float x, float y, float width, float height, float min_depth, float max_depth);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_set_scissor_rect(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, wasi_webgpu_webgpu_gpu_integer_coordinate_t x, wasi_webgpu_webgpu_gpu_integer_coordinate_t y, wasi_webgpu_webgpu_gpu_integer_coordinate_t width, wasi_webgpu_webgpu_gpu_integer_coordinate_t height);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_set_blend_constant(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, wasi_webgpu_webgpu_gpu_color_t *color);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_set_stencil_reference(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, wasi_webgpu_webgpu_gpu_stencil_value_t reference);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_begin_occlusion_query(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, wasi_webgpu_webgpu_gpu_size32_t query_index);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_end_occlusion_query(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_execute_bundles(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, wasi_webgpu_webgpu_list_borrow_gpu_render_bundle_t *bundles);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_end(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_label(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_set_label(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, webrogue_gfx_string_t *label);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_push_debug_group(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, webrogue_gfx_string_t *group_label);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_pop_debug_group(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_insert_debug_marker(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, webrogue_gfx_string_t *marker_label);
+extern bool wasi_webgpu_webgpu_method_gpu_render_pass_encoder_set_bind_group(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, wasi_webgpu_webgpu_gpu_index32_t index, wasi_webgpu_webgpu_borrow_gpu_bind_group_t *maybe_bind_group, wasi_webgpu_webgpu_list_gpu_buffer_dynamic_offset_t *maybe_dynamic_offsets_data, wasi_webgpu_webgpu_gpu_size64_t *maybe_dynamic_offsets_data_start, wasi_webgpu_webgpu_gpu_size32_t *maybe_dynamic_offsets_data_length, wasi_webgpu_webgpu_set_bind_group_error_t *err);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_set_immediates(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, wasi_webgpu_webgpu_gpu_size32_t range_offset, webrogue_gfx_list_u8_t *data, wasi_webgpu_webgpu_gpu_size64_t *maybe_data_offset, wasi_webgpu_webgpu_gpu_size64_t *maybe_data_size);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_set_pipeline(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, wasi_webgpu_webgpu_borrow_gpu_render_pipeline_t pipeline);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_set_index_buffer(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, wasi_webgpu_webgpu_borrow_gpu_buffer_t buffer, wasi_webgpu_webgpu_gpu_index_format_t index_format, wasi_webgpu_webgpu_gpu_size64_t *maybe_offset, wasi_webgpu_webgpu_gpu_size64_t *maybe_size);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_set_vertex_buffer(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, wasi_webgpu_webgpu_gpu_index32_t slot, wasi_webgpu_webgpu_borrow_gpu_buffer_t *maybe_buffer, wasi_webgpu_webgpu_gpu_size64_t *maybe_offset, wasi_webgpu_webgpu_gpu_size64_t *maybe_size);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_draw(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, wasi_webgpu_webgpu_gpu_size32_t vertex_count, wasi_webgpu_webgpu_gpu_size32_t *maybe_instance_count, wasi_webgpu_webgpu_gpu_size32_t *maybe_first_vertex, wasi_webgpu_webgpu_gpu_size32_t *maybe_first_instance);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_draw_indexed(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, wasi_webgpu_webgpu_gpu_size32_t index_count, wasi_webgpu_webgpu_gpu_size32_t *maybe_instance_count, wasi_webgpu_webgpu_gpu_size32_t *maybe_first_index, wasi_webgpu_webgpu_gpu_signed_offset32_t *maybe_base_vertex, wasi_webgpu_webgpu_gpu_size32_t *maybe_first_instance);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_draw_indirect(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, wasi_webgpu_webgpu_borrow_gpu_buffer_t indirect_buffer, wasi_webgpu_webgpu_gpu_size64_t indirect_offset);
+extern void wasi_webgpu_webgpu_method_gpu_render_pass_encoder_draw_indexed_indirect(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t self, wasi_webgpu_webgpu_borrow_gpu_buffer_t indirect_buffer, wasi_webgpu_webgpu_gpu_size64_t indirect_offset);
+extern void wasi_webgpu_webgpu_method_gpu_render_pipeline_label(wasi_webgpu_webgpu_borrow_gpu_render_pipeline_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_render_pipeline_set_label(wasi_webgpu_webgpu_borrow_gpu_render_pipeline_t self, webrogue_gfx_string_t *label);
+extern wasi_webgpu_webgpu_own_gpu_bind_group_layout_t wasi_webgpu_webgpu_method_gpu_render_pipeline_get_bind_group_layout(wasi_webgpu_webgpu_borrow_gpu_render_pipeline_t self, uint32_t index);
+extern void wasi_webgpu_webgpu_method_gpu_sampler_label(wasi_webgpu_webgpu_borrow_gpu_sampler_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_sampler_set_label(wasi_webgpu_webgpu_borrow_gpu_sampler_t self, webrogue_gfx_string_t *label);
+extern webrogue_gfx_subtask_status_t wasi_webgpu_webgpu_method_gpu_shader_module_get_compilation_info(wasi_webgpu_webgpu_borrow_gpu_shader_module_t self, wasi_webgpu_webgpu_own_gpu_compilation_info_t *result);
+extern void wasi_webgpu_webgpu_method_gpu_shader_module_label(wasi_webgpu_webgpu_borrow_gpu_shader_module_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_shader_module_set_label(wasi_webgpu_webgpu_borrow_gpu_shader_module_t self, webrogue_gfx_string_t *label);
+extern bool wasi_webgpu_webgpu_method_gpu_supported_features_has(wasi_webgpu_webgpu_borrow_gpu_supported_features_t self, webrogue_gfx_string_t *value);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_texture_dimension1_d(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_texture_dimension2_d(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_texture_dimension3_d(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_texture_array_layers(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_bind_groups(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_bind_groups_plus_vertex_buffers(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_immediate_size(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_bindings_per_bind_group(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_dynamic_uniform_buffers_per_pipeline_layout(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_dynamic_storage_buffers_per_pipeline_layout(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_sampled_textures_per_shader_stage(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_samplers_per_shader_stage(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_storage_buffers_per_shader_stage(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_storage_buffers_in_vertex_stage(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_storage_buffers_in_fragment_stage(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_storage_textures_per_shader_stage(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_storage_textures_in_vertex_stage(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_storage_textures_in_fragment_stage(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_uniform_buffers_per_shader_stage(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint64_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_uniform_buffer_binding_size(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint64_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_storage_buffer_binding_size(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_min_uniform_buffer_offset_alignment(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_min_storage_buffer_offset_alignment(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_vertex_buffers(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint64_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_buffer_size(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_vertex_attributes(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_vertex_buffer_array_stride(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_inter_stage_shader_variables(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_color_attachments(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_color_attachment_bytes_per_sample(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_compute_workgroup_storage_size(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_compute_invocations_per_workgroup(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_compute_workgroup_size_x(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_compute_workgroup_size_y(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_compute_workgroup_size_z(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern uint32_t wasi_webgpu_webgpu_method_gpu_supported_limits_max_compute_workgroups_per_dimension(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t self);
+extern wasi_webgpu_webgpu_own_gpu_texture_view_t wasi_webgpu_webgpu_method_gpu_texture_create_view(wasi_webgpu_webgpu_borrow_gpu_texture_t self, wasi_webgpu_webgpu_gpu_texture_view_descriptor_t *maybe_descriptor);
+extern void wasi_webgpu_webgpu_method_gpu_texture_destroy(wasi_webgpu_webgpu_borrow_gpu_texture_t self);
+extern wasi_webgpu_webgpu_gpu_integer_coordinate_out_t wasi_webgpu_webgpu_method_gpu_texture_width(wasi_webgpu_webgpu_borrow_gpu_texture_t self);
+extern wasi_webgpu_webgpu_gpu_integer_coordinate_out_t wasi_webgpu_webgpu_method_gpu_texture_height(wasi_webgpu_webgpu_borrow_gpu_texture_t self);
+extern wasi_webgpu_webgpu_gpu_integer_coordinate_out_t wasi_webgpu_webgpu_method_gpu_texture_depth_or_array_layers(wasi_webgpu_webgpu_borrow_gpu_texture_t self);
+extern wasi_webgpu_webgpu_gpu_integer_coordinate_out_t wasi_webgpu_webgpu_method_gpu_texture_mip_level_count(wasi_webgpu_webgpu_borrow_gpu_texture_t self);
+extern wasi_webgpu_webgpu_gpu_size32_out_t wasi_webgpu_webgpu_method_gpu_texture_sample_count(wasi_webgpu_webgpu_borrow_gpu_texture_t self);
+extern wasi_webgpu_webgpu_gpu_texture_dimension_t wasi_webgpu_webgpu_method_gpu_texture_dimension(wasi_webgpu_webgpu_borrow_gpu_texture_t self);
+extern wasi_webgpu_webgpu_gpu_texture_format_t wasi_webgpu_webgpu_method_gpu_texture_format(wasi_webgpu_webgpu_borrow_gpu_texture_t self);
+extern wasi_webgpu_webgpu_gpu_texture_usage_t wasi_webgpu_webgpu_method_gpu_texture_usage(wasi_webgpu_webgpu_borrow_gpu_texture_t self);
+extern bool wasi_webgpu_webgpu_method_gpu_texture_texture_binding_view_dimension(wasi_webgpu_webgpu_borrow_gpu_texture_t self, wasi_webgpu_webgpu_gpu_texture_view_dimension_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_texture_label(wasi_webgpu_webgpu_borrow_gpu_texture_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_texture_set_label(wasi_webgpu_webgpu_borrow_gpu_texture_t self, webrogue_gfx_string_t *label);
+extern void wasi_webgpu_webgpu_method_gpu_texture_view_label(wasi_webgpu_webgpu_borrow_gpu_texture_view_t self, webrogue_gfx_string_t *ret);
+extern void wasi_webgpu_webgpu_method_gpu_texture_view_set_label(wasi_webgpu_webgpu_borrow_gpu_texture_view_t self, webrogue_gfx_string_t *label);
+extern wasi_webgpu_webgpu_own_gpu_error_t wasi_webgpu_webgpu_method_gpu_uncaptured_error_event_error(wasi_webgpu_webgpu_borrow_gpu_uncaptured_error_event_t self);
+extern wasi_webgpu_webgpu_own_record_gpu_pipeline_constant_value_t wasi_webgpu_webgpu_constructor_record_gpu_pipeline_constant_value(void);
+extern void wasi_webgpu_webgpu_method_record_gpu_pipeline_constant_value_add(wasi_webgpu_webgpu_borrow_record_gpu_pipeline_constant_value_t self, webrogue_gfx_string_t *key, wasi_webgpu_webgpu_gpu_pipeline_constant_value_t value);
+extern bool wasi_webgpu_webgpu_method_record_gpu_pipeline_constant_value_get(wasi_webgpu_webgpu_borrow_record_gpu_pipeline_constant_value_t self, webrogue_gfx_string_t *key, wasi_webgpu_webgpu_gpu_pipeline_constant_value_t *ret);
+extern bool wasi_webgpu_webgpu_method_record_gpu_pipeline_constant_value_has(wasi_webgpu_webgpu_borrow_record_gpu_pipeline_constant_value_t self, webrogue_gfx_string_t *key);
+extern void wasi_webgpu_webgpu_method_record_gpu_pipeline_constant_value_remove(wasi_webgpu_webgpu_borrow_record_gpu_pipeline_constant_value_t self, webrogue_gfx_string_t *key);
+extern void wasi_webgpu_webgpu_method_record_gpu_pipeline_constant_value_keys(wasi_webgpu_webgpu_borrow_record_gpu_pipeline_constant_value_t self, webrogue_gfx_list_string_t *ret);
+extern void wasi_webgpu_webgpu_method_record_gpu_pipeline_constant_value_values(wasi_webgpu_webgpu_borrow_record_gpu_pipeline_constant_value_t self, wasi_webgpu_webgpu_list_gpu_pipeline_constant_value_t *ret);
+extern void wasi_webgpu_webgpu_method_record_gpu_pipeline_constant_value_entries(wasi_webgpu_webgpu_borrow_record_gpu_pipeline_constant_value_t self, wasi_webgpu_webgpu_list_tuple2_string_gpu_pipeline_constant_value_t *ret);
+extern wasi_webgpu_webgpu_own_record_option_gpu_size64_t wasi_webgpu_webgpu_constructor_record_option_gpu_size64(void);
+extern void wasi_webgpu_webgpu_method_record_option_gpu_size64_add(wasi_webgpu_webgpu_borrow_record_option_gpu_size64_t self, webrogue_gfx_string_t *key, wasi_webgpu_webgpu_gpu_size64_t *maybe_value);
+extern bool wasi_webgpu_webgpu_method_record_option_gpu_size64_get(wasi_webgpu_webgpu_borrow_record_option_gpu_size64_t self, webrogue_gfx_string_t *key, wasi_webgpu_webgpu_option_gpu_size64_t *ret);
+extern bool wasi_webgpu_webgpu_method_record_option_gpu_size64_has(wasi_webgpu_webgpu_borrow_record_option_gpu_size64_t self, webrogue_gfx_string_t *key);
+extern void wasi_webgpu_webgpu_method_record_option_gpu_size64_remove(wasi_webgpu_webgpu_borrow_record_option_gpu_size64_t self, webrogue_gfx_string_t *key);
+extern void wasi_webgpu_webgpu_method_record_option_gpu_size64_keys(wasi_webgpu_webgpu_borrow_record_option_gpu_size64_t self, webrogue_gfx_list_string_t *ret);
+extern void wasi_webgpu_webgpu_method_record_option_gpu_size64_values(wasi_webgpu_webgpu_borrow_record_option_gpu_size64_t self, wasi_webgpu_webgpu_list_option_gpu_size64_t *ret);
+extern void wasi_webgpu_webgpu_method_record_option_gpu_size64_entries(wasi_webgpu_webgpu_borrow_record_option_gpu_size64_t self, wasi_webgpu_webgpu_list_tuple2_string_option_gpu_size64_t *ret);
+extern bool wasi_webgpu_webgpu_method_wgsl_language_features_has(wasi_webgpu_webgpu_borrow_wgsl_language_features_t self, webrogue_gfx_string_t *value);
+extern wasi_webgpu_webgpu_own_gpu_t wasi_webgpu_webgpu_get_gpu(void);
+
+// Imported Functions from `webrogue:gfx/windowing-webgpu`
+extern webrogue_gfx_windowing_webgpu_own_context_t webrogue_gfx_windowing_webgpu_constructor_context(webrogue_gfx_windowing_webgpu_borrow_window_t window);
+extern void webrogue_gfx_windowing_webgpu_method_context_configure(webrogue_gfx_windowing_webgpu_borrow_context_t self, webrogue_gfx_windowing_webgpu_context_configuration_t *configuration);
+extern void webrogue_gfx_windowing_webgpu_method_context_unconfigure(webrogue_gfx_windowing_webgpu_borrow_context_t self);
+extern webrogue_gfx_windowing_webgpu_own_gpu_texture_t webrogue_gfx_windowing_webgpu_method_context_get_current_texture(webrogue_gfx_windowing_webgpu_borrow_context_t self);
+// TODO: consider if needed
+extern void webrogue_gfx_windowing_webgpu_method_context_present(webrogue_gfx_windowing_webgpu_borrow_context_t self);
 
 // Imported Functions from `webrogue:gfx/device-info`
 extern uint8_t webrogue_gfx_device_info_get_os_family(void);
@@ -771,6 +2945,643 @@ extern webrogue_gfx_vulkan_borrow_renderer_t webrogue_gfx_vulkan_borrow_renderer
 
 void webrogue_gfx_list_u32_free(webrogue_gfx_list_u32_t *ptr);
 
+void wasi_webgpu_webgpu_create_query_set_error_kind_free(wasi_webgpu_webgpu_create_query_set_error_kind_t *ptr);
+
+void wasi_webgpu_webgpu_create_query_set_error_free(wasi_webgpu_webgpu_create_query_set_error_t *ptr);
+
+void wasi_webgpu_webgpu_get_mapped_range_error_kind_free(wasi_webgpu_webgpu_get_mapped_range_error_kind_t *ptr);
+
+void wasi_webgpu_webgpu_get_mapped_range_error_free(wasi_webgpu_webgpu_get_mapped_range_error_t *ptr);
+
+extern void wasi_webgpu_webgpu_gpu_drop_own(wasi_webgpu_webgpu_own_gpu_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_t wasi_webgpu_webgpu_borrow_gpu(wasi_webgpu_webgpu_own_gpu_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_adapter_drop_own(wasi_webgpu_webgpu_own_gpu_adapter_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_adapter_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_adapter_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_adapter_t wasi_webgpu_webgpu_borrow_gpu_adapter(wasi_webgpu_webgpu_own_gpu_adapter_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_adapter_info_drop_own(wasi_webgpu_webgpu_own_gpu_adapter_info_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_adapter_info_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_adapter_info_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_adapter_info_t wasi_webgpu_webgpu_borrow_gpu_adapter_info(wasi_webgpu_webgpu_own_gpu_adapter_info_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_bind_group_drop_own(wasi_webgpu_webgpu_own_gpu_bind_group_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_bind_group_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_bind_group_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_bind_group_t wasi_webgpu_webgpu_borrow_gpu_bind_group(wasi_webgpu_webgpu_own_gpu_bind_group_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_bind_group_layout_drop_own(wasi_webgpu_webgpu_own_gpu_bind_group_layout_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_bind_group_layout_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_bind_group_layout_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_bind_group_layout_t wasi_webgpu_webgpu_borrow_gpu_bind_group_layout(wasi_webgpu_webgpu_own_gpu_bind_group_layout_t handle);
+
+void wasi_webgpu_webgpu_option_gpu_blend_operation_free(wasi_webgpu_webgpu_option_gpu_blend_operation_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_blend_factor_free(wasi_webgpu_webgpu_option_gpu_blend_factor_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_blend_component_free(wasi_webgpu_webgpu_gpu_blend_component_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_blend_state_free(wasi_webgpu_webgpu_gpu_blend_state_t *ptr);
+
+extern void wasi_webgpu_webgpu_gpu_buffer_drop_own(wasi_webgpu_webgpu_own_gpu_buffer_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_buffer_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_buffer_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_buffer_t wasi_webgpu_webgpu_borrow_gpu_buffer(wasi_webgpu_webgpu_own_gpu_buffer_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_canvas_context_drop_own(wasi_webgpu_webgpu_own_gpu_canvas_context_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_canvas_context_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_canvas_context_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_canvas_context_t wasi_webgpu_webgpu_borrow_gpu_canvas_context(wasi_webgpu_webgpu_own_gpu_canvas_context_t handle);
+
+void wasi_webgpu_webgpu_option_gpu_canvas_tone_mapping_mode_free(wasi_webgpu_webgpu_option_gpu_canvas_tone_mapping_mode_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_canvas_tone_mapping_free(wasi_webgpu_webgpu_gpu_canvas_tone_mapping_t *ptr);
+
+extern void wasi_webgpu_webgpu_gpu_command_buffer_drop_own(wasi_webgpu_webgpu_own_gpu_command_buffer_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_command_buffer_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_command_buffer_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_command_buffer_t wasi_webgpu_webgpu_borrow_gpu_command_buffer(wasi_webgpu_webgpu_own_gpu_command_buffer_t handle);
+
+void webrogue_gfx_option_string_free(webrogue_gfx_option_string_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_command_buffer_descriptor_free(wasi_webgpu_webgpu_gpu_command_buffer_descriptor_t *ptr);
+
+extern void wasi_webgpu_webgpu_gpu_command_encoder_drop_own(wasi_webgpu_webgpu_own_gpu_command_encoder_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_command_encoder_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_command_encoder_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_command_encoder_t wasi_webgpu_webgpu_borrow_gpu_command_encoder(wasi_webgpu_webgpu_own_gpu_command_encoder_t handle);
+
+void wasi_webgpu_webgpu_gpu_command_encoder_descriptor_free(wasi_webgpu_webgpu_gpu_command_encoder_descriptor_t *ptr);
+
+extern void wasi_webgpu_webgpu_gpu_compilation_info_drop_own(wasi_webgpu_webgpu_own_gpu_compilation_info_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_compilation_info_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_compilation_info_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_compilation_info_t wasi_webgpu_webgpu_borrow_gpu_compilation_info(wasi_webgpu_webgpu_own_gpu_compilation_info_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_compilation_message_drop_own(wasi_webgpu_webgpu_own_gpu_compilation_message_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_compilation_message_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_compilation_message_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_compilation_message_t wasi_webgpu_webgpu_borrow_gpu_compilation_message(wasi_webgpu_webgpu_own_gpu_compilation_message_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_compute_pass_encoder_drop_own(wasi_webgpu_webgpu_own_gpu_compute_pass_encoder_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_compute_pass_encoder_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder_t wasi_webgpu_webgpu_borrow_gpu_compute_pass_encoder(wasi_webgpu_webgpu_own_gpu_compute_pass_encoder_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_compute_pipeline_drop_own(wasi_webgpu_webgpu_own_gpu_compute_pipeline_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_compute_pipeline_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_compute_pipeline_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_compute_pipeline_t wasi_webgpu_webgpu_borrow_gpu_compute_pipeline(wasi_webgpu_webgpu_own_gpu_compute_pipeline_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_device_drop_own(wasi_webgpu_webgpu_own_gpu_device_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_device_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_device_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_device_t wasi_webgpu_webgpu_borrow_gpu_device(wasi_webgpu_webgpu_own_gpu_device_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_device_lost_info_drop_own(wasi_webgpu_webgpu_own_gpu_device_lost_info_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_device_lost_info_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_device_lost_info_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_device_lost_info_t wasi_webgpu_webgpu_borrow_gpu_device_lost_info(wasi_webgpu_webgpu_own_gpu_device_lost_info_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_error_drop_own(wasi_webgpu_webgpu_own_gpu_error_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_error_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_error_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_error_t wasi_webgpu_webgpu_borrow_gpu_error(wasi_webgpu_webgpu_own_gpu_error_t handle);
+
+void wasi_webgpu_webgpu_gpu_error_kind_free(wasi_webgpu_webgpu_gpu_error_kind_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_integer_coordinate_free(wasi_webgpu_webgpu_option_gpu_integer_coordinate_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_extent3_d_free(wasi_webgpu_webgpu_gpu_extent3_d_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_origin3_d_free(wasi_webgpu_webgpu_gpu_origin3_d_t *ptr);
+
+void wasi_webgpu_webgpu_create_pipeline_error_kind_free(wasi_webgpu_webgpu_create_pipeline_error_kind_t *ptr);
+
+void wasi_webgpu_webgpu_create_pipeline_error_free(wasi_webgpu_webgpu_create_pipeline_error_t *ptr);
+
+extern void wasi_webgpu_webgpu_gpu_pipeline_layout_drop_own(wasi_webgpu_webgpu_own_gpu_pipeline_layout_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_pipeline_layout_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_pipeline_layout_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_pipeline_layout_t wasi_webgpu_webgpu_borrow_gpu_pipeline_layout(wasi_webgpu_webgpu_own_gpu_pipeline_layout_t handle);
+
+void wasi_webgpu_webgpu_gpu_layout_mode_free(wasi_webgpu_webgpu_gpu_layout_mode_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_primitive_topology_free(wasi_webgpu_webgpu_option_gpu_primitive_topology_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_index_format_free(wasi_webgpu_webgpu_option_gpu_index_format_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_front_face_free(wasi_webgpu_webgpu_option_gpu_front_face_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_cull_mode_free(wasi_webgpu_webgpu_option_gpu_cull_mode_t *ptr);
+
+void webrogue_gfx_option_bool_free(webrogue_gfx_option_bool_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_primitive_state_free(wasi_webgpu_webgpu_gpu_primitive_state_t *ptr);
+
+extern void wasi_webgpu_webgpu_gpu_query_set_drop_own(wasi_webgpu_webgpu_own_gpu_query_set_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_query_set_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_query_set_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_query_set_t wasi_webgpu_webgpu_borrow_gpu_query_set(wasi_webgpu_webgpu_own_gpu_query_set_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_queue_drop_own(wasi_webgpu_webgpu_own_gpu_queue_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_queue_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_queue_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_queue_t wasi_webgpu_webgpu_borrow_gpu_queue(wasi_webgpu_webgpu_own_gpu_queue_t handle);
+
+void wasi_webgpu_webgpu_gpu_queue_descriptor_free(wasi_webgpu_webgpu_gpu_queue_descriptor_t *ptr);
+
+extern void wasi_webgpu_webgpu_gpu_render_bundle_drop_own(wasi_webgpu_webgpu_own_gpu_render_bundle_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_render_bundle_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_render_bundle_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_render_bundle_t wasi_webgpu_webgpu_borrow_gpu_render_bundle(wasi_webgpu_webgpu_own_gpu_render_bundle_t handle);
+
+void wasi_webgpu_webgpu_gpu_render_bundle_descriptor_free(wasi_webgpu_webgpu_gpu_render_bundle_descriptor_t *ptr);
+
+extern void wasi_webgpu_webgpu_gpu_render_bundle_encoder_drop_own(wasi_webgpu_webgpu_own_gpu_render_bundle_encoder_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_render_bundle_encoder_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder_t wasi_webgpu_webgpu_borrow_gpu_render_bundle_encoder(wasi_webgpu_webgpu_own_gpu_render_bundle_encoder_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_render_pass_encoder_drop_own(wasi_webgpu_webgpu_own_gpu_render_pass_encoder_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_render_pass_encoder_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder_t wasi_webgpu_webgpu_borrow_gpu_render_pass_encoder(wasi_webgpu_webgpu_own_gpu_render_pass_encoder_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_render_pipeline_drop_own(wasi_webgpu_webgpu_own_gpu_render_pipeline_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_render_pipeline_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_render_pipeline_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_render_pipeline_t wasi_webgpu_webgpu_borrow_gpu_render_pipeline(wasi_webgpu_webgpu_own_gpu_render_pipeline_t handle);
+
+void wasi_webgpu_webgpu_option_gpu_power_preference_free(wasi_webgpu_webgpu_option_gpu_power_preference_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_request_adapter_options_free(wasi_webgpu_webgpu_gpu_request_adapter_options_t *ptr);
+
+extern void wasi_webgpu_webgpu_gpu_sampler_drop_own(wasi_webgpu_webgpu_own_gpu_sampler_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_sampler_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_sampler_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_sampler_t wasi_webgpu_webgpu_borrow_gpu_sampler(wasi_webgpu_webgpu_own_gpu_sampler_t handle);
+
+void wasi_webgpu_webgpu_option_gpu_sampler_binding_type_free(wasi_webgpu_webgpu_option_gpu_sampler_binding_type_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_sampler_binding_layout_free(wasi_webgpu_webgpu_gpu_sampler_binding_layout_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_address_mode_free(wasi_webgpu_webgpu_option_gpu_address_mode_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_filter_mode_free(wasi_webgpu_webgpu_option_gpu_filter_mode_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_mipmap_filter_mode_free(wasi_webgpu_webgpu_option_gpu_mipmap_filter_mode_t *ptr);
+
+void webrogue_gfx_option_f32_free(webrogue_gfx_option_f32_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_compare_function_free(wasi_webgpu_webgpu_option_gpu_compare_function_t *ptr);
+
+void webrogue_gfx_option_u16_free(webrogue_gfx_option_u16_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_sampler_descriptor_free(wasi_webgpu_webgpu_gpu_sampler_descriptor_t *ptr);
+
+extern void wasi_webgpu_webgpu_gpu_shader_module_drop_own(wasi_webgpu_webgpu_own_gpu_shader_module_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_shader_module_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_shader_module_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_shader_module_t wasi_webgpu_webgpu_borrow_gpu_shader_module(wasi_webgpu_webgpu_own_gpu_shader_module_t handle);
+
+void wasi_webgpu_webgpu_option_gpu_layout_mode_free(wasi_webgpu_webgpu_option_gpu_layout_mode_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_shader_module_compilation_hint_free(wasi_webgpu_webgpu_gpu_shader_module_compilation_hint_t *ptr);
+
+void wasi_webgpu_webgpu_list_gpu_shader_module_compilation_hint_free(wasi_webgpu_webgpu_list_gpu_shader_module_compilation_hint_t *ptr);
+
+void wasi_webgpu_webgpu_option_list_gpu_shader_module_compilation_hint_free(wasi_webgpu_webgpu_option_list_gpu_shader_module_compilation_hint_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_shader_module_descriptor_free(wasi_webgpu_webgpu_gpu_shader_module_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_size32_free(wasi_webgpu_webgpu_option_gpu_size32_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_compute_pass_timestamp_writes_free(wasi_webgpu_webgpu_gpu_compute_pass_timestamp_writes_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_compute_pass_timestamp_writes_free(wasi_webgpu_webgpu_option_gpu_compute_pass_timestamp_writes_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_compute_pass_descriptor_free(wasi_webgpu_webgpu_gpu_compute_pass_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_sample_mask_free(wasi_webgpu_webgpu_option_gpu_sample_mask_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_multisample_state_free(wasi_webgpu_webgpu_gpu_multisample_state_t *ptr);
+
+void wasi_webgpu_webgpu_option_borrow_gpu_bind_group_layout_free(wasi_webgpu_webgpu_option_borrow_gpu_bind_group_layout_t *ptr);
+
+void wasi_webgpu_webgpu_list_option_borrow_gpu_bind_group_layout_free(wasi_webgpu_webgpu_list_option_borrow_gpu_bind_group_layout_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_pipeline_layout_descriptor_free(wasi_webgpu_webgpu_gpu_pipeline_layout_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_query_set_descriptor_free(wasi_webgpu_webgpu_gpu_query_set_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_render_pass_timestamp_writes_free(wasi_webgpu_webgpu_gpu_render_pass_timestamp_writes_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_size64_free(wasi_webgpu_webgpu_option_gpu_size64_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_buffer_binding_free(wasi_webgpu_webgpu_gpu_buffer_binding_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_buffer_binding_type_free(wasi_webgpu_webgpu_option_gpu_buffer_binding_type_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_buffer_binding_layout_free(wasi_webgpu_webgpu_gpu_buffer_binding_layout_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_buffer_descriptor_free(wasi_webgpu_webgpu_gpu_buffer_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_stencil_operation_free(wasi_webgpu_webgpu_option_gpu_stencil_operation_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_stencil_face_state_free(wasi_webgpu_webgpu_gpu_stencil_face_state_t *ptr);
+
+extern void wasi_webgpu_webgpu_gpu_supported_features_drop_own(wasi_webgpu_webgpu_own_gpu_supported_features_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_supported_features_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_supported_features_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_supported_features_t wasi_webgpu_webgpu_borrow_gpu_supported_features(wasi_webgpu_webgpu_own_gpu_supported_features_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_supported_limits_drop_own(wasi_webgpu_webgpu_own_gpu_supported_limits_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_supported_limits_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_supported_limits_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_supported_limits_t wasi_webgpu_webgpu_borrow_gpu_supported_limits(wasi_webgpu_webgpu_own_gpu_supported_limits_t handle);
+
+void wasi_webgpu_webgpu_gpu_texel_copy_buffer_info_free(wasi_webgpu_webgpu_gpu_texel_copy_buffer_info_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_texel_copy_buffer_layout_free(wasi_webgpu_webgpu_gpu_texel_copy_buffer_layout_t *ptr);
+
+extern void wasi_webgpu_webgpu_gpu_texture_drop_own(wasi_webgpu_webgpu_own_gpu_texture_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_texture_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_texture_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_texture_t wasi_webgpu_webgpu_borrow_gpu_texture(wasi_webgpu_webgpu_own_gpu_texture_t handle);
+
+void wasi_webgpu_webgpu_option_gpu_origin3_d_free(wasi_webgpu_webgpu_option_gpu_origin3_d_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_texture_aspect_free(wasi_webgpu_webgpu_option_gpu_texture_aspect_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_texel_copy_texture_info_free(wasi_webgpu_webgpu_gpu_texel_copy_texture_info_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_blend_state_free(wasi_webgpu_webgpu_option_gpu_blend_state_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_color_write_free(wasi_webgpu_webgpu_option_gpu_color_write_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_color_target_state_free(wasi_webgpu_webgpu_gpu_color_target_state_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_stencil_face_state_free(wasi_webgpu_webgpu_option_gpu_stencil_face_state_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_stencil_value_free(wasi_webgpu_webgpu_option_gpu_stencil_value_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_depth_bias_free(wasi_webgpu_webgpu_option_gpu_depth_bias_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_depth_stencil_state_free(wasi_webgpu_webgpu_gpu_depth_stencil_state_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_texture_format_free(wasi_webgpu_webgpu_option_gpu_texture_format_t *ptr);
+
+void wasi_webgpu_webgpu_list_option_gpu_texture_format_free(wasi_webgpu_webgpu_list_option_gpu_texture_format_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_render_bundle_encoder_descriptor_free(wasi_webgpu_webgpu_gpu_render_bundle_encoder_descriptor_t *ptr);
+
+extern void wasi_webgpu_webgpu_gpu_texture_view_drop_own(wasi_webgpu_webgpu_own_gpu_texture_view_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_texture_view_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_texture_view_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_texture_view_t wasi_webgpu_webgpu_borrow_gpu_texture_view(wasi_webgpu_webgpu_own_gpu_texture_view_t handle);
+
+void wasi_webgpu_webgpu_gpu_binding_resource_free(wasi_webgpu_webgpu_gpu_binding_resource_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_bind_group_entry_free(wasi_webgpu_webgpu_gpu_bind_group_entry_t *ptr);
+
+void wasi_webgpu_webgpu_list_gpu_bind_group_entry_free(wasi_webgpu_webgpu_list_gpu_bind_group_entry_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_bind_group_descriptor_free(wasi_webgpu_webgpu_gpu_bind_group_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_option_borrow_gpu_texture_view_free(wasi_webgpu_webgpu_option_borrow_gpu_texture_view_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_color_free(wasi_webgpu_webgpu_option_gpu_color_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_render_pass_color_attachment_free(wasi_webgpu_webgpu_gpu_render_pass_color_attachment_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_load_op_free(wasi_webgpu_webgpu_option_gpu_load_op_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_store_op_free(wasi_webgpu_webgpu_option_gpu_store_op_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_render_pass_depth_stencil_attachment_free(wasi_webgpu_webgpu_gpu_render_pass_depth_stencil_attachment_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_render_pass_color_attachment_free(wasi_webgpu_webgpu_option_gpu_render_pass_color_attachment_t *ptr);
+
+void wasi_webgpu_webgpu_list_option_gpu_render_pass_color_attachment_free(wasi_webgpu_webgpu_list_option_gpu_render_pass_color_attachment_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_render_pass_depth_stencil_attachment_free(wasi_webgpu_webgpu_option_gpu_render_pass_depth_stencil_attachment_t *ptr);
+
+void wasi_webgpu_webgpu_option_borrow_gpu_query_set_free(wasi_webgpu_webgpu_option_borrow_gpu_query_set_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_render_pass_timestamp_writes_free(wasi_webgpu_webgpu_option_gpu_render_pass_timestamp_writes_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_render_pass_descriptor_free(wasi_webgpu_webgpu_gpu_render_pass_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_storage_texture_access_free(wasi_webgpu_webgpu_option_gpu_storage_texture_access_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_texture_view_dimension_free(wasi_webgpu_webgpu_option_gpu_texture_view_dimension_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_storage_texture_binding_layout_free(wasi_webgpu_webgpu_gpu_storage_texture_binding_layout_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_texture_sample_type_free(wasi_webgpu_webgpu_option_gpu_texture_sample_type_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_texture_binding_layout_free(wasi_webgpu_webgpu_gpu_texture_binding_layout_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_buffer_binding_layout_free(wasi_webgpu_webgpu_option_gpu_buffer_binding_layout_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_sampler_binding_layout_free(wasi_webgpu_webgpu_option_gpu_sampler_binding_layout_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_texture_binding_layout_free(wasi_webgpu_webgpu_option_gpu_texture_binding_layout_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_storage_texture_binding_layout_free(wasi_webgpu_webgpu_option_gpu_storage_texture_binding_layout_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_bind_group_layout_entry_free(wasi_webgpu_webgpu_gpu_bind_group_layout_entry_t *ptr);
+
+void wasi_webgpu_webgpu_list_gpu_bind_group_layout_entry_free(wasi_webgpu_webgpu_list_gpu_bind_group_layout_entry_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_bind_group_layout_descriptor_free(wasi_webgpu_webgpu_gpu_bind_group_layout_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_texture_dimension_free(wasi_webgpu_webgpu_option_gpu_texture_dimension_t *ptr);
+
+void wasi_webgpu_webgpu_list_gpu_texture_format_free(wasi_webgpu_webgpu_list_gpu_texture_format_t *ptr);
+
+void wasi_webgpu_webgpu_option_list_gpu_texture_format_free(wasi_webgpu_webgpu_option_list_gpu_texture_format_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_texture_descriptor_free(wasi_webgpu_webgpu_gpu_texture_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_texture_usage_free(wasi_webgpu_webgpu_option_gpu_texture_usage_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_texture_view_descriptor_free(wasi_webgpu_webgpu_gpu_texture_view_descriptor_t *ptr);
+
+extern void wasi_webgpu_webgpu_gpu_uncaptured_error_event_drop_own(wasi_webgpu_webgpu_own_gpu_uncaptured_error_event_t handle);
+
+extern void wasi_webgpu_webgpu_gpu_uncaptured_error_event_drop_borrow(wasi_webgpu_webgpu_borrow_gpu_uncaptured_error_event_t handle);
+
+extern wasi_webgpu_webgpu_borrow_gpu_uncaptured_error_event_t wasi_webgpu_webgpu_borrow_gpu_uncaptured_error_event(wasi_webgpu_webgpu_own_gpu_uncaptured_error_event_t handle);
+
+void wasi_webgpu_webgpu_option_gpu_vertex_step_mode_free(wasi_webgpu_webgpu_option_gpu_vertex_step_mode_t *ptr);
+
+void wasi_webgpu_webgpu_list_gpu_vertex_attribute_free(wasi_webgpu_webgpu_list_gpu_vertex_attribute_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_vertex_buffer_layout_free(wasi_webgpu_webgpu_gpu_vertex_buffer_layout_t *ptr);
+
+void wasi_webgpu_webgpu_map_async_error_kind_free(wasi_webgpu_webgpu_map_async_error_kind_t *ptr);
+
+void wasi_webgpu_webgpu_map_async_error_free(wasi_webgpu_webgpu_map_async_error_t *ptr);
+
+void wasi_webgpu_webgpu_pop_error_scope_error_kind_free(wasi_webgpu_webgpu_pop_error_scope_error_kind_t *ptr);
+
+void wasi_webgpu_webgpu_pop_error_scope_error_free(wasi_webgpu_webgpu_pop_error_scope_error_t *ptr);
+
+void wasi_webgpu_webgpu_option_predefined_color_space_free(wasi_webgpu_webgpu_option_predefined_color_space_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_canvas_tone_mapping_free(wasi_webgpu_webgpu_option_gpu_canvas_tone_mapping_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_canvas_alpha_mode_free(wasi_webgpu_webgpu_option_gpu_canvas_alpha_mode_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_canvas_configuration_free(wasi_webgpu_webgpu_gpu_canvas_configuration_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_canvas_configuration_owned_free(wasi_webgpu_webgpu_gpu_canvas_configuration_owned_t *ptr);
+
+extern void wasi_webgpu_webgpu_record_gpu_pipeline_constant_value_drop_own(wasi_webgpu_webgpu_own_record_gpu_pipeline_constant_value_t handle);
+
+extern void wasi_webgpu_webgpu_record_gpu_pipeline_constant_value_drop_borrow(wasi_webgpu_webgpu_borrow_record_gpu_pipeline_constant_value_t handle);
+
+extern wasi_webgpu_webgpu_borrow_record_gpu_pipeline_constant_value_t wasi_webgpu_webgpu_borrow_record_gpu_pipeline_constant_value(wasi_webgpu_webgpu_own_record_gpu_pipeline_constant_value_t handle);
+
+void wasi_webgpu_webgpu_option_gpu_color_target_state_free(wasi_webgpu_webgpu_option_gpu_color_target_state_t *ptr);
+
+void wasi_webgpu_webgpu_list_option_gpu_color_target_state_free(wasi_webgpu_webgpu_list_option_gpu_color_target_state_t *ptr);
+
+void wasi_webgpu_webgpu_option_own_record_gpu_pipeline_constant_value_free(wasi_webgpu_webgpu_option_own_record_gpu_pipeline_constant_value_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_fragment_state_free(wasi_webgpu_webgpu_gpu_fragment_state_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_programmable_stage_free(wasi_webgpu_webgpu_gpu_programmable_stage_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_compute_pipeline_descriptor_free(wasi_webgpu_webgpu_gpu_compute_pipeline_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_vertex_buffer_layout_free(wasi_webgpu_webgpu_option_gpu_vertex_buffer_layout_t *ptr);
+
+void wasi_webgpu_webgpu_list_option_gpu_vertex_buffer_layout_free(wasi_webgpu_webgpu_list_option_gpu_vertex_buffer_layout_t *ptr);
+
+void wasi_webgpu_webgpu_option_list_option_gpu_vertex_buffer_layout_free(wasi_webgpu_webgpu_option_list_option_gpu_vertex_buffer_layout_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_vertex_state_free(wasi_webgpu_webgpu_gpu_vertex_state_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_primitive_state_free(wasi_webgpu_webgpu_option_gpu_primitive_state_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_depth_stencil_state_free(wasi_webgpu_webgpu_option_gpu_depth_stencil_state_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_multisample_state_free(wasi_webgpu_webgpu_option_gpu_multisample_state_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_fragment_state_free(wasi_webgpu_webgpu_option_gpu_fragment_state_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_render_pipeline_descriptor_free(wasi_webgpu_webgpu_gpu_render_pipeline_descriptor_t *ptr);
+
+extern void wasi_webgpu_webgpu_record_option_gpu_size64_drop_own(wasi_webgpu_webgpu_own_record_option_gpu_size64_t handle);
+
+extern void wasi_webgpu_webgpu_record_option_gpu_size64_drop_borrow(wasi_webgpu_webgpu_borrow_record_option_gpu_size64_t handle);
+
+extern wasi_webgpu_webgpu_borrow_record_option_gpu_size64_t wasi_webgpu_webgpu_borrow_record_option_gpu_size64(wasi_webgpu_webgpu_own_record_option_gpu_size64_t handle);
+
+void wasi_webgpu_webgpu_list_gpu_feature_name_free(wasi_webgpu_webgpu_list_gpu_feature_name_t *ptr);
+
+void wasi_webgpu_webgpu_option_list_gpu_feature_name_free(wasi_webgpu_webgpu_option_list_gpu_feature_name_t *ptr);
+
+void wasi_webgpu_webgpu_option_own_record_option_gpu_size64_free(wasi_webgpu_webgpu_option_own_record_option_gpu_size64_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_queue_descriptor_free(wasi_webgpu_webgpu_option_gpu_queue_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_gpu_device_descriptor_free(wasi_webgpu_webgpu_gpu_device_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_request_device_error_kind_free(wasi_webgpu_webgpu_request_device_error_kind_t *ptr);
+
+void wasi_webgpu_webgpu_request_device_error_free(wasi_webgpu_webgpu_request_device_error_t *ptr);
+
+void wasi_webgpu_webgpu_set_bind_group_error_kind_free(wasi_webgpu_webgpu_set_bind_group_error_kind_t *ptr);
+
+void wasi_webgpu_webgpu_set_bind_group_error_free(wasi_webgpu_webgpu_set_bind_group_error_t *ptr);
+
+void wasi_webgpu_webgpu_unmap_error_kind_free(wasi_webgpu_webgpu_unmap_error_kind_t *ptr);
+
+void wasi_webgpu_webgpu_unmap_error_free(wasi_webgpu_webgpu_unmap_error_t *ptr);
+
+extern void wasi_webgpu_webgpu_wgsl_language_features_drop_own(wasi_webgpu_webgpu_own_wgsl_language_features_t handle);
+
+extern void wasi_webgpu_webgpu_wgsl_language_features_drop_borrow(wasi_webgpu_webgpu_borrow_wgsl_language_features_t handle);
+
+extern wasi_webgpu_webgpu_borrow_wgsl_language_features_t wasi_webgpu_webgpu_borrow_wgsl_language_features(wasi_webgpu_webgpu_own_wgsl_language_features_t handle);
+
+void wasi_webgpu_webgpu_write_buffer_error_kind_free(wasi_webgpu_webgpu_write_buffer_error_kind_t *ptr);
+
+void wasi_webgpu_webgpu_write_buffer_error_free(wasi_webgpu_webgpu_write_buffer_error_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_request_adapter_options_free(wasi_webgpu_webgpu_option_gpu_request_adapter_options_t *ptr);
+
+void wasi_webgpu_webgpu_option_own_gpu_adapter_free(wasi_webgpu_webgpu_option_own_gpu_adapter_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_device_descriptor_free(wasi_webgpu_webgpu_option_gpu_device_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_result_own_gpu_device_request_device_error_free(wasi_webgpu_webgpu_result_own_gpu_device_request_device_error_t *ptr);
+
+void wasi_webgpu_webgpu_result_void_map_async_error_free(wasi_webgpu_webgpu_result_void_map_async_error_t *ptr);
+
+void wasi_webgpu_webgpu_result_list_u8_get_mapped_range_error_free(wasi_webgpu_webgpu_result_list_u8_get_mapped_range_error_t *ptr);
+
+void wasi_webgpu_webgpu_result_void_unmap_error_free(wasi_webgpu_webgpu_result_void_unmap_error_t *ptr);
+
+void wasi_webgpu_webgpu_result_void_get_mapped_range_error_free(wasi_webgpu_webgpu_result_void_get_mapped_range_error_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_canvas_configuration_owned_free(wasi_webgpu_webgpu_option_gpu_canvas_configuration_owned_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_compute_pass_descriptor_free(wasi_webgpu_webgpu_option_gpu_compute_pass_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_command_buffer_descriptor_free(wasi_webgpu_webgpu_option_gpu_command_buffer_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_list_own_gpu_compilation_message_free(wasi_webgpu_webgpu_list_own_gpu_compilation_message_t *ptr);
+
+void wasi_webgpu_webgpu_option_borrow_gpu_bind_group_free(wasi_webgpu_webgpu_option_borrow_gpu_bind_group_t *ptr);
+
+void wasi_webgpu_webgpu_list_gpu_buffer_dynamic_offset_free(wasi_webgpu_webgpu_list_gpu_buffer_dynamic_offset_t *ptr);
+
+void wasi_webgpu_webgpu_option_list_gpu_buffer_dynamic_offset_free(wasi_webgpu_webgpu_option_list_gpu_buffer_dynamic_offset_t *ptr);
+
+void wasi_webgpu_webgpu_result_void_set_bind_group_error_free(wasi_webgpu_webgpu_result_void_set_bind_group_error_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_sampler_descriptor_free(wasi_webgpu_webgpu_option_gpu_sampler_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_result_own_gpu_compute_pipeline_create_pipeline_error_free(wasi_webgpu_webgpu_result_own_gpu_compute_pipeline_create_pipeline_error_t *ptr);
+
+void wasi_webgpu_webgpu_result_own_gpu_render_pipeline_create_pipeline_error_free(wasi_webgpu_webgpu_result_own_gpu_render_pipeline_create_pipeline_error_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_command_encoder_descriptor_free(wasi_webgpu_webgpu_option_gpu_command_encoder_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_result_own_gpu_query_set_create_query_set_error_free(wasi_webgpu_webgpu_result_own_gpu_query_set_create_query_set_error_t *ptr);
+
+void wasi_webgpu_webgpu_option_own_gpu_error_free(wasi_webgpu_webgpu_option_own_gpu_error_t *ptr);
+
+void wasi_webgpu_webgpu_result_option_own_gpu_error_pop_error_scope_error_free(wasi_webgpu_webgpu_result_option_own_gpu_error_pop_error_scope_error_t *ptr);
+
+void wasi_webgpu_webgpu_list_borrow_gpu_command_buffer_free(wasi_webgpu_webgpu_list_borrow_gpu_command_buffer_t *ptr);
+
+void wasi_webgpu_webgpu_result_void_write_buffer_error_free(wasi_webgpu_webgpu_result_void_write_buffer_error_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_render_bundle_descriptor_free(wasi_webgpu_webgpu_option_gpu_render_bundle_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_option_borrow_gpu_buffer_free(wasi_webgpu_webgpu_option_borrow_gpu_buffer_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_signed_offset32_free(wasi_webgpu_webgpu_option_gpu_signed_offset32_t *ptr);
+
+void wasi_webgpu_webgpu_list_borrow_gpu_render_bundle_free(wasi_webgpu_webgpu_list_borrow_gpu_render_bundle_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_texture_view_descriptor_free(wasi_webgpu_webgpu_option_gpu_texture_view_descriptor_t *ptr);
+
+void wasi_webgpu_webgpu_option_gpu_pipeline_constant_value_free(wasi_webgpu_webgpu_option_gpu_pipeline_constant_value_t *ptr);
+
+void webrogue_gfx_list_string_free(webrogue_gfx_list_string_t *ptr);
+
+void wasi_webgpu_webgpu_list_gpu_pipeline_constant_value_free(wasi_webgpu_webgpu_list_gpu_pipeline_constant_value_t *ptr);
+
+void wasi_webgpu_webgpu_tuple2_string_gpu_pipeline_constant_value_free(wasi_webgpu_webgpu_tuple2_string_gpu_pipeline_constant_value_t *ptr);
+
+void wasi_webgpu_webgpu_list_tuple2_string_gpu_pipeline_constant_value_free(wasi_webgpu_webgpu_list_tuple2_string_gpu_pipeline_constant_value_t *ptr);
+
+void wasi_webgpu_webgpu_option_option_gpu_size64_free(wasi_webgpu_webgpu_option_option_gpu_size64_t *ptr);
+
+void wasi_webgpu_webgpu_list_option_gpu_size64_free(wasi_webgpu_webgpu_list_option_gpu_size64_t *ptr);
+
+void wasi_webgpu_webgpu_tuple2_string_option_gpu_size64_free(wasi_webgpu_webgpu_tuple2_string_option_gpu_size64_t *ptr);
+
+void wasi_webgpu_webgpu_list_tuple2_string_option_gpu_size64_free(wasi_webgpu_webgpu_list_tuple2_string_option_gpu_size64_t *ptr);
+
+typedef uint32_t wasi_webgpu_webgpu_future_own_gpu_device_lost_info_writer_t;
+
+wasi_webgpu_webgpu_future_own_gpu_device_lost_info_t wasi_webgpu_webgpu_future_own_gpu_device_lost_info_new(wasi_webgpu_webgpu_future_own_gpu_device_lost_info_writer_t *writer);
+webrogue_gfx_waitable_status_t wasi_webgpu_webgpu_future_own_gpu_device_lost_info_read(wasi_webgpu_webgpu_future_own_gpu_device_lost_info_t reader, wasi_webgpu_webgpu_own_gpu_device_lost_info_t *buf);
+webrogue_gfx_waitable_status_t wasi_webgpu_webgpu_future_own_gpu_device_lost_info_write(wasi_webgpu_webgpu_future_own_gpu_device_lost_info_writer_t writer, const wasi_webgpu_webgpu_own_gpu_device_lost_info_t *buf);
+webrogue_gfx_waitable_status_t wasi_webgpu_webgpu_future_own_gpu_device_lost_info_cancel_read(wasi_webgpu_webgpu_future_own_gpu_device_lost_info_t reader);
+webrogue_gfx_waitable_status_t wasi_webgpu_webgpu_future_own_gpu_device_lost_info_cancel_write(wasi_webgpu_webgpu_future_own_gpu_device_lost_info_writer_t writer);
+void wasi_webgpu_webgpu_future_own_gpu_device_lost_info_drop_readable(wasi_webgpu_webgpu_future_own_gpu_device_lost_info_t reader);
+void wasi_webgpu_webgpu_future_own_gpu_device_lost_info_drop_writable(wasi_webgpu_webgpu_future_own_gpu_device_lost_info_writer_t writer);
+
+
+typedef uint32_t wasi_webgpu_webgpu_stream_own_gpu_error_writer_t;
+
+wasi_webgpu_webgpu_stream_own_gpu_error_t wasi_webgpu_webgpu_stream_own_gpu_error_new(wasi_webgpu_webgpu_stream_own_gpu_error_writer_t *writer);
+webrogue_gfx_waitable_status_t wasi_webgpu_webgpu_stream_own_gpu_error_read(wasi_webgpu_webgpu_stream_own_gpu_error_t reader, wasi_webgpu_webgpu_own_gpu_error_t *buf, size_t amt);
+webrogue_gfx_waitable_status_t wasi_webgpu_webgpu_stream_own_gpu_error_write(wasi_webgpu_webgpu_stream_own_gpu_error_writer_t writer, const wasi_webgpu_webgpu_own_gpu_error_t *buf, size_t amt);
+webrogue_gfx_waitable_status_t wasi_webgpu_webgpu_stream_own_gpu_error_cancel_read(wasi_webgpu_webgpu_stream_own_gpu_error_t reader);
+webrogue_gfx_waitable_status_t wasi_webgpu_webgpu_stream_own_gpu_error_cancel_write(wasi_webgpu_webgpu_stream_own_gpu_error_writer_t writer);
+void wasi_webgpu_webgpu_stream_own_gpu_error_drop_readable(wasi_webgpu_webgpu_stream_own_gpu_error_t reader);
+void wasi_webgpu_webgpu_stream_own_gpu_error_drop_writable(wasi_webgpu_webgpu_stream_own_gpu_error_writer_t writer);
+
+
+void webrogue_gfx_windowing_webgpu_gpu_canvas_tone_mapping_free(webrogue_gfx_windowing_webgpu_gpu_canvas_tone_mapping_t *ptr);
+
+void webrogue_gfx_windowing_webgpu_option_gpu_texture_usage_free(webrogue_gfx_windowing_webgpu_option_gpu_texture_usage_t *ptr);
+
+void webrogue_gfx_windowing_webgpu_list_gpu_texture_format_free(webrogue_gfx_windowing_webgpu_list_gpu_texture_format_t *ptr);
+
+void webrogue_gfx_windowing_webgpu_option_list_gpu_texture_format_free(webrogue_gfx_windowing_webgpu_option_list_gpu_texture_format_t *ptr);
+
+void webrogue_gfx_windowing_webgpu_option_predefined_color_space_free(webrogue_gfx_windowing_webgpu_option_predefined_color_space_t *ptr);
+
+void webrogue_gfx_windowing_webgpu_option_gpu_canvas_tone_mapping_free(webrogue_gfx_windowing_webgpu_option_gpu_canvas_tone_mapping_t *ptr);
+
+void webrogue_gfx_windowing_webgpu_option_gpu_canvas_alpha_mode_free(webrogue_gfx_windowing_webgpu_option_gpu_canvas_alpha_mode_t *ptr);
+
+void webrogue_gfx_windowing_webgpu_context_configuration_free(webrogue_gfx_windowing_webgpu_context_configuration_t *ptr);
+
+extern void webrogue_gfx_windowing_webgpu_context_drop_own(webrogue_gfx_windowing_webgpu_own_context_t handle);
+
+extern void webrogue_gfx_windowing_webgpu_context_drop_borrow(webrogue_gfx_windowing_webgpu_borrow_context_t handle);
+
+extern webrogue_gfx_windowing_webgpu_borrow_context_t webrogue_gfx_windowing_webgpu_borrow_context(webrogue_gfx_windowing_webgpu_own_context_t handle);
+
+// Sets the string `ret` to reference the input string `s` without copying it
+void webrogue_gfx_string_set(webrogue_gfx_string_t *ret, const char*s);
+
+// Creates a copy of the input nul-terminated string `s` and
+// stores it into the component model string `ret`.
+void webrogue_gfx_string_dup(webrogue_gfx_string_t *ret, const char*s);
+
+// Creates a copy of the input string `s` with length `len` and
+// stores it into the component model string `ret`.
+// The length is specified in code units (bytes for UTF-8, 16-bit values for UTF-16).
+void webrogue_gfx_string_dup_n(webrogue_gfx_string_t *ret, const char*s, size_t len);
+
+// Deallocates the string pointed to by `ret`, deallocating
+// the memory behind the string.
+void webrogue_gfx_string_free(webrogue_gfx_string_t *ret);
 
 #ifdef __cplusplus
 }

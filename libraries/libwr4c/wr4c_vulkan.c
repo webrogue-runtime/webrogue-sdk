@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-uint8_t wr4c_vulkan_check() { return webrogue_gfx_vulkan_check_presence(); }
-
 void wr4c_vulkan_register_blob(wr4c_vulkan_renderer_t renderer, uint32_t res_id,
                                uint8_t *buf, uint32_t buf_len) {
   webrogue_gfx_list_u8_t buf_list = {.ptr = buf, .len = buf_len};

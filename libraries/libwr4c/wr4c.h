@@ -609,6 +609,7 @@ typedef struct wr4c_event_t {
 typedef enum wr4c_surface_kind_t {
     WR4C_SURFACE_KIND_SOFTWARE = 0,
     WR4C_SURFACE_KIND_VULKAN = 1,
+    WR4C_SURFACE_KIND_WEBGPU = 2,
 } wr4c_surface_kind_t;
 
 void wr4c_make_window(wr4c_window_t *out_window, wr4c_surface_kind_t surface_kind);
@@ -626,7 +627,8 @@ wr4c_event_t wr4c_poll_timeout(double timeout);
 typedef struct wr4c_vulkan_renderer_s wr4c_vulkan_renderer_s;
 typedef wr4c_vulkan_renderer_s *wr4c_vulkan_renderer_t;
 
-uint8_t wr4c_vulkan_check();
+bool wr4c_vulkan_check();
+bool wr4c_webgpu_check();
 uint32_t wr4c_get_vulkan_window_id(wr4c_window_t window);
 void wr4c_vulkan_register_blob(wr4c_vulkan_renderer_t renderer, uint32_t res_id,
                                uint8_t *buf, uint32_t buf_len);

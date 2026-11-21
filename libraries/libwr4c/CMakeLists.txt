@@ -6,12 +6,26 @@ add_library(
     wr4c
     STATIC
     wr4c.h
+    wr4c_webgpu.h
     wr4c.c
     wr4c_vulkan.c
     wr4c_cpu_rendering.c
+    webgpu_ext.c
+    webgpu_surface.c
+    webgpu_proc_table.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../wasi-webgpu-headers/async_futures.c
     webrogue_gfx.h
     webrogue_gfx.c
     webrogue_gfx_component_type.o
+)
+
+# `webgpu_ext.c` includes the vendored wasi-webgpu-headers implementation, and
+# `wr4c_webgpu.h` exposes <webgpu/webgpu.h> to applications.
+target_include_directories(
+    wr4c
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/../wasi-webgpu-headers
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 set_target_properties(
@@ -24,6 +38,13 @@ include(GNUInstallDirs)
 install(
     TARGETS wr4c
     PUBLIC_HEADER
+    DESTINATION include/libwr4c
+)
+# `wr4c` only wraps a subset of the guest interfaces. Applications that need
+# the raw generated bindings (for example to use `windowing-webgpu`) include
+# this header as `<libwr4c/webrogue_gfx.h>`.
+install(
+    FILES webrogue_gfx.h wr4c_webgpu.h
     DESTINATION include/libwr4c
 )
 set(

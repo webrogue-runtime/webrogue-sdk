@@ -27,6 +27,9 @@ void wr4c_make_window(wr4c_window_t *out_window, wr4c_surface_kind_t surface_kin
         case WR4C_SURFACE_KIND_VULKAN:
             wit_surface_kind = WEBROGUE_GFX_WINDOWING_SURFACE_KIND_VULKAN;
             break;
+        case WR4C_SURFACE_KIND_WEBGPU:
+            wit_surface_kind = WEBROGUE_GFX_WINDOWING_SURFACE_KIND_WEBGPU;
+            break;
         default:
             abort();
     }
@@ -83,6 +86,10 @@ enum wr4c_os_family_t wr4c_get_os_family() {
     return (enum wr4c_os_family_t)os_family;
 }
 
+
+bool wr4c_vulkan_check() { return webrogue_gfx_vulkan_check_presence(); }
+
+bool wr4c_webgpu_check() { return true; }
 
 static wr4c_event_t convert_webrogue_event(webrogue_gfx_windowing_window_event_t event);
 

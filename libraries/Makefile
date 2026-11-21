@@ -1,4 +1,4 @@
-all: build_libvpx build_volk_in_loaders_cloth copy_pkgconfig copy_gl copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_libwr4c build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls build_libffi build_cairo build_pango build_gtk build_glib build_fontconfig build_expat build_libxml2 build_gdk-pixbuf build_shaderc build_webgpu # build_curl
+all: build_libvpx build_volk_in_loaders_cloth copy_pkgconfig copy_gl copy_glad copy_gles2 copy_gles3 copy_egl copy_khr build_libwr4c build_glfw build_vulkan_headers build_jpeg build_png build_zlib build_libsamplerate build_vorbis build_ogg build_freetype build_harfbuzz build_SDL2 build_SDL3 build_SDL2_ttf build_SDL3_ttf build_angle build_mbedtls build_libffi build_cairo build_pango build_gtk build_glib build_fontconfig build_expat build_libxml2 build_gdk-pixbuf build_shaderc # build_curl
 CURRENT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 SDK_DIR:=$(shell dirname $(CURRENT_DIR))
 FINAL_DEST_DIR=$(SDK_DIR)/opt/$(TOOLCHAIN)
@@ -385,21 +385,6 @@ build_libvpx:
 	)
 	$(MAKE) -C $(BUILD_DIR)/libvpx/wasi-build install
 	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
-
-build_webgpu: $(BUILD_DIR)/libwebgpu/libwebgpu.a
-	mkdir -p $(DEST_DIR)/include/webgpu
-	mkdir -p $(DEST_DIR)/lib
-	cp wasi-webgpu-headers/webgpu/webgpu.h $(DEST_DIR)/include/webgpu/webgpu.h
-	cp $(BUILD_DIR)/libwebgpu/libwebgpu.a $(DEST_DIR)/lib/libwebgpu.a
-	python3 cached_dist_copy.py $(DEST_DIR) $(FINAL_DEST_DIR)
-
-$(BUILD_DIR)/libwebgpu/libwebgpu.a: wasi-webgpu-headers/webgpu.c wasi-webgpu-headers/async_futures.c wasi-webgpu-headers/imports_component_type.o wasi-webgpu-headers/imports.c
-	mkdir -p $(BUILD_DIR)/libwebgpu
-	rm -f $(BUILD_DIR)/libwebgpu/libwebgpu.a
-	/wasi-sdk/bin/wasm32-wasip3-clang -pthread -mllvm -wasm-enable-sjlj -mllvm -wasm-use-legacy-eh=false -c wasi-webgpu-headers/webgpu.c -o $(BUILD_DIR)/libwebgpu/webgpu.o
-	/wasi-sdk/bin/wasm32-wasip3-clang -pthread -mllvm -wasm-enable-sjlj -mllvm -wasm-use-legacy-eh=false -c wasi-webgpu-headers/async_futures.c -o $(BUILD_DIR)/libwebgpu/async_futures.o
-	/wasi-sdk/bin/wasm32-wasip3-clang -pthread -mllvm -wasm-enable-sjlj -mllvm -wasm-use-legacy-eh=false -c wasi-webgpu-headers/imports.c -o $(BUILD_DIR)/libwebgpu/imports.o
-	/wasi-sdk/bin/llvm-ar qcs $(BUILD_DIR)/libwebgpu/libwebgpu.a $(BUILD_DIR)/libwebgpu/webgpu.o $(BUILD_DIR)/libwebgpu/async_futures.o wasi-webgpu-headers/imports_component_type.o $(BUILD_DIR)/libwebgpu/imports.o
 
 clean_mbedtls:
 	rm -rf mbedtls

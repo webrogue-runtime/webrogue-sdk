@@ -10,14 +10,20 @@ if [ ! -d "angle" ] || [ ! -d "chromium-build" ]; then
 fi
 export PATH="$(pwd)/depot_tools:$PATH"
 
-WR4C_SRC=libwr4c/wr4c.h
-WR4C_DEST=angle/third_party/libwr4c/include/libwr4c/wr4c.h
+LIBWR4C_INCLUDE=angle/third_party/libwr4c/include
+mkdir -p "$LIBWR4C_INCLUDE/libwr4c" "$LIBWR4C_INCLUDE/dawn" "$LIBWR4C_INCLUDE/webgpu"
 
-if [ ! -f "$WR4C_DEST" ] || ! cmp -s "$WR4C_SRC" "$WR4C_DEST"; then
-    cp "$WR4C_SRC" "$WR4C_DEST"
-fi
+copy_if_changed() {
+    if [ ! -f "$2" ] || ! cmp -s "$1" "$2"; then
+        cp "$1" "$2"
+    fi
+}
 
-VULKAN_HEADERS_DIR="$(pwd)/Vulkan-Headers"
+copy_if_changed libwr4c/wr4c.h "$LIBWR4C_INCLUDE/libwr4c/wr4c.h"
+copy_if_changed libwr4c/wr4c_webgpu.h "$LIBWR4C_INCLUDE/libwr4c/wr4c_webgpu.h"
+copy_if_changed libwr4c/include/dawn/dawn_proc.h "$LIBWR4C_INCLUDE/dawn/dawn_proc.h"
+copy_if_changed libwr4c/include/dawn/dawn_proc_table.h "$LIBWR4C_INCLUDE/dawn/dawn_proc_table.h"
+copy_if_changed wasi-webgpu-headers/webgpu/webgpu.h "$LIBWR4C_INCLUDE/webgpu/webgpu.h"
 
 OUT_DIR=$BUILD_DIR/angle
 
@@ -45,17 +51,15 @@ GN_ARGS="--args=\
     target_os=\"wasip3\" \
     is_debug=$IS_DEBUG \
     angle_build_all=false \
-    angle_enable_null=false \
     angle_has_frame_capture=false \
     angle_enable_gl=false \
-    angle_enable_vulkan=true \
+    angle_enable_vulkan=false \
     angle_enable_d3d9=false \
     angle_enable_d3d11=false \
-    angle_enable_gl=false \
     angle_enable_null=false \
     angle_enable_metal=false \
     angle_enable_essl=false \
-    angle_enable_wgpu=false \
+    angle_enable_wgpu=true \
     angle_enable_glsl=true \
     is_official_build=$IS_OFFICIAL_BUILD \
     chrome_pgo_phase=0 \
@@ -64,10 +68,6 @@ GN_ARGS="--args=\
     clang_use_chrome_plugins=false \
     use_custom_libcxx=false \
     angle_enable_abseil=false \
-    angle_has_frame_capture=false \
-    angle_shared_libvulkan=false \
-    angle_enable_vulkan_validation_layers=false \
-    angle_vulkan_headers_dir=\"$VULKAN_HEADERS_DIR\"
 "
 
 # # gn clean out/wasip1
@@ -88,25 +88,19 @@ rm -f $OUT_DIR/libEGL.a
     $OUT_DIR/obj/libangle_image_util.a \
     $OUT_DIR/obj/libpreprocessor.a \
     $OUT_DIR/obj/libtranslator.a \
-    $OUT_DIR/obj/third_party/spirv-tools/src/libspvtools.a \
-    $OUT_DIR/obj/third_party/spirv-tools/src/libspvtools_val.a \
     $OUT_DIR/obj/third_party/zlib/google/libcompression_utils_portable.a \
     $OUT_DIR/obj/third_party/zlib/libchrome_zlib.a \
     $OUT_DIR/obj/libangle_gpu_info_util.a \
     $OUT_DIR/obj/libangle_image_util.a \
+    $EXTRA_OBJECTS
 
 /wasi-sdk/bin/llvm-ar qs $OUT_DIR/libEGL.a \
     $OUT_DIR/obj/libANGLE_no_vulkan/*.o \
-    $OUT_DIR/obj/src/common/spirv/angle_spirv_builder/*.o \
-    $OUT_DIR/obj/src/common/spirv/angle_spirv_parser/*.o \
-    $OUT_DIR/obj/src/common/spirv/angle_spirv_base/*.o \
-    $OUT_DIR/obj/src/common/vulkan/**/*.o \
+    $OUT_DIR/obj/src/libANGLE/renderer/wgpu/angle_wgpu_backend/*.o \
     $OUT_DIR/obj/angle_common_shader_state/*.o \
     $OUT_DIR/obj/angle_version_info/*.o \
     $OUT_DIR/obj/angle_frame_capture_mock/*.o \
     $OUT_DIR/obj/angle_common/*.o \
     $OUT_DIR/obj/xxhash/*.o \
-    $OUT_DIR/obj/src/libANGLE/renderer/vulkan/**/*.o \
-    $OUT_DIR/obj/third_party/vulkan_memory_allocator/vulkan_memory_allocator/*.o \
     $OUT_DIR/obj/third_party/astc-encoder/astcenc/*.o \
     $EXTRA_OBJECTS \
